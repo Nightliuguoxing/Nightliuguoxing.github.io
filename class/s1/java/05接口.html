@@ -1,0 +1,633 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>第五章 接口 | Lucifer</title><meta name="keywords" content="JAVA"><meta name="author" content="Lucifer LGX"><meta name="copyright" content="Lucifer LGX"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="JAVA 笔记 (五) 接口">
+<meta property="og:type" content="website">
+<meta property="og:title" content="第五章 接口">
+<meta property="og:url" content="http://liuguoxing.top/class/s1/java/05%E6%8E%A5%E5%8F%A3.html">
+<meta property="og:site_name" content="Lucifer">
+<meta property="og:description" content="JAVA 笔记 (五) 接口">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lgxs.liuguoxing.top/cover/java.jpg">
+<meta property="article:published_time" content="2020-12-04T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-01-16T13:08:03.502Z">
+<meta property="article:author" content="Lucifer LGX">
+<meta property="article:tag" content="JAVA">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://lgxs.liuguoxing.top/cover/java.jpg"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="http://liuguoxing.top/class/s1/java/05%E6%8E%A5%E5%8F%A3"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?af087bb3378df752c6a2fb9a80a690aa";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: false,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2021-01-16 21:08:03'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><link rel="stylesheet" href="/css/cursor.css"><link rel="stylesheet" href="/css/flipcountdown.css"><link rel="stylesheet" href="/css/iconfont.css"><link rel="stylesheet" href="/css/background.css"/><link rel="stylesheet" href="/swiper/swiper.min.css"><link rel="stylesheet" href="/swiper/swiperstyle.css"><link rel="stylesheet" href="/css/bilibiliBanner.css"  media="defer" onload="this.media='screen'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@latest/Hexo/css/hideCategory.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/StaticFile_HEXO@latest/butterfly/css/font-awesome-animation.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/l-lin/font-awesome-animation/dist/font-awesome-animation.min.css"  media="defer" onload="this.media='all'"><link rel="stylesheet" href=""><meta name="generator" content="Hexo 5.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">4</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">4</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-zhuye"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/guide/"><i class="fa-fw iconfont icon-daohang1"></i><span> 导航</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-shijian"></i><span> 时轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw iconfont icon-icon"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/skills/"><i class="fa-fw iconfont icon-ai-book"></i><span> 技术</span></a></div><div class="menus_item"><a class="site-page" href="/dk/"><span> 打卡</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw iconfont icon-06"></i><span> 娱乐</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/musics/"><i class="fa-fw iconfont icon-icon-test"></i><span> 音乐</span></a></li><li><a class="site-page" href="/pictures/"><i class="fa-fw iconfont icon-tupian"></i><span> 照片</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw iconfont icon-dianying1"></i><span> 电影</span></a></li><li><a class="site-page" href="/books/"><i class="fa-fw iconfont icon-book-2"></i><span> 读书</span></a></li><li><a class="site-page" href="/games/"><i class="fa-fw iconfont icon-iconfontyouxihudong"></i><span> 游戏</span></a></li><li><a class="site-page" href="/cates/"><i class="fa-fw iconfont icon-meishi1"></i><span> 美食</span></a></li><li><a class="site-page" href="/artitalk"><i class="fa-fw iconfont icon-xinbaniconshangchuan-"></i><span> 说说</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw iconfont icon-kaoyan"></i><span> 考研</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/maths/"><i class="fa-fw iconfont icon-shuxue"></i><span> 高数</span></a></li><li><a class="site-page" href="/englishs/"><i class="fa-fw iconfont icon-yingyu"></i><span> 英语</span></a></li><li><a class="site-page" href="/politics/"><i class="fa-fw iconfont icon-zhengzhi"></i><span> 政治</span></a></li><li><a class="site-page" href="/computers/"><i class="fa-fw iconfont icon-zhuanye"></i><span> 专业</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw iconfont icon-wendang"></i><span> 文档</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/api/"><span> VUE</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://vuex.vuejs.org/zh/api/#vuex-store"><span> VUEX</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://www.kancloud.cn/yunye/axios/234845"><span> AXIOS</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://www.jquery123.com/"><span> JQuery</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://www.w3school.com.cn/js/js_htmldom_document.asp"><span> JavaScript</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw iconfont icon-gongju"></i><span> 工具</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" target="_blank" rel="noopener" href="https://cli.im/"><span> QR生成器</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://smallpdf.com/cn/pdf-to-word"><span> PDF转换器</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://www.toyaml.com/index.html"><span> YML转换器</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://tool.chinaz.com/tools/native_ascii.aspx"><span> 编码转换器</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://tool.oschina.net/codeformat/html"><span> Code格式化</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://www.bejson.com/jsoneditoronline"><span> JSON格式化</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://zh.numberempire.com/latexequationeditor.php"><span> LaTeX编辑器</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://tableconvert.com/?output=text"><span> MD表格生成</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://cron.qqe2.com"><span> CRON表达式</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw iconfont icon-tubiaozhizuomoban"></i><span> 学校</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" target="_blank" rel="noopener" href="https://www.zhihuishu.com/"><span> 智慧树</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://10.40.101.111/indexcs/index.jsp?loginErr=0"><span> CG平台</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://openjudge.cn/"><span> OJ平台</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://pintia.cn/problem-sets?tab=0"><span> PAT平台</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://www.mooctest.net/login2"><span> 慕测平台</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://i.chaoxing.com/base?t=1604882532908"><span> 泛雅超星</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://tsg.bzu.edu.cn/"><span> BZU图书馆</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://192.168.200.123/"><span> BZU上网认证</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://pay.bzu.edu.cn/xysf/login.aspx?local=zh-cn"><span> BZU支付平台</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://172.16.16.4/login?errorCode=badCredentials"><span> BZU教务系统</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://mail.bzu.edu.cn/"><span> BZU邮件系统</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw iconfont icon-lianjie1"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw iconfont icon-xinbaniconshangchuan-1"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw iconfont icon-liuyanban-05"></i><span> 留言板</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="not-home-page" id="page-header" style="background-image: url('/img/top_default.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Lucifer</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-zhuye"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/guide/"><i class="fa-fw iconfont icon-daohang1"></i><span> 导航</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-shijian"></i><span> 时轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw iconfont icon-icon"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/skills/"><i class="fa-fw iconfont icon-ai-book"></i><span> 技术</span></a></div><div class="menus_item"><a class="site-page" href="/dk/"><span> 打卡</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw iconfont icon-06"></i><span> 娱乐</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/musics/"><i class="fa-fw iconfont icon-icon-test"></i><span> 音乐</span></a></li><li><a class="site-page" href="/pictures/"><i class="fa-fw iconfont icon-tupian"></i><span> 照片</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw iconfont icon-dianying1"></i><span> 电影</span></a></li><li><a class="site-page" href="/books/"><i class="fa-fw iconfont icon-book-2"></i><span> 读书</span></a></li><li><a class="site-page" href="/games/"><i class="fa-fw iconfont icon-iconfontyouxihudong"></i><span> 游戏</span></a></li><li><a class="site-page" href="/cates/"><i class="fa-fw iconfont icon-meishi1"></i><span> 美食</span></a></li><li><a class="site-page" href="/artitalk"><i class="fa-fw iconfont icon-xinbaniconshangchuan-"></i><span> 说说</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw iconfont icon-kaoyan"></i><span> 考研</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/maths/"><i class="fa-fw iconfont icon-shuxue"></i><span> 高数</span></a></li><li><a class="site-page" href="/englishs/"><i class="fa-fw iconfont icon-yingyu"></i><span> 英语</span></a></li><li><a class="site-page" href="/politics/"><i class="fa-fw iconfont icon-zhengzhi"></i><span> 政治</span></a></li><li><a class="site-page" href="/computers/"><i class="fa-fw iconfont icon-zhuanye"></i><span> 专业</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw iconfont icon-wendang"></i><span> 文档</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/api/"><span> VUE</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://vuex.vuejs.org/zh/api/#vuex-store"><span> VUEX</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://www.kancloud.cn/yunye/axios/234845"><span> AXIOS</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://www.jquery123.com/"><span> JQuery</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://www.w3school.com.cn/js/js_htmldom_document.asp"><span> JavaScript</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw iconfont icon-gongju"></i><span> 工具</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" target="_blank" rel="noopener" href="https://cli.im/"><span> QR生成器</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://smallpdf.com/cn/pdf-to-word"><span> PDF转换器</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://www.toyaml.com/index.html"><span> YML转换器</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://tool.chinaz.com/tools/native_ascii.aspx"><span> 编码转换器</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://tool.oschina.net/codeformat/html"><span> Code格式化</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://www.bejson.com/jsoneditoronline"><span> JSON格式化</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://zh.numberempire.com/latexequationeditor.php"><span> LaTeX编辑器</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://tableconvert.com/?output=text"><span> MD表格生成</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://cron.qqe2.com"><span> CRON表达式</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw iconfont icon-tubiaozhizuomoban"></i><span> 学校</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" target="_blank" rel="noopener" href="https://www.zhihuishu.com/"><span> 智慧树</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://10.40.101.111/indexcs/index.jsp?loginErr=0"><span> CG平台</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://openjudge.cn/"><span> OJ平台</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://pintia.cn/problem-sets?tab=0"><span> PAT平台</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://www.mooctest.net/login2"><span> 慕测平台</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://i.chaoxing.com/base?t=1604882532908"><span> 泛雅超星</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://tsg.bzu.edu.cn/"><span> BZU图书馆</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://192.168.200.123/"><span> BZU上网认证</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://pay.bzu.edu.cn/xysf/login.aspx?local=zh-cn"><span> BZU支付平台</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://172.16.16.4/login?errorCode=badCredentials"><span> BZU教务系统</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://mail.bzu.edu.cn/"><span> BZU邮件系统</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw iconfont icon-lianjie1"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw iconfont icon-xinbaniconshangchuan-1"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw iconfont icon-liuyanban-05"></i><span> 留言板</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="page-site-info"><h1 id="site-title">第五章 接口</h1></div></header><main class="layout" id="content-inner"><div id="page"><div id="article-container"><h2 id="一-接口"><a class="markdownIt-Anchor" href="#一-接口"></a> 一、接口</h2>
+<h3 id="1-接口的定义"><a class="markdownIt-Anchor" href="#1-接口的定义"></a> 1. 接口的定义</h3>
+<p>用关键字interface来声明一个接口。接口中只能有两样东西：常量和抽象方法。接口定义的语法格式如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">public</span>]   <span class="class"><span class="keyword">interface</span>  接口名 </span>&#123;    </span><br><span class="line">    <span class="comment">//常量声明</span></span><br><span class="line">    [<span class="keyword">public</span>]  [<span class="keyword">static</span>]  [<span class="keyword">final</span>]  变量类型  变量名  = 值;</span><br><span class="line">        ...</span><br><span class="line"></span><br><span class="line">    <span class="comment">//抽象方法声明</span></span><br><span class="line">    [<span class="keyword">public</span>] [<span class="keyword">abstract</span>]  返回类型  方法名(参数列表); </span><br><span class="line">        ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接口中的抽象方法和常量不是必须都有，甚至两者都没有也可以。和抽象类一样，接口不能用来创建对象实例。此外，和public类一样，public接口必须定义在同名的java源文件中，一个java源文件文件最多只能有一个public接口或一个public类。接口和抽象类一样，不能用来创建实例。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Sleeper</span> </span>&#123;</span><br><span class="line">       <span class="comment">//抽象方法</span></span><br><span class="line">       <span class="function"><span class="keyword">void</span> <span class="title">wakeUp</span><span class="params">()</span></span>; </span><br><span class="line">       <span class="function"><span class="keyword">void</span> <span class="title">beep</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">       <span class="comment">//常量</span></span><br><span class="line">       <span class="keyword">long</span> ONE_SECOND = <span class="number">1000</span>; </span><br><span class="line">       <span class="keyword">long</span> ONE_MINUTE = <span class="number">60000</span>;</span><br><span class="line">       String STR = <span class="keyword">new</span> String();  <span class="comment">//和类中的变量一样，也可以用非常量表达式初始化。</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在接口中如果有变量声明，那么该变量一定由public、final、static修饰，<code>没有的话系统在编译时也会默认加上</code>。因此，接口中声明的变量一定是公有的静态常量，可以通过接口名访问。比如，Sleeper中的ONE_SECOND可以这么访问：Sleeper.ONE_SECOND。<code>接口中final常量必须在定义时初始化</code>，初始化时可以使用常量表达式或非常量表达式。<br />
+在接口中声明的方法一定由public和abstract修饰，<code>没有的话系统在编译时也会默认加上</code>，所以一定是公有的抽象方法。</p>
+<h3 id="2-接口的实现"><a class="markdownIt-Anchor" href="#2-接口的实现"></a> 2. 接口的实现</h3>
+<p>接口由类来实现，一个类通过关键字implements声明自己实现了一个或多个接口。如果实现了多个接口，用逗号分隔接口名。接口实现的定义格式如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[修饰符]  <span class="class"><span class="keyword">class</span>  类名  <span class="keyword">implements</span> 接口1, 接口2, … </span>&#123;</span><br><span class="line">    <span class="comment">//接口方法的实现</span></span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    <span class="comment">//实现类新增的内容</span></span><br><span class="line">    ...         </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>一个类实现某个接口也就是要实现该接口的所有抽象方法。如果只实现了一部分，则接口未被实现的那些抽象方法会被实现类所继承，从而成为抽象类。<br />
+<code>实现类继承接口的常量，成为自己的静态常量，既可以通过接口名访问，也可以通过类名访问，还可以通过实现类的对象访问。</code><br />
+在实现类中实现接口的抽象方法时，必须使用完全相同的方法原型，并且不能降低方法的访问权限，因而实现类所实现的方法权限必须是public。<br />
+一个类可以在继承某个父类的同时实现若干个接口，这种情况下的定义形式如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[修饰符]  <span class="class"><span class="keyword">class</span>  类名  <span class="keyword">extends</span> 父类名  <span class="keyword">implements</span> 接口1, 接口2, … </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<div class="note info simple"><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Runner</span> </span>&#123;      <span class="comment">//接口１</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Swimmer</span> </span>&#123;   <span class="comment">//接口２</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">swim</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="keyword">implements</span> <span class="title">Runner</span>, <span class="title">Swimmer</span> </span>&#123;  <span class="comment">//接口实现类</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;我是飞毛腿,跑步速度极快!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">swim</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;我游泳技术很好,会蛙泳、自由泳、仰泳、蝶泳...&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;我牙好胃好,吃啥都香!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> </span>&#123;</span><br><span class="line">        Person p = <span class="keyword">new</span> Person();</span><br><span class="line">        p.swim();</span><br><span class="line">        p.run();</span><br><span class="line">        p.eat();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h3 id="3-接口的继承"><a class="markdownIt-Anchor" href="#3-接口的继承"></a> 3. 接口的继承</h3>
+<p>Java允许一个接口继承其它的接口，声明格式如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">public</span>]   <span class="class"><span class="keyword">interface</span>   接口名   <span class="keyword">extends</span>   父接口1, 父接口2, … </span>&#123;</span><br><span class="line">    <span class="comment">// 新增的抽象方法或静态常量</span></span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>一个接口可以继承一个或多个接口，从而继承其它接口的抽象方法和常量。<br/><br />
+实现类除了实现当前接口自己定义的抽象方法，还要实现该接口继承而来的抽象方法。<br/><br />
+如果在子接口中声明了和父接口同名的常量或原型相同的方法，则父接口中的常量被隐藏，方法被重写(覆盖)。<br/></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">x</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">m1</span><span class="params">()</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">m2</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">y</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">m3</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">z</span> <span class="keyword">extends</span> <span class="title">x</span>, <span class="title">y</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">m4</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">xyz</span> <span class="keyword">implements</span> <span class="title">z</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">m1</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        ... <span class="comment">// 实现代码</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">m2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        ... <span class="comment">// 实现代码</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">m3</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        ... <span class="comment">// 实现代码</span></span><br><span class="line">	&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">m4</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        ... <span class="comment">// 实现代码</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<div class="note danger simple"><p>注意:</p>
+<ul>
+<li>如果<code>实现类是非abstract类</code>，则该类必须实现接口的所有抽象方法，否则未被实现的抽象方法会被实现类所继承，从而只能是abstract类。</li>
+<li>如果实现类是abstract类，则该类可以只实现接口的一部分抽象方法。当然，即使实现类全部实现了接口的抽象方法，也可以是抽象类，<code>为什么？</code></li>
+<li>如果父类实现了某个接口，则子类会继承父类的接口实现，相当于子类也实现了这个接口。</li>
+</ul>
+</div>
+<h3 id="4-接口类型"><a class="markdownIt-Anchor" href="#4-接口类型"></a> 4. 接口类型</h3>
+<pre><code>    接口也是一种引用数据类型，可以当作数据类型使用。可以用接口来声明变量，也可以把一个实现类的对象赋值给接口变量，这也是上转型。
+</code></pre>
+<h3 id="5-接口回调与多态"><a class="markdownIt-Anchor" href="#5-接口回调与多态"></a> 5. 接口回调与多态</h3>
+<p>接口回调是指把实现类的对象赋值给接口变量，然后通过接口变量访问接口方法，则实际访问的是实现类所实现的方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">接口类型 接口变量 = 用实现类创建的对象;        </span><br><span class="line">接口变量.接口方法([参数列表]);</span><br></pre></td></tr></table></figure>
+<p>通过接口变量来访问接口方法时，由于不同的实现类对同一方法有不同的实现，从而表现出多态。如下例所示：</p>
+<div class="note info simple"><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span>  <span class="title">ShowMessage</span>  </span>&#123;  </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">showTradeMark</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TV</span> <span class="keyword">implements</span> <span class="title">ShowMessage</span> </span>&#123;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">showTradeMark</span><span class="params">()</span>   </span>&#123; </span><br><span class="line">        System.out.println(<span class="string">&quot;电视机&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PC</span> <span class="keyword">implements</span> <span class="title">ShowMessage</span>  </span>&#123; </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">showTradeMark</span><span class="params">()</span>  </span>&#123;  </span><br><span class="line">        System.out.println(<span class="string">&quot;电脑&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Example</span> </span>&#123;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span>   </span>&#123; </span><br><span class="line">        ShowMessage sm;               <span class="comment">//声明接口变量。</span></span><br><span class="line">        sm = <span class="keyword">new</span> TV();                   <span class="comment">//TV的对象赋值给接口变量。</span></span><br><span class="line">        sm.showTradeMark();          <span class="comment">//通过接口回调来调用TV的方法showTradeMark()     </span></span><br><span class="line">        sm = <span class="keyword">new</span> PC();                   <span class="comment">//PC的对象赋值给接口变量。</span></span><br><span class="line">        sm.showTradeMark();         <span class="comment">//通过接口回调来调用PC的方法showTradeMark()      </span></span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h3 id="6-接口做参数"><a class="markdownIt-Anchor" href="#6-接口做参数"></a> 6.  接口做参数</h3>
+<p>如果一个方法的形参是接口类型，就可以将实现类的对象传给这个参数，这也是上转型。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Show</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> <span class="keyword">implements</span> <span class="title">Show</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;I love This Game&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> <span class="keyword">implements</span> <span class="title">Show</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;我喜欢看NBA&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">C</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">f</span><span class="params">(Show s)</span></span>&#123;    <span class="comment">//接口作为参数</span></span><br><span class="line">        s.show();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span></span>&#123;</span><br><span class="line">        C c = <span class="keyword">new</span> C();</span><br><span class="line">        c.f(<span class="keyword">new</span> A());      <span class="comment">//实现类的对象传给接口参数</span></span><br><span class="line">        c.f(<span class="keyword">new</span> B());      <span class="comment">//实现类的对象传给接口参数</span></span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="二-instanceof运算符"><a class="markdownIt-Anchor" href="#二-instanceof运算符"></a> 二、instanceof运算符</h2>
+<p>功能：判断一个对象是否是某个类的实例，或者一个对象是否实现了某个接口。<br />
+格式：<code>对象 instanceof 类或 接口</code><br />
+结果：<code>true</code> 或 <code>false</code><br />
+instanceof操作符的前值是一个对象，后值是一个类或接口。如果前值对象是后值类的对象实例，或者可以上转型(或下转型)为后值类的对象实例，或者实现了后值接口，则结果是true；否则是false。<br />
+<code>子类对象可以当作父类对象，如果instanceof的前值是子类对象，后值是父类，则结果是true。一个类实现了子接口，那么也就实现了父接口，如果instanceof的前值是实现类对象，后值是当前接口的父接口，则结果也是true。</code></p>
+<p>假定Student类是Person的子类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Person   p = <span class="keyword">new</span> Person();</span><br><span class="line">Student  s = <span class="keyword">new</span> Student();</span><br><span class="line">System.out.println(<span class="string">&quot;s instanceof Student:&quot;</span> + (s  <span class="keyword">instanceof</span>  Student));</span><br><span class="line">System.out.println(<span class="string">&quot;s instanceof Person:&quot;</span> + (s  <span class="keyword">instanceof</span>  Person));</span><br><span class="line">System.out.println(<span class="string">&quot;p instanceof Person:&quot;</span> + (p  <span class="keyword">instanceof</span>  Person));	</span><br><span class="line">System.out.println(<span class="string">&quot;p instanceof Student:&quot;</span> + (p  <span class="keyword">instanceof</span>  Student));</span><br></pre></td></tr></table></figure>
+<pre><code>    在不确定一个对象是否是某个类的实例或者实现了某个接口时，通过instanceof运算符进行检查，可以避免出现运行时异常，提高代码的健壮性。
+</code></pre>
+<h2 id="三-接口实现多态"><a class="markdownIt-Anchor" href="#三-接口实现多态"></a> 三、接口实现多态</h2>
+<p>多态总结<br />
+多态是指在程序中相同的名称表现出不同的行为，包括静态多态和动态多态两种。静态多态一般指方法重载。<br />
+动态多态也称为运行时多态，实现条件：(1) 实现继承，或实现接口；(2) 子类重写父类方法，或实现类实现接口的方法)；(2) 执行上转型，通过上转型对象访问父类被重写的方法，或接口被实现的方法。</p>
+<h3 id="继承实现多态的例子"><a class="markdownIt-Anchor" href="#继承实现多态的例子"></a> 继承实现多态的例子</h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">roar</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;动物:...&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cat</span> <span class="keyword">extends</span> <span class="title">Animal</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">roar</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;猫:喵,喵,喵,...&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AnimalTest</span> </span>&#123;</span><br><span class="line">       <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span></span>&#123;</span><br><span class="line">               Animal am;</span><br><span class="line">               am = <span class="keyword">new</span> Animal();</span><br><span class="line">               am.roar();</span><br><span class="line"></span><br><span class="line">               am=<span class="keyword">new</span> Dog();</span><br><span class="line">               am.roar();</span><br><span class="line"></span><br><span class="line">               am=<span class="keyword">new</span> Cat();</span><br><span class="line">               am.roar();</span><br><span class="line">      &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="接口实现多态的例子"><a class="markdownIt-Anchor" href="#接口实现多态的例子"></a> 接口实现多态的例子</h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Geometry</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">double</span> <span class="title">getArea</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Circle</span> <span class="keyword">implements</span> <span class="title">Geometry</span></span>&#123;</span><br><span class="line">    <span class="keyword">double</span> r;</span><br><span class="line"></span><br><span class="line">    Circle(<span class="keyword">double</span> r)&#123;    <span class="keyword">this</span>.r = r;   &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">getArea</span><span class="params">()</span></span>&#123;    <span class="keyword">return</span>(<span class="number">3.14</span>*r*r);   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Ladder</span> <span class="keyword">implements</span> <span class="title">Geometry</span></span>&#123;</span><br><span class="line">    <span class="keyword">double</span> a,b,h;</span><br><span class="line"></span><br><span class="line">    Ladder(<span class="keyword">double</span> a,<span class="keyword">double</span> b,<span class="keyword">double</span> h)&#123;</span><br><span class="line">        <span class="keyword">this</span>.a = a; <span class="keyword">this</span>.b = b; <span class="keyword">this</span>.h = h;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">getArea</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span>((<span class="number">1</span>  /<span class="number">2.0</span>) * (a + b) * h);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Example</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span></span>&#123;</span><br><span class="line">        Geometry tuxing;         <span class="comment">//接口变量</span></span><br><span class="line">        tuxing = <span class="keyword">new</span> Ladder(<span class="number">12</span>,<span class="number">22</span>,<span class="number">100</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;梯形的面积&quot;</span> + tuxing.getArea());</span><br><span class="line">        tuxing = <span class="keyword">new</span> Circle(<span class="number">10</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;圆的面积&quot;</span> + tuxing.getArea());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<div class="note default simple"><p>上机作业:编写一个Java程序，除了主类TestGeometry外，该程序还有一个Shape接口、一个Rectangle类和一个Circle类。<br />
+要求：</p>
+<ul>
+<li>Shape接口有两个抽象方法：public abstract double computeArea()，用于计算面积；public abstract double computeLength()，用于计算周长。</li>
+<li>Rectangle类实现Shape接口，实现Shape接口计算面积和周长的方法，并打印输出面积和周长，格式为：<br />
+矩形的面积 = xxx;  矩形的周长 = xxx。</li>
+<li>有两个私有成员变量分别保存矩形的长和宽，一个构造方法用于初始化这两个成员变量。</li>
+<li>Circle类实现Shape接口，实现计算圆的面积和周长的方法，并打印输出面积和周长，格式为：园的面积 = xxx; 园的周长 = xxx。</li>
+<li>有一个私有成员变量用于保存圆的半径，一个构造方法用于初始化这个成员变量。</li>
+<li>圆周率PI = 3.142定义为常量。</li>
+<li>在TestGeometry类中定义实例方法double computeArea(Shape s)和double computeLength(Shape s)，在这两个方法内部通过接口回调分别计算面积和周长。</li>
+<li>在TestGeometry类的main方法中从键盘输入矩形的长和宽以及圆的半径，分别创建Rectangle类和Circle类的对象，调用TestGeometry类的实例方法computeArea(Shape s)和 computeLength(Shape s)计算面积和周长。</li>
+</ul>
+</div>
+</div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">Lucifer LGX</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">4</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">4</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Nightliuguoxing"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Nightliuguoxing" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:2050180797lgx@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">QQ 丨 2050180797</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/03/27/english/index/" title="英二"><img src="/img/cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="英二"/></a><div class="content"><a class="title" href="/2021/03/27/english/index/" title="英二">英二</a><time datetime="2021-03-26T16:00:00.000Z" title="发表于 2021-03-27 00:00:00">2021-03-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/03/27/maths/index/" title="数二"><img src="/img/cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="数二"/></a><div class="content"><a class="title" href="/2021/03/27/maths/index/" title="数二">数二</a><time datetime="2021-03-26T16:00:00.000Z" title="发表于 2021-03-27 00:00:00">2021-03-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/11/27/politics/index/" title="政治"><img src="https://lgxs.liuguoxing.top/cover/politics.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="政治"/></a><div class="content"><a class="title" href="/2020/11/27/politics/index/" title="政治">政治</a><time datetime="2020-11-26T16:00:00.000Z" title="发表于 2020-11-27 00:00:00">2020-11-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/11/27/pr/index/" title="专业"><img src="/img/cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="专业"/></a><div class="content"><a class="title" href="/2020/11/27/pr/index/" title="专业">专业</a><time datetime="2020-11-26T16:00:00.000Z" title="发表于 2020-11-27 00:00:00">2020-11-27</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            
+            </div>
+            <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E4%B8%93%E4%B8%9A/"><span class="card-category-list-name">专业</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%94%BF%E6%B2%BB/"><span class="card-category-list-name">政治</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%95%B0%E4%BA%8C/"><span class="card-category-list-name">数二</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E8%8B%B1%E4%BA%8C/"><span class="card-category-list-name">英二</span><span class="card-category-list-count">1</span></a></li>
+            </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/%E8%8B%B1%E4%BA%8C/" style="font-size: 1.1em; color: rgb(35, 158, 106)">英二</a><a href="/tags/%E6%95%B0%E4%BA%8C/" style="font-size: 1.1em; color: rgb(59, 133, 104)">数二</a><a href="/tags/%E6%94%BF%E6%B2%BB/" style="font-size: 1.1em; color: rgb(26, 7, 40)">政治</a><a href="/tags/%E4%B8%93%E4%B8%9A/" style="font-size: 1.1em; color: rgb(113, 106, 3)">专业</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/03/"><span class="card-archive-list-date">三月 2021</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2020/11/"><span class="card-archive-list-date">十一月 2020</span><span class="card-archive-list-count">2</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">4</div></div><div class="webinfo-item"><div class="item-name">已运行时间 :</div><div class="item-count" id="runtimeshow" data-publishDate="2019-12-31T16:00:00.000Z"></div></div><div class="webinfo-item"><div class="item-name">本站总字数 :</div><div class="item-count">0</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2022-01-02T03:09:11.352Z"></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/img/top_default.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2020-2021 - 2022 By Lucifer LGX</div><div class="footer_custom_text"><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/"><img class="icp-icon" src="/img/icp.png"><span>鲁ICP备19034408号</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><script defer src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script defer src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>if (document.getElementsByClassName('mermaid').length) {
+  if (window.mermaidJsLoad) mermaid.init()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(() => {
+      window.mermaidJsLoad = true
+      mermaid.initialize({
+        theme: 'default',
+      })
+      true && mermaid.init()
+    })
+  }
+}</script><script>function loadValine () {
+  function initValine () {
+    let initData = {
+      el: '#vcomment',
+      appId: 'HiHYvf5onwRzqyXaABTznB3Q-gzGzoHsz',
+      appKey: '9b1pQs8nNJBAClfhJbLqRPYH',
+      placeholder: 'Please leave your footprints',
+      avatar: 'hide',
+      meta: 'nick,mail,link'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+    }
+
+    if (true) { 
+      initData.requiredFields= ('nick,mail'.split(','))
+    }
+    
+    if (false) {
+      const otherData = false
+      initData = Object.assign(initData, otherData)
+    }
+    
+    const valine = new Valine(initData)
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script defer src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script>var gitcalendar = new Vue({
+  el: '#gitcalendar',
+  data: {
+    simplemode: true, 
+    user: 'Nightliuguoxing',
+    fixed: 'fixed',
+    px: 'px',
+    x: '',
+    y: '',
+    span1: '',
+    span2: '',
+    month: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+    monthchange: [],
+    oneyearbeforeday: '',
+    thisday: '',
+    amonthago: '',
+    aweekago: '',
+    weekdatacore: 0,
+    datacore: 0,
+    total: 0,
+    datadate: '',
+    data: [],
+    positionplusdata: [],
+    firstweek: [],
+    lastweek: [],
+    beforeweek: [],
+    thisweekdatacore: 0,
+    mounthbeforeday: 0,
+    mounthfirstindex: 0,
+    crispedges: 'crispedges',
+    thisdayindex: 0,
+    amonthagoindex: 0,
+    amonthagoweek: [],
+    firstdate: [],
+    first2date: [],
+    montharrbefore: [],
+    monthindex: 0,
+    color: ['#ebedf0', '#fdcdec', '#fc9bd9', '#fa6ac5', '#f838b2', '#f5089f', '#c4067e', '#92055e', '#540336', '#48022f', '#30021f']
+  },
+  methods: {
+    selectStyle(data, event) {
+      document.querySelector('.angle-wrapper').style.display = 'block'
+      this.span1 = data.date;
+      this.span2 = data.count;
+      this.x = event.clientX - 100;
+      this.y = event.clientY - 60
+    },
+    outStyle() {
+      document.querySelector('.angle-wrapper').style.display = 'none'
+    },
+    thiscolor(x) {
+      if (x === 0) {
+        let i = parseInt(x / 2);
+        return this.color[0]
+      } else if (x < 2) {
+        return this.color[1]
+      } else if (x < 20) {
+        let i = parseInt(x / 2);
+        return this.color[i]
+      } else {
+        return this.color[9]
+      }
+    },
+  }
+});
+var apiurl = 'python-github-calendar-api-rouge.vercel.app' ? 'https://python-github-calendar-api-rouge.vercel.app/api?' : 'https://githubapi.ryanchristian.dev/user/'
+var githubapiurl = apiurl + gitcalendar.user;
+//canvas绘图
+function responsiveChart() {
+  let c = document.getElementById("gitcanvas");
+  if (c) {
+    let cmessage = document.getElementById("gitmessage");
+    let ctx = c.getContext("2d");
+    c.width = document.getElementById("gitcalendarcanvasbox").offsetWidth;
+    let linemaxwitdh = 0.96 * c.width / gitcalendar.data.length;
+    c.height = 9 * linemaxwitdh;
+    let lineminwitdh = 0.8 * linemaxwitdh;
+    let setposition = {
+      x: 0.02 * c.width,
+      y: 0.025 * c.width
+    };
+    for (let week in gitcalendar.data) {
+      weekdata = gitcalendar.data[week];
+      for (let day in weekdata) {
+        let dataitem = {
+          date: "",
+          count: "",
+          x: 0,
+          y: 0
+        };
+        gitcalendar.positionplusdata.push(dataitem);
+        ctx.fillStyle = gitcalendar.thiscolor(weekdata[day].count);
+        setposition.y = Math.round(setposition.y * 100) / 100;
+        dataitem.date = weekdata[day].date;
+        dataitem.count = weekdata[day].count;
+        dataitem.x = setposition.x;
+        dataitem.y = setposition.y;
+        ctx.fillRect(setposition.x, setposition.y, lineminwitdh, lineminwitdh);
+        setposition.y = setposition.y + linemaxwitdh
+      };
+      setposition.y = 0.025 * c.width;
+      setposition.x = setposition.x + linemaxwitdh
+    };
+    ctx.font = "600  Arial";
+    ctx.fillStyle = '#aaa';
+    ctx.fillText("日", 0, 1.9 * linemaxwitdh);
+    ctx.fillText("二", 0, 3.9 * linemaxwitdh);
+    ctx.fillText("四", 0, 5.9 * linemaxwitdh);
+    ctx.fillText("六", 0, 7.9 * linemaxwitdh);
+    let monthindexlist = c.width / 24;
+    for (let index in gitcalendar.monthchange) {
+      ctx.fillText(gitcalendar.monthchange[index], monthindexlist, 0.7 * linemaxwitdh);
+      monthindexlist = monthindexlist + c.width / 12
+    };
+    cmessage.onmousemove = function(event) {
+      document.querySelector('.angle-wrapper').style.display = 'none'
+    };
+    c.onmousemove = function(event) {
+      document.querySelector('.angle-wrapper').style.display = 'none'
+      getMousePos(c, event);
+    };
+
+    function getMousePos(canvas, event) {
+      var rect = canvas.getBoundingClientRect();
+      var x = event.clientX - rect.left * (canvas.width / rect.width);
+      var y = event.clientY - rect.top * (canvas.height / rect.height);
+      //console.log("x:"+x+",y:"+y);
+      for (let item of gitcalendar.positionplusdata) {
+        let lenthx = x - item.x;
+        let lenthy = y - item.y;
+        //console.log(lenthx,lenthy);
+        if (0 < lenthx && lenthx < lineminwitdh) {
+          if (0 < lenthy && lenthy < lineminwitdh) {
+            //console.log(item.date,item.count)
+            document.querySelector('.angle-wrapper').style.display = 'block'
+            gitcalendar.span1 = item.date;
+            gitcalendar.span2 = item.count;
+            gitcalendar.x = event.clientX - 100;
+            gitcalendar.y = event.clientY - 60
+          }
+        }
+        //if(0< x - item.x <lineminwitdh&&0< y - item.y <lineminwitdh){
+        //console.log(item.count,item.date);
+        //}
+      }
+    }
+  }
+}
+//数据统计算法
+function addlastmonth() {
+  if (gitcalendar.thisdayindex === 0) {
+    thisweekcore(52);
+    thisweekcore(51);
+    thisweekcore(50);
+    thisweekcore(49);
+    thisweekcore(48);
+    gitcalendar.thisweekdatacore += gitcalendar.firstdate[6].count;
+    gitcalendar.amonthago = gitcalendar.firstdate[6].date
+  } else {
+    thisweekcore(52);
+    thisweekcore(51);
+    thisweekcore(50);
+    thisweekcore(49);
+    thisweek2core();
+    gitcalendar.amonthago = gitcalendar.first2date[gitcalendar.thisdayindex - 1].date
+  }
+};
+
+function thisweek2core() {
+  for (let i = gitcalendar.thisdayindex - 1; i < gitcalendar.first2date.length; i++) {
+    gitcalendar.thisweekdatacore += gitcalendar.first2date[i].count
+  }
+};
+
+function thisweekcore(index) {
+  for (let item of gitcalendar.data[index]) {
+    gitcalendar.thisweekdatacore += item.count
+  }
+};
+
+function addlastweek() {
+  for (let item of gitcalendar.lastweek) {
+    gitcalendar.weekdatacore += item.count
+  }
+};
+
+function addbeforeweek() {
+  for (let i = gitcalendar.thisdayindex; i < gitcalendar.beforeweek.length; i++) {
+    gitcalendar.weekdatacore += gitcalendar.beforeweek[i].count
+  }
+};
+
+function addweek(data) {
+  if (gitcalendar.thisdayindex === 6) {
+    gitcalendar.aweekago = gitcalendar.lastweek[0].date;
+    addlastweek()
+  } else {
+    lastweek = data.contributions[51];
+    gitcalendar.aweekago = lastweek[gitcalendar.thisdayindex + 1].date;
+    addlastweek();
+    addbeforeweek()
+  }
+}
+
+fetch(githubapiurl)
+  .then(data => data.json())
+  .then(data => {
+    gitcalendar.data = data.contributions;
+    gitcalendar.total = data.total;
+    gitcalendar.first2date = gitcalendar.data[48];
+    gitcalendar.firstdate = gitcalendar.data[47];
+    gitcalendar.firstweek = data.contributions[0];
+    gitcalendar.lastweek = data.contributions[52];
+    gitcalendar.beforeweek = data.contributions[51];
+    gitcalendar.thisdayindex = gitcalendar.lastweek.length - 1;
+    gitcalendar.thisday = gitcalendar.lastweek[gitcalendar.thisdayindex].date;
+    gitcalendar.oneyearbeforeday = gitcalendar.firstweek[0].date;
+    gitcalendar.monthindex = gitcalendar.thisday.substring(5, 7) * 1;
+    gitcalendar.montharrbefore = gitcalendar.month.splice(gitcalendar.monthindex, 12 - gitcalendar.monthindex);
+    gitcalendar.monthchange = gitcalendar.montharrbefore.concat(gitcalendar.month);
+    addweek(data);
+    addlastmonth();
+    responsiveChart();
+  })
+  .catch(function(error) {
+    console.log(error);
+  });
+
+//手机版更换为svg绘制
+if (document.getElementById("gitcalendarcanvasbox").offsetWidth < 500) {
+  gitcalendar.simplemode = false
+}
+
+//当改变窗口大小时重新绘制canvas
+window.onresize = function() {
+  if (gitcalendar.simplemode) responsiveChart()
+}
+
+//解决滚动滑轮时出现的标签显示
+window.onscroll = function() {
+  if (document.querySelector('.angle-wrapper')) {
+    document.querySelector('.angle-wrapper').style.display = 'none'
+  }
+};</script></div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/swiper/swiper.min.js"></script><script src="/swiper/swiperindex.js"></script><script src="/js/flipcountdown.js"></script><script data-pjax src="/js/runtime.js"></script><script async src="//at.alicdn.com/t/font_2264842_3izu8i5eoc2.js"></script><script src='https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@latest/Hexo/js/mouse_snow.min.js'></script><script src='https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@latest/Hexo/js/hideMobileSidebar.js'></script><script src='https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@latest/Hexo/js/hideCategory.min.js'></script><script defer src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/hexo-theme-volantis@latest/source/js/issues.min.js"></script><div class="aplayer no-destroy" data-id="000PeZCQ1i4XVs" data-server="tencent" data-type="artist" data-fixed="true" data-mini="true" data-listFolded="false" data-order="random" data-preload="none" data-autoplay="false" muted></div><script src=''></script><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/fireworks.min.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  if (typeof gtag === 'function') {
+    gtag('config', '', {'page_path': window.location.pathname});
+  }
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+
+document.addEventListener('pjax:send', function () {
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/nipsilon.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body></html>

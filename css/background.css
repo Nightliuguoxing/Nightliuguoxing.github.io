@@ -1,0 +1,118 @@
+/* 隐藏回到顶部按钮，替换为up酱 */
+
+#go-up i {
+    display: none;
+    background-color: transparent !important;
+}
+
+#go-up {
+    background-color: transparent !important;
+}
+
+#upj {
+    transform: translate(-70px, -80px) !important;
+}
+
+/*新版3.0.0以上添加up酱置顶ico图标上移问题*/
+.fas.fa-arrow-up {
+    line-height: 2;
+}
+
+/* 目录隐藏按钮颜色 */
+
+#toggle-sidebar {
+    color: #e58a8a !important;
+}
+
+/* 版权链接去掉下划线 */
+
+.layout_post .post-copyright .post-copyright-info a {
+    text-decoration: none;
+}
+
+/* 滚动条 */
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: hsl(276, 98%, 53%);
+    background-image: -webkit-linear-gradient( 45deg, rgba(255, 255, 255, 0.4) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0.4) 75%, transparent 75%, transparent);
+    border-radius: 2em;
+}
+
+::-webkit-scrollbar-corner {
+    background-color: transparent;
+}
+
+::-moz-selection {
+    color: #fff;
+    background-color: #236ef8;
+}
+/* ------------------------------------------------------------- */
+#web_bg {
+    /* 背景图像的地址（url括号里）  */
+    background: url(https://lgxs.liuguoxing.top/bg/bgs.jpg);
+    /* 背景图像不重复 */
+    background-repeat: no-repeat;
+    /* 背景图像大小 */
+    background-size: cover;
+}
+
+/* 文章页背景 */
+.layout_post>#post {
+    /* 以下代表白色透明度为0.3 */
+    background: rgba(255,255,255,.2);
+}
+/* 所有背景（包括首页卡片、文章页、页面页等） */
+#aside_content .card-widget, #recent-posts>.recent-post-item, .layout_page>div:first-child:not(.recent-posts), .layout_post>#page, .layout_post>#post, .read-mode .layout_post>#post{
+    /* 以下代表白色透明度为0.3 */
+    background: rgba(255,255,255,.2);
+}
+
+#recent-posts > .recent-post-item >.recent-post-info > .article-meta-wrap {
+    color: #000;
+}
+
+#recent-posts > .recent-post-item >.recent-post-info > .article-meta-wrap a{
+    color: #000;
+}
+
+#recent-posts > .recent-post-item >.recent-post-info > .content{
+    color: #000;
+}
+#aside-content{
+    color:#000!important;
+}
+#aside-content .card-widget{
+    background: rgba(255,255,255,.2);
+}
+#aside-content .aside-list > .aside-list-item .content > .title, #aside-content .aside-list > .aside-list-item .content > .comment{
+    color: #000;
+}
+
+#aside-content .aside-list > .aside-list-item .content > time, #aside-content .aside-list > .aside-list-item .content > .name{
+    color: #000;
+}
+
+#aside-content .card-info .card-info-data > .card-info-data-item a .headline{
+    color: #000;
+}
+
+#aside-content .card-info .card-info-social-icons i{
+    color: #000;
+}
+
+#aside-content .card-archives ul.card-archive-list > .card-archive-list-item a span, #aside-content .card-categories ul.card-category-list > .card-category-list-item a span{
+    color: #000;
+}
+
+.float-left.text-gray{
+    color: #000;
+}
+
+body{
+    color: #000!important;
+} 

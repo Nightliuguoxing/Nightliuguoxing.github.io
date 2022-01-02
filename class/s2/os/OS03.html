@@ -1,0 +1,1462 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>第三章 处理机调度与死锁 | Lucifer</title><meta name="keywords" content="操作系统"><meta name="author" content="Lucifer LGX"><meta name="copyright" content="Lucifer LGX"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="第三章 处理机调度与死锁">
+<meta property="og:type" content="website">
+<meta property="og:title" content="第三章 处理机调度与死锁">
+<meta property="og:url" content="http://liuguoxing.top/class/s2/os/OS03.html">
+<meta property="og:site_name" content="Lucifer">
+<meta property="og:description" content="第三章 处理机调度与死锁">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://liuguoxing.top/img/cover.jpg">
+<meta property="article:published_time" content="2021-04-02T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-05-03T07:11:50.669Z">
+<meta property="article:author" content="Lucifer LGX">
+<meta property="article:tag" content="操作系统">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://liuguoxing.top/img/cover.jpg"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="http://liuguoxing.top/class/s2/os/OS03"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?af087bb3378df752c6a2fb9a80a690aa";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: false,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2021-05-03 15:11:50'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><link rel="stylesheet" href="/css/cursor.css"><link rel="stylesheet" href="/css/flipcountdown.css"><link rel="stylesheet" href="/css/iconfont.css"><link rel="stylesheet" href="/css/background.css"/><link rel="stylesheet" href="/swiper/swiper.min.css"><link rel="stylesheet" href="/swiper/swiperstyle.css"><link rel="stylesheet" href="/css/bilibiliBanner.css"  media="defer" onload="this.media='screen'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@latest/Hexo/css/hideCategory.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/StaticFile_HEXO@latest/butterfly/css/font-awesome-animation.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/l-lin/font-awesome-animation/dist/font-awesome-animation.min.css"  media="defer" onload="this.media='all'"><link rel="stylesheet" href=""><meta name="generator" content="Hexo 5.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">4</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">4</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-zhuye"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/guide/"><i class="fa-fw iconfont icon-daohang1"></i><span> 导航</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-shijian"></i><span> 时轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw iconfont icon-icon"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/skills/"><i class="fa-fw iconfont icon-ai-book"></i><span> 技术</span></a></div><div class="menus_item"><a class="site-page" href="/dk/"><span> 打卡</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw iconfont icon-06"></i><span> 娱乐</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/musics/"><i class="fa-fw iconfont icon-icon-test"></i><span> 音乐</span></a></li><li><a class="site-page" href="/pictures/"><i class="fa-fw iconfont icon-tupian"></i><span> 照片</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw iconfont icon-dianying1"></i><span> 电影</span></a></li><li><a class="site-page" href="/books/"><i class="fa-fw iconfont icon-book-2"></i><span> 读书</span></a></li><li><a class="site-page" href="/games/"><i class="fa-fw iconfont icon-iconfontyouxihudong"></i><span> 游戏</span></a></li><li><a class="site-page" href="/cates/"><i class="fa-fw iconfont icon-meishi1"></i><span> 美食</span></a></li><li><a class="site-page" href="/artitalk"><i class="fa-fw iconfont icon-xinbaniconshangchuan-"></i><span> 说说</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw iconfont icon-kaoyan"></i><span> 考研</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/maths/"><i class="fa-fw iconfont icon-shuxue"></i><span> 高数</span></a></li><li><a class="site-page" href="/englishs/"><i class="fa-fw iconfont icon-yingyu"></i><span> 英语</span></a></li><li><a class="site-page" href="/politics/"><i class="fa-fw iconfont icon-zhengzhi"></i><span> 政治</span></a></li><li><a class="site-page" href="/computers/"><i class="fa-fw iconfont icon-zhuanye"></i><span> 专业</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw iconfont icon-wendang"></i><span> 文档</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/api/"><span> VUE</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://vuex.vuejs.org/zh/api/#vuex-store"><span> VUEX</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://www.kancloud.cn/yunye/axios/234845"><span> AXIOS</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://www.jquery123.com/"><span> JQuery</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://www.w3school.com.cn/js/js_htmldom_document.asp"><span> JavaScript</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw iconfont icon-gongju"></i><span> 工具</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" target="_blank" rel="noopener" href="https://cli.im/"><span> QR生成器</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://smallpdf.com/cn/pdf-to-word"><span> PDF转换器</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://www.toyaml.com/index.html"><span> YML转换器</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://tool.chinaz.com/tools/native_ascii.aspx"><span> 编码转换器</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://tool.oschina.net/codeformat/html"><span> Code格式化</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://www.bejson.com/jsoneditoronline"><span> JSON格式化</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://zh.numberempire.com/latexequationeditor.php"><span> LaTeX编辑器</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://tableconvert.com/?output=text"><span> MD表格生成</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://cron.qqe2.com"><span> CRON表达式</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw iconfont icon-tubiaozhizuomoban"></i><span> 学校</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" target="_blank" rel="noopener" href="https://www.zhihuishu.com/"><span> 智慧树</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://10.40.101.111/indexcs/index.jsp?loginErr=0"><span> CG平台</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://openjudge.cn/"><span> OJ平台</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://pintia.cn/problem-sets?tab=0"><span> PAT平台</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://www.mooctest.net/login2"><span> 慕测平台</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://i.chaoxing.com/base?t=1604882532908"><span> 泛雅超星</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://tsg.bzu.edu.cn/"><span> BZU图书馆</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://192.168.200.123/"><span> BZU上网认证</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://pay.bzu.edu.cn/xysf/login.aspx?local=zh-cn"><span> BZU支付平台</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://172.16.16.4/login?errorCode=badCredentials"><span> BZU教务系统</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://mail.bzu.edu.cn/"><span> BZU邮件系统</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw iconfont icon-lianjie1"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw iconfont icon-xinbaniconshangchuan-1"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw iconfont icon-liuyanban-05"></i><span> 留言板</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="not-home-page" id="page-header" style="background-image: url('/img/top_default.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Lucifer</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-zhuye"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/guide/"><i class="fa-fw iconfont icon-daohang1"></i><span> 导航</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-shijian"></i><span> 时轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw iconfont icon-icon"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/skills/"><i class="fa-fw iconfont icon-ai-book"></i><span> 技术</span></a></div><div class="menus_item"><a class="site-page" href="/dk/"><span> 打卡</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw iconfont icon-06"></i><span> 娱乐</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/musics/"><i class="fa-fw iconfont icon-icon-test"></i><span> 音乐</span></a></li><li><a class="site-page" href="/pictures/"><i class="fa-fw iconfont icon-tupian"></i><span> 照片</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw iconfont icon-dianying1"></i><span> 电影</span></a></li><li><a class="site-page" href="/books/"><i class="fa-fw iconfont icon-book-2"></i><span> 读书</span></a></li><li><a class="site-page" href="/games/"><i class="fa-fw iconfont icon-iconfontyouxihudong"></i><span> 游戏</span></a></li><li><a class="site-page" href="/cates/"><i class="fa-fw iconfont icon-meishi1"></i><span> 美食</span></a></li><li><a class="site-page" href="/artitalk"><i class="fa-fw iconfont icon-xinbaniconshangchuan-"></i><span> 说说</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw iconfont icon-kaoyan"></i><span> 考研</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/maths/"><i class="fa-fw iconfont icon-shuxue"></i><span> 高数</span></a></li><li><a class="site-page" href="/englishs/"><i class="fa-fw iconfont icon-yingyu"></i><span> 英语</span></a></li><li><a class="site-page" href="/politics/"><i class="fa-fw iconfont icon-zhengzhi"></i><span> 政治</span></a></li><li><a class="site-page" href="/computers/"><i class="fa-fw iconfont icon-zhuanye"></i><span> 专业</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw iconfont icon-wendang"></i><span> 文档</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/api/"><span> VUE</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://vuex.vuejs.org/zh/api/#vuex-store"><span> VUEX</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://www.kancloud.cn/yunye/axios/234845"><span> AXIOS</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://www.jquery123.com/"><span> JQuery</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://www.w3school.com.cn/js/js_htmldom_document.asp"><span> JavaScript</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw iconfont icon-gongju"></i><span> 工具</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" target="_blank" rel="noopener" href="https://cli.im/"><span> QR生成器</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://smallpdf.com/cn/pdf-to-word"><span> PDF转换器</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://www.toyaml.com/index.html"><span> YML转换器</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://tool.chinaz.com/tools/native_ascii.aspx"><span> 编码转换器</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://tool.oschina.net/codeformat/html"><span> Code格式化</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://www.bejson.com/jsoneditoronline"><span> JSON格式化</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://zh.numberempire.com/latexequationeditor.php"><span> LaTeX编辑器</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://tableconvert.com/?output=text"><span> MD表格生成</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://cron.qqe2.com"><span> CRON表达式</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw iconfont icon-tubiaozhizuomoban"></i><span> 学校</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" target="_blank" rel="noopener" href="https://www.zhihuishu.com/"><span> 智慧树</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://10.40.101.111/indexcs/index.jsp?loginErr=0"><span> CG平台</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://openjudge.cn/"><span> OJ平台</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://pintia.cn/problem-sets?tab=0"><span> PAT平台</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://www.mooctest.net/login2"><span> 慕测平台</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://i.chaoxing.com/base?t=1604882532908"><span> 泛雅超星</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://tsg.bzu.edu.cn/"><span> BZU图书馆</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://192.168.200.123/"><span> BZU上网认证</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://pay.bzu.edu.cn/xysf/login.aspx?local=zh-cn"><span> BZU支付平台</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://172.16.16.4/login?errorCode=badCredentials"><span> BZU教务系统</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://mail.bzu.edu.cn/"><span> BZU邮件系统</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw iconfont icon-lianjie1"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw iconfont icon-xinbaniconshangchuan-1"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw iconfont icon-liuyanban-05"></i><span> 留言板</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="page-site-info"><h1 id="site-title">第三章 处理机调度与死锁</h1></div></header><main class="layout" id="content-inner"><div id="page"><div id="article-container"><h2 id="第三章-处理机调度与死锁"><a class="markdownIt-Anchor" href="#第三章-处理机调度与死锁"></a> 第三章 处理机调度与死锁</h2>
+<ul>
+<li>
+<p>【目的要求】</p>
+<ol>
+<li>[掌握]进程调度和常见的调度算法；</li>
+<li>[熟悉]死锁的概念和产生的必要条件；</li>
+<li>[掌握]死锁的预防和避免方法；</li>
+<li>[了解]死锁的检测及恢复。</li>
+</ol>
+</li>
+<li>
+<p>【重点与难点】</p>
+<ul>
+<li>常见的进程调度算法</li>
+<li>死锁的原因和必要条件</li>
+<li>银行家算法</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2 id="31-处理机调度的层次和调度算法的目标"><a class="markdownIt-Anchor" href="#31-处理机调度的层次和调度算法的目标"></a> 3.1 处理机调度的层次和调度算法的目标</h2>
+<h4 id="311-处理机调度的层次"><a class="markdownIt-Anchor" href="#311-处理机调度的层次"></a> 3.1.1 处理机调度的层次</h4>
+<ol>
+<li>高级调度</li>
+<li>低级调度</li>
+<li>中级调度(Intermediate-Level Scheduling)</li>
+</ol>
+<h4 id="312-处理机调度算法的目标"><a class="markdownIt-Anchor" href="#312-处理机调度算法的目标"></a> 3.1.2 处理机调度算法的目标</h4>
+<ol>
+<li>处理机调度算法的共同目标
+<ul>
+<li>资源利用率:  CPU的利用率 = $ \frac{CPU有效工作时间}{CPU有效工作时间+CPU空闲等待时间} $</li>
+<li>公平性：应使诸进程都获得合理的CPU时间。</li>
+<li>平衡性：兼顾计算型作业和I/O型作业。</li>
+<li>策略强制执行</li>
+</ul>
+</li>
+<li>批处理系统的目标
+<ul>
+<li>平均周转时间短
+<ul>
+<li>可把平均周转时间描述为： $ T = \frac{1}{n}  [\displaystyle \sum^i_{i=1}T_i] $</li>
+<li>作业的周转时间T与系统为它提供服务的时间TS之比，即$ W = \frac{T}{TS} $，称为带权周转时间</li>
+<li>平均带权周转时间则可表示为: $ T = \frac{1}{n}  [\displaystyle \sum^n_{i=1}\frac{T_i}{T_{si}}] $</li>
+</ul>
+</li>
+<li>系统吞吐量高
+<ul>
+<li>吞吐量是指在单位时间内系统所完成的作业数。为了获得高的系统吞吐量，就应该尽量多地选择短作业运行。</li>
+</ul>
+</li>
+<li>处理机利用率高
+<ul>
+<li>如果单纯是为了使处理机利用率高，应尽量多地选择计算量大的作业运行。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>分时系统的目标
+<ul>
+<li>响应时间快
+<ul>
+<li>从键盘输入的请求信息传送到处理机的时间；</li>
+<li>处理机对请求信息进行处理的时间；</li>
+<li>将所形成的响应信息回送到终端显示器的时间。</li>
+</ul>
+</li>
+<li>均衡性</li>
+</ul>
+</li>
+<li>实时系统的目标
+<ul>
+<li>截止时间的保证</li>
+<li>可预测性</li>
+</ul>
+</li>
+</ol>
+<h2 id="32-作业与作业调度"><a class="markdownIt-Anchor" href="#32-作业与作业调度"></a> 3.2 作业与作业调度</h2>
+<h4 id="321-批处理系统中的作业"><a class="markdownIt-Anchor" href="#321-批处理系统中的作业"></a> 3.2.1 批处理系统中的作业</h4>
+<ol>
+<li>作业和作业步
+<ul>
+<li>作业：包含程序、数据和作业说明书</li>
+<li>作业步：作业中每一个相对独立，又相互关联的顺序加工步骤。例如：编译→链接→运行</li>
+</ul>
+</li>
+<li>作业控制块JCB(Job Control Block）</li>
+<li>作业运行的三个阶段和三种状态
+<ul>
+<li>三个阶段：收容、运行和完成</li>
+<li>三种状态：后备、运行和完成</li>
+</ul>
+</li>
+</ol>
+<h4 id="322-作业调度的主要任务"><a class="markdownIt-Anchor" href="#322-作业调度的主要任务"></a> 3.2.2 作业调度的主要任务</h4>
+<h4 id="323-先来先服务fcfs和短作业优先sjf调度算法"><a class="markdownIt-Anchor" href="#323-先来先服务fcfs和短作业优先sjf调度算法"></a> 3.2.3 先来先服务(FCFS)和短作业优先(SJF）调度算法</h4>
+<ol>
+<li>先来先服务调度算法 FCFS
+<ul>
+<li>周转时间</li>
+</ul>
+ <div class="note danger simple"><p>周转时间=完成时间-到达时间</p>
+</div>
+<ul>
+<li>说明：采用该算法时，系统按照作业到达的先后次序来进行调度。该算法既可以用于作业调度，也可以用于进程调度。一般与其它算法结合使用。</li>
+<li>优缺点：对长作业有利，对短作业不利。</li>
+<li><img src="https://cdn.jsdelivr.net/gh/Nightliuguoxing/Pic@main/image/os/1619513214051-OS3231.jpg" alt="FCFS" /></li>
+</ul>
+</li>
+<li>短作业优先调度算法 SJF
+<ul>
+<li><img src="https://cdn.jsdelivr.net/gh/Nightliuguoxing/Pic@main/image/os/1619513217519-OS3232.jpg" alt="FCFS vs SJF" /></li>
+<li>必须预知作业的运行时间,不一定能真正做到短作业优先调度</li>
+<li>该算法对长作业不利</li>
+<li>在采用SJF算法时，人机无法实现交互</li>
+<li>该算法完全未考虑作业的紧迫程度，因而不能保证紧迫性作业(进程)会被及时处理</li>
+</ul>
+</li>
+</ol>
+<h4 id="324-优先级调度算法和高响应比优先调度算法"><a class="markdownIt-Anchor" href="#324-优先级调度算法和高响应比优先调度算法"></a> 3.2.4 优先级调度算法和高响应比优先调度算法</h4>
+<ol>
+<li>优先级调度算法</li>
+<li>高响应比优先调度算法 HRRN
+<ul>
+<li>优先权 = $ \frac{等待时间+服务时间}{服务时间} $ = $ \frac{响应时间}{服务时间} $</li>
+<li>优点: 实现了FCFS算法和SJF算法的折中</li>
+<li>缺点: 由于采用了动态优先级，每次调度前都要先计算相应比，增加了系统开销</li>
+</ul>
+</li>
+</ol>
+<h2 id="33-进程调度"><a class="markdownIt-Anchor" href="#33-进程调度"></a> 3.3 进程调度</h2>
+<h4 id="331-进程调度的任务-机制和方式"><a class="markdownIt-Anchor" href="#331-进程调度的任务-机制和方式"></a> 3.3.1 进程调度的任务、机制和方式</h4>
+<ol>
+<li>进程调度的任务
+<ul>
+<li>保存处理机的现场信息</li>
+<li>按某种算法选取进程</li>
+<li>把处理机分配给进程</li>
+</ul>
+</li>
+<li>进程调度机制
+<ul>
+<li>排队器：将变为就绪状态的进程插入相应的就绪队列。</li>
+<li>分派器（分派程序）：将进程调度程序选定的进程从就绪队列中移出，然后进行从分派器到新选进程的上下文切换，将处理机分给新选进程。</li>
+<li>上下文切换器：每次调度发生两对上下文切换。</li>
+</ul>
+</li>
+<li>进程调度方式
+<ul>
+<li>非抢占方式(Non-preemptive Mode)</li>
+<li>抢占方式(Preemptive Mode)
+<ul>
+<li>优先权原则。</li>
+<li>短进程优先原则。</li>
+<li>时间片原则。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="332-轮转rr调度算法"><a class="markdownIt-Anchor" href="#332-轮转rr调度算法"></a> 3.3.2 轮转（RR）调度算法</h4>
+<ol>
+<li>时间片轮转法的基本原理</li>
+<li>进程切换时机
+<ul>
+<li>若一个时间片尚未用完，正在运行的进程便已完成，就立即激活调度程序，再调度就绪队列中队首的进程运行，并启动一个新的时间片。</li>
+<li>在一个时间片用完时，计时器中断处理程序被激活。如果进程尚未运行完毕，调度程序将把它送往就绪队列的末尾。</li>
+</ul>
+</li>
+<li>时间片大小的确定</li>
+</ol>
+<h4 id="333-优先级调度算法"><a class="markdownIt-Anchor" href="#333-优先级调度算法"></a> 3.3.3 优先级调度算法</h4>
+<ol>
+<li>
+<p>优先级调度算法的类型</p>
+<ul>
+<li>非抢占式优先权算法
+<ul>
+<li>这种调度算法主要用于批处理系统中</li>
+<li>也可用于某些对实时性要求不严的实时系统中</li>
+</ul>
+</li>
+<li>抢占式优先权调度算法</li>
+</ul>
+</li>
+<li>
+<p>优先级的类型</p>
+<ul>
+<li>静态优先级: 静态优先权是在创建进程时确定的，且在进程的整个运行期间保持不变。
+<ul>
+<li>确定进程优先权的依据有如下三个方面：
+<ul>
+<li>进程类型。</li>
+<li>进程对资源的需求。</li>
+<li>用户要求。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>动态优先级: 动态优先权是指，在创建进程时所赋予的优先权，是可以随进程的推进或随其等待时间的增加而改变的，以便获得更好的调度性能</li>
+</ul>
+</li>
+</ol>
+<h4 id="334-多队列调度算法"><a class="markdownIt-Anchor" href="#334-多队列调度算法"></a> 3.3.4 多队列调度算法</h4>
+<h4 id="335-多级反馈队列调度算法"><a class="markdownIt-Anchor" href="#335-多级反馈队列调度算法"></a> 3.3.5 多级反馈队列调度算法</h4>
+<ol>
+<li>调度机制
+<ul>
+<li><img src="https://cdn.jsdelivr.net/gh/Nightliuguoxing/Pic@main/image/os/1619513496361-OS3352.jpg" alt="多级反馈队列调度算法" /></li>
+</ul>
+</li>
+<li>多级反馈队列调度算法的性能
+<ul>
+<li>终端型作业用户。</li>
+<li>短批处理作业用户。</li>
+<li>长批处理作业用户。</li>
+</ul>
+</li>
+</ol>
+<h4 id="336-基于公平原则的调度算法"><a class="markdownIt-Anchor" href="#336-基于公平原则的调度算法"></a> 3.3.6  基于公平原则的调度算法</h4>
+<ol>
+<li>保证调度算法</li>
+<li>公平分享调度算法</li>
+</ol>
+<div class="note default simple"><p>思考与练习：假设一个系统中有5个进程，它们的到达时间和服务时间如下表所示</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">进程</th>
+<th style="text-align:center">到达时间</th>
+<th style="text-align:center">服务时间</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">A</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">3</td>
+</tr>
+<tr>
+<td style="text-align:center">B</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">6</td>
+</tr>
+<tr>
+<td style="text-align:center">C</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">4</td>
+</tr>
+<tr>
+<td style="text-align:center">D</td>
+<td style="text-align:center">6</td>
+<td style="text-align:center">5</td>
+</tr>
+<tr>
+<td style="text-align:center">E</td>
+<td style="text-align:center">8</td>
+<td style="text-align:center">2</td>
+</tr>
+</tbody>
+</table>
+<p>忽略I/O以及其它开销时间，若分别按</p>
+<ul>
+<li>先来先服务（FCFS）</li>
+<li>非抢占及抢占的短进程优先（SPF）</li>
+<li>高响应比优先（HRRN）</li>
+<li>时间片轮转（RR，时间片=1）</li>
+<li>多级反馈队列（FB，第i级队列的时间片=2i-1）调度算法进行CPU调度。<br />
+请给出各进程的<code>完成时间</code>、<code>周转时间</code>、<code>带权周转时间</code>、<code>平均周转时间</code>和<code>平均带权周转时间</code>。</li>
+</ul>
+</div>
+<h2 id="34-实时调度"><a class="markdownIt-Anchor" href="#34-实时调度"></a> 3.4 实时调度</h2>
+<h4 id="341-实现实时调度的基本条件"><a class="markdownIt-Anchor" href="#341-实现实时调度的基本条件"></a> 3.4.1 实现实时调度的基本条件</h4>
+<ol>
+<li>提供必要的信息
+<ul>
+<li>就绪时间</li>
+<li>开始截止时间和完成截止时间</li>
+<li>处理时间</li>
+<li>资源要求</li>
+<li>优先级</li>
+</ul>
+</li>
+<li>系统处理能力强</li>
+<li>采用抢占式调度机制</li>
+<li>具有快速切换机制
+<ul>
+<li>对外部中断的快速响应能力</li>
+<li>快速的任务分派能力</li>
+</ul>
+</li>
+</ol>
+<h4 id="342-实时调度算法的分类"><a class="markdownIt-Anchor" href="#342-实时调度算法的分类"></a> 3.4.2 实时调度算法的分类</h4>
+<ol>
+<li>非抢占式调度算法
+<ul>
+<li>非抢占式轮转调度算法</li>
+<li>非抢占式优先调度算法</li>
+</ul>
+</li>
+<li>抢占式调度算法
+<ul>
+<li>基于时钟中断的抢占式优先权调度算法</li>
+<li>立即抢占(Immediate Preemption)的优先权调度算法</li>
+</ul>
+</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/Nightliuguoxing/Pic@main/image/os/1619513426393-OS3422.jpg" alt="实时进程调度" /></p>
+<h4 id="343-最早截止时间优先即edfearliest-deadline-first算法"><a class="markdownIt-Anchor" href="#343-最早截止时间优先即edfearliest-deadline-first算法"></a> 3.4.3 最早截止时间优先即EDF(Earliest Deadline First)算法</h4>
+<ol>
+<li>非抢占式调度方式用于非周期性实时任务
+<ul>
+<li><img src="https://cdn.jsdelivr.net/gh/Nightliuguoxing/Pic@main/image/os/1619513649377-OS3431.jpg" alt="EDF算法用于非抢占调度方式" /></li>
+</ul>
+</li>
+<li>抢占式调度方式用于周期性实时任务</li>
+</ol>
+<div class="note default simple"><p>例1: 在一个实时系统中，有两个周期性实时任务A和B，<br />
+任务A要求每20ms执行一次，执行时间为10ms；<br />
+任务B只要求每50ms执行一次，执行时间为 25 ms。</p>
+</div>
+<h4 id="344-最低松弛度优先llfleast-laxity-first算法"><a class="markdownIt-Anchor" href="#344-最低松弛度优先llfleast-laxity-first算法"></a> 3.4.4 最低松弛度优先LLF(Least Laxity First)算法</h4>
+<p><img src="https://cdn.jsdelivr.net/gh/Nightliuguoxing/Pic@main/image/os/1619513738495-OS3440.jpg" alt="利用LLF算法进行调度的情况" /></p>
+<h4 id="345-优先级倒置priority-inversion-problem"><a class="markdownIt-Anchor" href="#345-优先级倒置priority-inversion-problem"></a> 3.4.5 优先级倒置(priority inversion problem)</h4>
+<ol>
+<li>优先级倒置的形成</li>
+<li>优先级倒置的解决方法</li>
+</ol>
+<div class="note default simple"><p>有3个周期性任务：</p>
+<ul>
+<li>任务A要求每20ms执行一次，执行时间为10ms</li>
+<li>任务B要求每50ms执行一次，执行时间为10ms</li>
+<li>任务C要求每50ms执行一次，执行时间为15ms<br />
+应如何按最低松弛度优先算法对它们进行CPU调度？</li>
+</ul>
+</div>
+<h2 id="35-死锁概述"><a class="markdownIt-Anchor" href="#35-死锁概述"></a> 3.5 死锁概述</h2>
+<h4 id="351-资源问题"><a class="markdownIt-Anchor" href="#351-资源问题"></a> 3.5.1  资源问题</h4>
+<ol>
+<li>
+<p>可重用资源和消耗性资源</p>
+<ul>
+<li>可重用性资源: 是一种可供用户重复使用多次的资源
+<ul>
+<li>每一个可重用性资源中的单元只能分配给一个进程使用，不允许多个进程共享。</li>
+<li>进程在使用可重用性资源时，须按照这样的顺序： ①请求资源。如果请求资源失败，请求进程将会被阻塞或循环等待。②使用资源。进程对资源进行操作，如用打印机进行打印； ③释放资源。当进程使用完后自己释放资源。</li>
+<li>系统中每一类可重用性资源中的单元数目是相对固定的，进程在运行期间既不能创建也不能删除它。</li>
+</ul>
+</li>
+<li>临时性资源（可消耗性资源）:是指由一个进程产生，被另一个进程使用一短暂时间后便无用的资源，故也称之为消耗性资源（如进程通信中的消息），它也可能引起死锁
+<ul>
+<li>每一类可消耗性资源的单元数目在进程运行期间是可以不断变化的，有时它可以有许多，有时可能为0；</li>
+<li>进程在运行过程中，可以不断地创造可消耗性资源的单元，将它们放入该资源类的缓冲区中，以增加该资源类的单元数目。</li>
+<li>进程在运行过程中，可以请求若干个可消耗性资源单元，用于进程自己的消耗，不再将它们返回给该资源类中。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>可抢占性资源和不可抢占性资源（可剥夺和非剥夺性资源）</p>
+<ul>
+<li>可抢占性资源：是指某进程在获得这类资源后，该资源可以再被其他进程或系统剥夺，如CPU、内存。对这类资源的使用不会引起死锁。</li>
+<li>不可抢占性资源：当系统把这类资源分配给某进程后，再不能强行收回，只能在进程用完后自行释放，如刻录机、磁带机、打印机等。</li>
+</ul>
+</li>
+</ol>
+<h4 id="352-计算机系统中的死锁"><a class="markdownIt-Anchor" href="#352-计算机系统中的死锁"></a> 3.5.2 计算机系统中的死锁</h4>
+<ol>
+<li>竞争不可抢占性资源引起死锁</li>
+<li>竞争可消耗性资源引起死锁
+<ul>
+<li><img src="https://cdn.jsdelivr.net/gh/Nightliuguoxing/Pic@main/image/os/1619513822963-OS3522.jpg" alt="进程之间通信时的死锁" /></li>
+</ul>
+</li>
+<li>进程推进顺序不当引起死锁
+<ul>
+<li>进程推进顺序合法</li>
+<li>进程推进顺序非法</li>
+</ul>
+</li>
+</ol>
+<h4 id="353-死锁的定义-必要条件和处理方法"><a class="markdownIt-Anchor" href="#353-死锁的定义-必要条件和处理方法"></a> 3.5.3 死锁的定义、必要条件和处理方法</h4>
+<ol>
+<li>死锁的定义
+<ul>
+<li>死锁的定义1：是指多个进程在运行过程中因竞争资源而造成的一种僵局。当进程处于这种僵持状态时，若无外力作用，它们都将无法再向前推进。</li>
+<li>死锁的定义2：如果一组进程中的每一个进程都在等待仅由该组进程中的其它进程才能引发的事件，那么该组进程是死锁的（Deadlock）。</li>
+</ul>
+</li>
+<li>产生死锁的必要条件
+<ul>
+<li>互斥条件: 进程访问的是临界资源，即在一段时间内某资源仅为一个进程占有。</li>
+<li>请求和保持条件: 当一个进程因请求资源而被阻塞时，对已经获得的资源保持不放。</li>
+<li>不可抢占条件:进程已经获得的资源，在未使用完之前，不能被其它进程剥夺，只能自己在使用完时由自己释放。</li>
+<li>循环等待条件:在发生死锁时，必然存在一个进程-资源的环形链，即若干进程之间形成一种头尾相连的循环等待资源的关系。</li>
+</ul>
+</li>
+<li>处理死锁的方法
+<ul>
+<li>预防死锁:通过设置某些限制条件，去破坏产生死锁的四个必要条件中的一个或几个条件，来预防发生死锁。</li>
+<li>避免死锁:不事先采取各种限制措施去破坏产生死锁的四个必要条件，而是在资源的动态分配过程中，用某种方法去防止系统进入不安全状态，从而避免发生死锁。</li>
+<li>检测死锁: 不事先采取任何限制性措施，也不必检查系统是否已经进入不安全区，而是允许系统在运行过程中发生死锁。但可通过系统设置的检查机构，及时地检测出死锁的发生，并精确地确定与死锁有关的进程和资源。然后，采取适当措施，从系统中将已发生的死锁清除掉。</li>
+<li>解除死锁: 这是与检测死锁相配套的一种措施。常用的实施方法是撤销或挂起一些进程，以便回收一些资源，再将这些资源分配给已处于阻塞状态的进程，使之转为就绪状态，以继续运行。</li>
+</ul>
+</li>
+</ol>
+<div class="note default simple"><p>例1: 考虑n个进程共享的、具有m个同类资源的系统。<br />
+证明：如果对于I=1，2，…，n有Need&gt;0而且所有的最大需求量之和小于m+n，那么该系统是死锁无关的。</p>
+</div>
+<div class="note default simple"><p>例2: 设系统中仅有一类独占资源，进程一次只能申请一个资源，系统中多个进程竞争该类资源。试判断下述哪些情况会发生死锁，为什么？</p>
+<ul>
+<li>资源数为4，进程数为3，每个进程最多需要2个资源。</li>
+<li>资源数为6，进程数为2，每个进程最多需要4个资源。</li>
+<li>资源数为8，进程数为3，每个进程最多需要3个资源。</li>
+<li>资源数为20，进程数为8，每个进程最多需要2个资源。</li>
+</ul>
+</div>
+<h2 id="36-预防死锁"><a class="markdownIt-Anchor" href="#36-预防死锁"></a> 3.6 预防死锁</h2>
+<h4 id="361-破坏请求和保持条件"><a class="markdownIt-Anchor" href="#361-破坏请求和保持条件"></a> 3.6.1 破坏“请求和保持”条件</h4>
+<ol>
+<li>第一种协议：一次性申请
+<ul>
+<li>缺点：
+<ul>
+<li>资源被严重浪费</li>
+<li>使进程延迟运行</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>第二种协议：
+<ul>
+<li>方法：它允许一个进程只获得运行初期所需的资源后，便开始运行。进程运行过程中再逐步释放已分配给自己的、且已用毕的全部资源，然后再请求新的所需资源。</li>
+<li>优点：能使进程更快地完成任务，提高设备的利用率，还可减少进程发生饥饿的机率。</li>
+</ul>
+</li>
+</ol>
+<h4 id="362-破坏不可抢占条件"><a class="markdownIt-Anchor" href="#362-破坏不可抢占条件"></a> 3.6.2 破坏“不可抢占”条件</h4>
+<ul>
+<li>方法：逐个申请；提出新的资源请求得不到满足时必须释放已保持的所有资源，以后需要时再重新申请。</li>
+<li>缺点：实现起来比较复杂且要付出很大的代价，还可能因为反复地申请和释放资源致使进程的执行被无限地推迟。</li>
+</ul>
+<h4 id="363-破坏循环等待条件"><a class="markdownIt-Anchor" href="#363-破坏循环等待条件"></a> 3.6.3 破坏“循环等待”条件</h4>
+<ul>
+<li>方法：系统将所有资源按类型进行线性排队，并赋予不同的序号。所有进程对资源的请求必须严格按照资源序号递增的次序提出。</li>
+<li>缺点：
+<ul>
+<li>因为系统中各类资源的序号必须相对稳定，所以限制了新类型设备的增加；</li>
+<li>作业使用各类资源的顺序可能与系统规定的顺序不同，因而造成对资源的浪费；</li>
+<li>按规定次序申请的方法，限制了用户简单、自主地编程。</li>
+</ul>
+</li>
+</ul>
+<h2 id="37-避免死锁"><a class="markdownIt-Anchor" href="#37-避免死锁"></a> 3.7 避免死锁</h2>
+<h4 id="371-系统安全状态"><a class="markdownIt-Anchor" href="#371-系统安全状态"></a> 3.7.1 系统安全状态</h4>
+<ol>
+<li>安全状态</li>
+<li>安全状态之例 <div class="note default simple"><p>假定系统中有三个进程P1、P2和P3，共有12台磁带机。进程P1总共要求10台磁带机，P2和P3分别要求4台和9台。假设在T0时刻，进程P1、P2和P3已分别获得5台、2台和2台磁带机，尚有3台空闲未分配。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">进程</th>
+<th style="text-align:center">最大需求</th>
+<th style="text-align:center">已分配</th>
+<th style="text-align:center">可用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">P1</td>
+<td style="text-align:center">10</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">P2</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">P3</td>
+<td style="text-align:center">9</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li>由安全状态向不安全状态的转换</li>
+</ol>
+<h2 id="372-利用银行家算法避免死锁"><a class="markdownIt-Anchor" href="#372-利用银行家算法避免死锁"></a> 3.7.2 利用银行家算法避免死锁</h2>
+<ol>
+<li>银行家算法中的数据结构
+<ul>
+<li>可利用资源向量<code>Available</code></li>
+<li>最大需求矩阵<code>Max</code></li>
+<li>分配矩阵<code>Allocation</code></li>
+<li>需求矩阵<code>Need</code></li>
+</ul>
+</li>
+<li>银行家算法
+<ul>
+<li>设Requesti是进程Pi的请求向量，如果Requesti［j］=K，表示进程Pi需要K个Rj类型的资源。当Pi发出资源请求后，系统按下述步骤进行检查：</li>
+</ul>
+<ol>
+<li>如果Requesti［j］≤Need［i,j］，便转向步骤2；否则认为出错，因为它所需要的资源数已超过它所宣布的最大值。</li>
+<li>如果Requesti［j］≤Available［j］，便转向步骤(3)；否则， 表示尚无足够资源，Pi须等待。</li>
+<li>系统试探着把资源分配给进程Pi，并修改下面数据结构中的数值：
+<ul>
+<li>Available［j］=Available［j］-Requesti［j］;</li>
+<li>Allocation［i,j］=Allocation［i,j］+Requesti［j］;</li>
+<li>Need［i,j］=Need［i,j］-Requesti［j］;</li>
+</ul>
+</li>
+<li>系统执行安全性算法，检查此次资源分配后，系统是否处于安全状态。若安全，才正式将资源分配给进程Pi，以完成本次分配；否则，将本次的试探分配作废，恢复原来的资源分配状态，让进程Pi等待。</li>
+</ol>
+</li>
+<li>安全性算法
+<ol>
+<li>设置两个向量：
+<ul>
+<li>工作向量Work：它表示系统可提供给进程继续运行所需的各类资源数目，它含有m个元素，在执行安全性算法开始时，Work=Available;</li>
+<li>Finish：它表示系统是否有足够的资源分配给进程，使之运行完成。开始时先做Finish[i]=false; 当有足够资源分配给进程时，再令Finish[i]=true。</li>
+</ul>
+</li>
+<li>从进程集合中找到一个能满足下述条件的进程：
+<ul>
+<li>Finish［i］=false;</li>
+<li>Need［i,j］≤Work［j］；</li>
+<li>若找到， 执行步骤(3)， 否则，执行步骤(4)。</li>
+</ul>
+</li>
+<li>当进程Pi获得资源后，可顺利执行，直至完成，并释放出分配给它的资源，故应执行：<br />
+Work［j］=Work［i］+Allocation［i,j］;<br />
+Finish［i］=true;<br />
+go to step 2;</li>
+<li>如果所有进程的Finish［i］=true都满足，则表示系统处于安全状态；否则，系统处于不安全状态。</li>
+</ol>
+</li>
+<li>银行家算法之例 <div class="note default simple"><p>假定系统中有五个进程｛P0, P1, P2, P3, P4｝和三类资源｛A, B, C｝，各种资源的数量分别为10、5、7，在T0时刻的资源分配情况如图 3-16所示。<br />
+<img src="https://cdn.jsdelivr.net/gh/Nightliuguoxing/Pic@main/image/os/1619513889685-OS3724.jpg" alt="" /></p>
+</div>
+</li>
+</ol>
+<h2 id="38-死锁的检测与解除"><a class="markdownIt-Anchor" href="#38-死锁的检测与解除"></a> 3.8 死锁的检测与解除</h2>
+<h4 id="381-死锁的检测"><a class="markdownIt-Anchor" href="#381-死锁的检测"></a> 3.8.1 死锁的检测</h4>
+<ul>
+<li>当系统为进程分配资源时，若未采取任何限制性措施，则系统必须提供检测和解除死锁的手段，为此，系统必须做到：
+<ul>
+<li>保存有关资源的请求和分配信息；</li>
+<li>提供一种算法，利用这些信息来检测系统是否已进入死锁状态。</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>资源分配图(Resource Allocation Graph)</li>
+<li>死锁定理
+<ul>
+<li><img src="https://cdn.jsdelivr.net/gh/Nightliuguoxing/Pic@main/image/os/1619513972118-OS3812.jpg" alt="资源分配图的简化" /></li>
+</ul>
+</li>
+<li>死锁检测中的数据结构
+<ul>
+<li>工作向量Work：它表示系统可提供给进程继续运行所需的各类资源数目，初始时Work=Available。</li>
+<li>把不占用资源的进程Li (向量Allocation=0并且Requesti=0)记入L表中， 即L=Li∪L。</li>
+<li>从进程集合中找到一个Requesti≤Work的进程，做如下处理：① 将其资源分配图简化，释放出资源，增加工作向量Work=Work+Allocationi。 ② 将它记入L表中。</li>
+<li>若不能把所有进程都记入L表中，便表明系统状态S的资源分配图是不可完全简化的。因此，该系统状态将发生死锁。</li>
+</ul>
+</li>
+</ol>
+<h4 id="382-死锁的解除"><a class="markdownIt-Anchor" href="#382-死锁的解除"></a> 3.8.2 死锁的解除</h4>
+<ul>
+<li>当发现有死锁时，便立即把它们从死锁状态中解脱出来。常采用解除死锁的方法是：
+<ul>
+<li>抢占资源。从一个或多个进程中抢占足够数量的资源，分配给死锁进程，以解除死锁状态。</li>
+<li>终止（或撤消）进程：全部终止（或撤销）或按某种顺序终止（或撤销）死锁进程，打破循环环路，使系统从死锁状态解脱出来。</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>终止进程的方法
+<ul>
+<li>逐个终止进程时，选择被终止进程时应考虑的因素有：
+<ul>
+<li>进程的优先级大小；</li>
+<li>进程已执行了多少时间，还需要多少时间方能完成；</li>
+<li>进程在运行中已经使用资源的多少，以后还需要多少资源？</li>
+<li>进程的性质是交互式的还是批处理式的？</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>付出代价最小的死锁解除算法
+<ul>
+<li>解除死锁时，可使撤销的进程数目最少，也可以选择撤销进程所付出的代价最小。为把系统从死锁状态中解脱出来，所花费的代价可表示为：</li>
+<li>R(S)min=min{Cui}+min{Cuj}+min{Cuk}+…</li>
+</ul>
+</li>
+</ol>
+<div class="note default simple"><p>练习: 某系统T0时刻的资源分配情况如下所示</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">Allocation</th>
+<th style="text-align:center">Need</th>
+<th style="text-align:center">Avaliable</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">A</td>
+<td style="text-align:center">3 1 1</td>
+<td style="text-align:center">1 0 0</td>
+<td style="text-align:center">1 2 0</td>
+</tr>
+<tr>
+<td style="text-align:center">B</td>
+<td style="text-align:center">0 0 0</td>
+<td style="text-align:center">0 1 2</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">C</td>
+<td style="text-align:center">1 1 0</td>
+<td style="text-align:center">3 0 0</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">D</td>
+<td style="text-align:center">1 0 1</td>
+<td style="text-align:center">0 1 0</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">E</td>
+<td style="text-align:center">0 0 0</td>
+<td style="text-align:center">2 1 0</td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+<p>试问：</p>
+<ul>
+<li>该状态是否安全？</li>
+<li>若进程B提出请求RequestB(0,1,0)，系统能否将资源分配给它？</li>
+</ul>
+</div>
+<h2 id="强化一-作业调度算法"><a class="markdownIt-Anchor" href="#强化一-作业调度算法"></a> 强化一: 作业调度算法</h2>
+<div class="note default simple"><p>例1: 先来先服务调度算法<br />
+<img src="https://cdn.jsdelivr.net/gh/Nightliuguoxing/Pic@main/image/os/1619514090284-OS3EG1.jpg" alt="先来先服务调度算法" /></p>
+<ul>
+<li>说明：采用该算法时，系统按照作业到达的先后次序来进行调度。该算法既可以用于作业调度，也可以用于进程调度。一般与其它算法结合使用。</li>
+<li>优缺点：对长作业有利，对短作业不利。</li>
+</ul>
+</div>
+<div class="note default simple"><p>例2: 短作业(进程)优先调度算法<br />
+<img src="https://cdn.jsdelivr.net/gh/Nightliuguoxing/Pic@main/image/os/1619514167848-OS3EG2.jpg" alt="短作业(进程)优先调度算法" /><br />
+周转时间=完成时间-到达时间<br />
+带权周转时间=周转时间/服务时间</p>
+</div>
+<div class="note default simple"><p>例3: 单道批处理系统中有4个进程，其有关情况如下表所示，采用响应比高者优先调度算法时，计算其平均周转时间和平均带权周转时间。（请写出计算过程）</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">进程名</th>
+<th style="text-align:center">提交时间</th>
+<th style="text-align:center">运行时间</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">P1</td>
+<td style="text-align:center">8.0</td>
+<td style="text-align:center">2.0</td>
+</tr>
+<tr>
+<td style="text-align:center">P2</td>
+<td style="text-align:center">8.6</td>
+<td style="text-align:center">0.6</td>
+</tr>
+<tr>
+<td style="text-align:center">P3</td>
+<td style="text-align:center">8.8</td>
+<td style="text-align:center">0.2</td>
+</tr>
+<tr>
+<td style="text-align:center">P4</td>
+<td style="text-align:center">9.0</td>
+<td style="text-align:center">0.5</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="note default simple"><p>例4: 有一个具有两道作业的批处理系统，作业调度采用短作业优先的调度算法，进程调度采用以优先数为基础的抢占式调度算法。在下表所示的作业序列，作业优先数即为进程优先数，优先数越小优先级越高。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">作业号</th>
+<th style="text-align:center">到达时间</th>
+<th style="text-align:center">估计运行时间（分钟）</th>
+<th style="text-align:center">优先数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">A</td>
+<td style="text-align:center">10</td>
+<td style="text-align:center">40</td>
+<td style="text-align:center">5</td>
+</tr>
+<tr>
+<td style="text-align:center">B</td>
+<td style="text-align:center">10:20</td>
+<td style="text-align:center">30</td>
+<td style="text-align:center">3</td>
+</tr>
+<tr>
+<td style="text-align:center">C</td>
+<td style="text-align:center">10:30</td>
+<td style="text-align:center">50</td>
+<td style="text-align:center">4</td>
+</tr>
+<tr>
+<td style="text-align:center">D</td>
+<td style="text-align:center">10:50</td>
+<td style="text-align:center">20</td>
+<td style="text-align:center">6</td>
+</tr>
+</tbody>
+</table>
+<p>要求：</p>
+<ul>
+<li>列出所有作业进入内存时间及结束时间</li>
+<li>计算平均周转时间(以分钟计算)</li>
+</ul>
+</div>
+<div class="note default simple"><p>例5: 在一个单道批处理系统中，一组作业的提交时刻和运行时间如下表所示：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">作业名</th>
+<th style="text-align:center">提交时间/h</th>
+<th style="text-align:center">运行时间/h</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">J1</td>
+<td style="text-align:center">8.0</td>
+<td style="text-align:center">1.0</td>
+</tr>
+<tr>
+<td style="text-align:center">J2</td>
+<td style="text-align:center">8.5</td>
+<td style="text-align:center">0.5</td>
+</tr>
+<tr>
+<td style="text-align:center">J3</td>
+<td style="text-align:center">9.0</td>
+<td style="text-align:center">0.2</td>
+</tr>
+<tr>
+<td style="text-align:center">J4</td>
+<td style="text-align:center">9.1</td>
+<td style="text-align:center">0.1</td>
+</tr>
+</tbody>
+</table>
+<p>试计算下列三种作业调度算法的平均周转时间T和带权周转时间W。</p>
+<ul>
+<li>先来先服务</li>
+<li>短作业优先</li>
+<li>响应比高者优先</li>
+</ul>
+</div>
+<div class="note danger simple"><p>例6: 我们如果为一个作业只建立一个进程，则为了照顾短作业用户，应采用（A）；为照顾紧急作业用户应采用（B）；为能实现人机交互作用应采用（C）；为了兼顾短作业和长时间等待的作业应采用（D）； 为了使短作业、长作业及交互作业用户都比较满意应采用（E）；为了使作业的平均周转时间短应采用（F）算法。<br />
+A，B，C, D, E, F：<br />
+（1）FCFS调度算法；<br />
+（2）短作业优先；<br />
+（3）时间片轮转法；<br />
+（4）多级反馈队列调度算法；<br />
+（5）基于优先权的剥夺调度算法；<br />
+（6）高响应比优先<br />
+答：<br />
+A:（2）短作业优先；<br />
+B:（5）基于优先权的剥夺调度算法；<br />
+C:（3）时间片轮转法；<br />
+D:（6）高响应比优先；<br />
+E:（4）多级反馈队列调度算法；<br />
+F:（2）短作业优先</p>
+</div>
+<h2 id="强化二-银行家算法"><a class="markdownIt-Anchor" href="#强化二-银行家算法"></a> 强化二: 银行家算法</h2>
+<div class="note default simple"><p>例1: 考虑n个进程共享的、具有m个同类资源的系统。证明：如果对于I=1,2,…,n有Need&gt;0而且所有的最大需求量之和小于m+n，那么该系统是死锁无关的。</p>
+</div>
+<div class="note default simple"><p>例2: 设系统中仅有一类独占资源，进程一次只能申请一个资源，系统中多个进程竞争该类资源。试判断下述哪些情况会发生死锁，为什么？</p>
+<ol>
+<li>资源数为4，进程数为3，每个进程最多需要2个资源。</li>
+<li>资源数为6，进程数为2，每个进程最多需要4个资源。</li>
+<li>资源数为8，进程数为3，每个进程最多需要3个资源。</li>
+<li>资源数为20，进程数为8，每个进程最多需要2个资源。</li>
+</ol>
+</div>
+<div class="note default simple"><p>例3: 某系统有R1、R2、R3共三种资源，在T0时刻，P1、P2、P3和P4这4个进程对资源的占有和需求情况见下表，此刻系统可用资源向量为（2，1，2）。</p>
+<ol>
+<li>将系统资源总数和此刻各进程对资源的需求数目用向量、矩阵表示出来。</li>
+<li>如果此时P1和P2均发出资源请求向量Request（1，0，1），为了保持系统安全性，应该如何分配资源给这两个进程？</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">进程名</th>
+<th style="text-align:center">最大资源需求量</th>
+<th style="text-align:center">已分配的资源数量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">P1</td>
+<td style="text-align:center">3 2 2</td>
+<td style="text-align:center">1 0 0</td>
+</tr>
+<tr>
+<td style="text-align:center">P2</td>
+<td style="text-align:center">6 1 3</td>
+<td style="text-align:center">4 1 1</td>
+</tr>
+<tr>
+<td style="text-align:center">P3</td>
+<td style="text-align:center">3 1 4</td>
+<td style="text-align:center">2 1 1</td>
+</tr>
+<tr>
+<td style="text-align:center">P4</td>
+<td style="text-align:center">4 2 2</td>
+<td style="text-align:center">0 0 2</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="note default simple"><p>例4: 在银行家算法中，系统的资源数量为（10，5，7）。经过一段时间的分配后，资源分配与占用情况见下表:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">资源进程</th>
+<th style="text-align:center">已分配资源<br />A  B  C</th>
+<th style="text-align:center">最大资源<br /> A  B  C</th>
+<th style="text-align:center">还需求资源<br />A  B  C</th>
+<th style="text-align:center">可用资源量<br />A  B  C</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">P0</td>
+<td style="text-align:center">0  1  0</td>
+<td style="text-align:center">7  5  3</td>
+<td style="text-align:center">7  4  3</td>
+<td style="text-align:center">2  3  0</td>
+</tr>
+<tr>
+<td style="text-align:center">P1</td>
+<td style="text-align:center">3  0  2</td>
+<td style="text-align:center">3  2  2</td>
+<td style="text-align:center">0  2  0</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">P2</td>
+<td style="text-align:center">3  0  2</td>
+<td style="text-align:center">9  0  2</td>
+<td style="text-align:center">6  0  0</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">P3</td>
+<td style="text-align:center">2  1  1</td>
+<td style="text-align:center">2  2  2</td>
+<td style="text-align:center">0  1  1</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">P4</td>
+<td style="text-align:center">0  0  2</td>
+<td style="text-align:center">4  3  3</td>
+<td style="text-align:center">4  3  1</td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>请分析该状态是否是安全的？</li>
+<li>若进程P0提出请求Request（0，1，0）后，系统能否将资源分配给它？</li>
+</ol>
+</div>
+<div class="note default simple"><p>例5: 某系统中有5个进程和4类资源，在T0时刻的资源分配情况如下表：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">资源进程</th>
+<th style="text-align:center">已分配资源<br />R1 R2 R3 R4</th>
+<th style="text-align:center">还需求资源<br />R1 R2 R3 R4</th>
+<th style="text-align:center">可用资源量<br />R1 R2 R3 R4</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">P0</td>
+<td style="text-align:center">0  0  3  2</td>
+<td style="text-align:center">0  0  1  2</td>
+<td style="text-align:center">1  6  2  2</td>
+</tr>
+<tr>
+<td style="text-align:center">P1</td>
+<td style="text-align:center">1  0  0  0</td>
+<td style="text-align:center">1  7  5  0</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">P2</td>
+<td style="text-align:center">1  3  5  4</td>
+<td style="text-align:center">2  3  5  6</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">P3</td>
+<td style="text-align:center">0  3  3  2</td>
+<td style="text-align:center">0  6  5  2</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">P4</td>
+<td style="text-align:center">0  0  1  4</td>
+<td style="text-align:center">0  6  5  6</td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>该时刻系统是否安全？请分析。</li>
+<li>如果进程P2提出请求（1, 2, 2, 2），系统能否将资源分配给它？</li>
+</ol>
+</div>
+</div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">Lucifer LGX</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">4</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">4</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Nightliuguoxing"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Nightliuguoxing" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:2050180797lgx@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">QQ 丨 2050180797</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/03/27/english/index/" title="英二"><img src="/img/cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="英二"/></a><div class="content"><a class="title" href="/2021/03/27/english/index/" title="英二">英二</a><time datetime="2021-03-26T16:00:00.000Z" title="发表于 2021-03-27 00:00:00">2021-03-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/03/27/maths/index/" title="数二"><img src="/img/cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="数二"/></a><div class="content"><a class="title" href="/2021/03/27/maths/index/" title="数二">数二</a><time datetime="2021-03-26T16:00:00.000Z" title="发表于 2021-03-27 00:00:00">2021-03-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/11/27/politics/index/" title="政治"><img src="https://lgxs.liuguoxing.top/cover/politics.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="政治"/></a><div class="content"><a class="title" href="/2020/11/27/politics/index/" title="政治">政治</a><time datetime="2020-11-26T16:00:00.000Z" title="发表于 2020-11-27 00:00:00">2020-11-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/11/27/pr/index/" title="专业"><img src="/img/cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="专业"/></a><div class="content"><a class="title" href="/2020/11/27/pr/index/" title="专业">专业</a><time datetime="2020-11-26T16:00:00.000Z" title="发表于 2020-11-27 00:00:00">2020-11-27</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            
+            </div>
+            <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E4%B8%93%E4%B8%9A/"><span class="card-category-list-name">专业</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%94%BF%E6%B2%BB/"><span class="card-category-list-name">政治</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%95%B0%E4%BA%8C/"><span class="card-category-list-name">数二</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E8%8B%B1%E4%BA%8C/"><span class="card-category-list-name">英二</span><span class="card-category-list-count">1</span></a></li>
+            </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/%E8%8B%B1%E4%BA%8C/" style="font-size: 1.1em; color: rgb(35, 158, 106)">英二</a><a href="/tags/%E6%95%B0%E4%BA%8C/" style="font-size: 1.1em; color: rgb(59, 133, 104)">数二</a><a href="/tags/%E6%94%BF%E6%B2%BB/" style="font-size: 1.1em; color: rgb(26, 7, 40)">政治</a><a href="/tags/%E4%B8%93%E4%B8%9A/" style="font-size: 1.1em; color: rgb(113, 106, 3)">专业</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/03/"><span class="card-archive-list-date">三月 2021</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2020/11/"><span class="card-archive-list-date">十一月 2020</span><span class="card-archive-list-count">2</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">4</div></div><div class="webinfo-item"><div class="item-name">已运行时间 :</div><div class="item-count" id="runtimeshow" data-publishDate="2019-12-31T16:00:00.000Z"></div></div><div class="webinfo-item"><div class="item-name">本站总字数 :</div><div class="item-count">0</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2022-01-02T03:09:11.352Z"></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/img/top_default.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2020-2021 - 2022 By Lucifer LGX</div><div class="footer_custom_text"><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/"><img class="icp-icon" src="/img/icp.png"><span>鲁ICP备19034408号</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><script defer src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script defer src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>if (document.getElementsByClassName('mermaid').length) {
+  if (window.mermaidJsLoad) mermaid.init()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(() => {
+      window.mermaidJsLoad = true
+      mermaid.initialize({
+        theme: 'default',
+      })
+      true && mermaid.init()
+    })
+  }
+}</script><script defer src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script>var gitcalendar = new Vue({
+  el: '#gitcalendar',
+  data: {
+    simplemode: true, 
+    user: 'Nightliuguoxing',
+    fixed: 'fixed',
+    px: 'px',
+    x: '',
+    y: '',
+    span1: '',
+    span2: '',
+    month: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+    monthchange: [],
+    oneyearbeforeday: '',
+    thisday: '',
+    amonthago: '',
+    aweekago: '',
+    weekdatacore: 0,
+    datacore: 0,
+    total: 0,
+    datadate: '',
+    data: [],
+    positionplusdata: [],
+    firstweek: [],
+    lastweek: [],
+    beforeweek: [],
+    thisweekdatacore: 0,
+    mounthbeforeday: 0,
+    mounthfirstindex: 0,
+    crispedges: 'crispedges',
+    thisdayindex: 0,
+    amonthagoindex: 0,
+    amonthagoweek: [],
+    firstdate: [],
+    first2date: [],
+    montharrbefore: [],
+    monthindex: 0,
+    color: ['#ebedf0', '#fdcdec', '#fc9bd9', '#fa6ac5', '#f838b2', '#f5089f', '#c4067e', '#92055e', '#540336', '#48022f', '#30021f']
+  },
+  methods: {
+    selectStyle(data, event) {
+      document.querySelector('.angle-wrapper').style.display = 'block'
+      this.span1 = data.date;
+      this.span2 = data.count;
+      this.x = event.clientX - 100;
+      this.y = event.clientY - 60
+    },
+    outStyle() {
+      document.querySelector('.angle-wrapper').style.display = 'none'
+    },
+    thiscolor(x) {
+      if (x === 0) {
+        let i = parseInt(x / 2);
+        return this.color[0]
+      } else if (x < 2) {
+        return this.color[1]
+      } else if (x < 20) {
+        let i = parseInt(x / 2);
+        return this.color[i]
+      } else {
+        return this.color[9]
+      }
+    },
+  }
+});
+var apiurl = 'python-github-calendar-api-rouge.vercel.app' ? 'https://python-github-calendar-api-rouge.vercel.app/api?' : 'https://githubapi.ryanchristian.dev/user/'
+var githubapiurl = apiurl + gitcalendar.user;
+//canvas绘图
+function responsiveChart() {
+  let c = document.getElementById("gitcanvas");
+  if (c) {
+    let cmessage = document.getElementById("gitmessage");
+    let ctx = c.getContext("2d");
+    c.width = document.getElementById("gitcalendarcanvasbox").offsetWidth;
+    let linemaxwitdh = 0.96 * c.width / gitcalendar.data.length;
+    c.height = 9 * linemaxwitdh;
+    let lineminwitdh = 0.8 * linemaxwitdh;
+    let setposition = {
+      x: 0.02 * c.width,
+      y: 0.025 * c.width
+    };
+    for (let week in gitcalendar.data) {
+      weekdata = gitcalendar.data[week];
+      for (let day in weekdata) {
+        let dataitem = {
+          date: "",
+          count: "",
+          x: 0,
+          y: 0
+        };
+        gitcalendar.positionplusdata.push(dataitem);
+        ctx.fillStyle = gitcalendar.thiscolor(weekdata[day].count);
+        setposition.y = Math.round(setposition.y * 100) / 100;
+        dataitem.date = weekdata[day].date;
+        dataitem.count = weekdata[day].count;
+        dataitem.x = setposition.x;
+        dataitem.y = setposition.y;
+        ctx.fillRect(setposition.x, setposition.y, lineminwitdh, lineminwitdh);
+        setposition.y = setposition.y + linemaxwitdh
+      };
+      setposition.y = 0.025 * c.width;
+      setposition.x = setposition.x + linemaxwitdh
+    };
+    ctx.font = "600  Arial";
+    ctx.fillStyle = '#aaa';
+    ctx.fillText("日", 0, 1.9 * linemaxwitdh);
+    ctx.fillText("二", 0, 3.9 * linemaxwitdh);
+    ctx.fillText("四", 0, 5.9 * linemaxwitdh);
+    ctx.fillText("六", 0, 7.9 * linemaxwitdh);
+    let monthindexlist = c.width / 24;
+    for (let index in gitcalendar.monthchange) {
+      ctx.fillText(gitcalendar.monthchange[index], monthindexlist, 0.7 * linemaxwitdh);
+      monthindexlist = monthindexlist + c.width / 12
+    };
+    cmessage.onmousemove = function(event) {
+      document.querySelector('.angle-wrapper').style.display = 'none'
+    };
+    c.onmousemove = function(event) {
+      document.querySelector('.angle-wrapper').style.display = 'none'
+      getMousePos(c, event);
+    };
+
+    function getMousePos(canvas, event) {
+      var rect = canvas.getBoundingClientRect();
+      var x = event.clientX - rect.left * (canvas.width / rect.width);
+      var y = event.clientY - rect.top * (canvas.height / rect.height);
+      //console.log("x:"+x+",y:"+y);
+      for (let item of gitcalendar.positionplusdata) {
+        let lenthx = x - item.x;
+        let lenthy = y - item.y;
+        //console.log(lenthx,lenthy);
+        if (0 < lenthx && lenthx < lineminwitdh) {
+          if (0 < lenthy && lenthy < lineminwitdh) {
+            //console.log(item.date,item.count)
+            document.querySelector('.angle-wrapper').style.display = 'block'
+            gitcalendar.span1 = item.date;
+            gitcalendar.span2 = item.count;
+            gitcalendar.x = event.clientX - 100;
+            gitcalendar.y = event.clientY - 60
+          }
+        }
+        //if(0< x - item.x <lineminwitdh&&0< y - item.y <lineminwitdh){
+        //console.log(item.count,item.date);
+        //}
+      }
+    }
+  }
+}
+//数据统计算法
+function addlastmonth() {
+  if (gitcalendar.thisdayindex === 0) {
+    thisweekcore(52);
+    thisweekcore(51);
+    thisweekcore(50);
+    thisweekcore(49);
+    thisweekcore(48);
+    gitcalendar.thisweekdatacore += gitcalendar.firstdate[6].count;
+    gitcalendar.amonthago = gitcalendar.firstdate[6].date
+  } else {
+    thisweekcore(52);
+    thisweekcore(51);
+    thisweekcore(50);
+    thisweekcore(49);
+    thisweek2core();
+    gitcalendar.amonthago = gitcalendar.first2date[gitcalendar.thisdayindex - 1].date
+  }
+};
+
+function thisweek2core() {
+  for (let i = gitcalendar.thisdayindex - 1; i < gitcalendar.first2date.length; i++) {
+    gitcalendar.thisweekdatacore += gitcalendar.first2date[i].count
+  }
+};
+
+function thisweekcore(index) {
+  for (let item of gitcalendar.data[index]) {
+    gitcalendar.thisweekdatacore += item.count
+  }
+};
+
+function addlastweek() {
+  for (let item of gitcalendar.lastweek) {
+    gitcalendar.weekdatacore += item.count
+  }
+};
+
+function addbeforeweek() {
+  for (let i = gitcalendar.thisdayindex; i < gitcalendar.beforeweek.length; i++) {
+    gitcalendar.weekdatacore += gitcalendar.beforeweek[i].count
+  }
+};
+
+function addweek(data) {
+  if (gitcalendar.thisdayindex === 6) {
+    gitcalendar.aweekago = gitcalendar.lastweek[0].date;
+    addlastweek()
+  } else {
+    lastweek = data.contributions[51];
+    gitcalendar.aweekago = lastweek[gitcalendar.thisdayindex + 1].date;
+    addlastweek();
+    addbeforeweek()
+  }
+}
+
+fetch(githubapiurl)
+  .then(data => data.json())
+  .then(data => {
+    gitcalendar.data = data.contributions;
+    gitcalendar.total = data.total;
+    gitcalendar.first2date = gitcalendar.data[48];
+    gitcalendar.firstdate = gitcalendar.data[47];
+    gitcalendar.firstweek = data.contributions[0];
+    gitcalendar.lastweek = data.contributions[52];
+    gitcalendar.beforeweek = data.contributions[51];
+    gitcalendar.thisdayindex = gitcalendar.lastweek.length - 1;
+    gitcalendar.thisday = gitcalendar.lastweek[gitcalendar.thisdayindex].date;
+    gitcalendar.oneyearbeforeday = gitcalendar.firstweek[0].date;
+    gitcalendar.monthindex = gitcalendar.thisday.substring(5, 7) * 1;
+    gitcalendar.montharrbefore = gitcalendar.month.splice(gitcalendar.monthindex, 12 - gitcalendar.monthindex);
+    gitcalendar.monthchange = gitcalendar.montharrbefore.concat(gitcalendar.month);
+    addweek(data);
+    addlastmonth();
+    responsiveChart();
+  })
+  .catch(function(error) {
+    console.log(error);
+  });
+
+//手机版更换为svg绘制
+if (document.getElementById("gitcalendarcanvasbox").offsetWidth < 500) {
+  gitcalendar.simplemode = false
+}
+
+//当改变窗口大小时重新绘制canvas
+window.onresize = function() {
+  if (gitcalendar.simplemode) responsiveChart()
+}
+
+//解决滚动滑轮时出现的标签显示
+window.onscroll = function() {
+  if (document.querySelector('.angle-wrapper')) {
+    document.querySelector('.angle-wrapper').style.display = 'none'
+  }
+};</script></div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/swiper/swiper.min.js"></script><script src="/swiper/swiperindex.js"></script><script src="/js/flipcountdown.js"></script><script data-pjax src="/js/runtime.js"></script><script async src="//at.alicdn.com/t/font_2264842_3izu8i5eoc2.js"></script><script src='https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@latest/Hexo/js/mouse_snow.min.js'></script><script src='https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@latest/Hexo/js/hideMobileSidebar.js'></script><script src='https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@latest/Hexo/js/hideCategory.min.js'></script><script defer src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/hexo-theme-volantis@latest/source/js/issues.min.js"></script><div class="aplayer no-destroy" data-id="000PeZCQ1i4XVs" data-server="tencent" data-type="artist" data-fixed="true" data-mini="true" data-listFolded="false" data-order="random" data-preload="none" data-autoplay="false" muted></div><script src=''></script><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/fireworks.min.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  if (typeof gtag === 'function') {
+    gtag('config', '', {'page_path': window.location.pathname});
+  }
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+
+document.addEventListener('pjax:send', function () {
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/nipsilon.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body></html>
