@@ -3176,16 +3176,10 @@ li.categoryBar-list-item:nth-child(4) {
   background: url('https://cdn.jsdelivr.net/gh/Akilarlxh/Akilarlxh.github.io@v3.3.3_2/img/cover4.webp');
 }
 li.categoryBar-list-item:nth-child(1)>span::after {
-  content: '专业' !important;
+  content: 'PTA' !important;
 }
 li.categoryBar-list-item:nth-child(2)>span::after {
-  content: '政治' !important;
-}
-li.categoryBar-list-item:nth-child(3)>span::after {
-  content: '数二' !important;
-}
-li.categoryBar-list-item:nth-child(4)>span::after {
-  content: '英二' !important;
+  content: '技术' !important;
 }
 li.categoryBar-list-item {
   width: 24% !important;
