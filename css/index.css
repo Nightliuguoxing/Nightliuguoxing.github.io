@@ -3169,12 +3169,6 @@ li.categoryBar-list-item:nth-child(1) {
 li.categoryBar-list-item:nth-child(2) {
   background: url('https://cdn.jsdelivr.net/gh/Akilarlxh/Akilarlxh.github.io@v3.3.3_2/img/cover2.webp');
 }
-li.categoryBar-list-item:nth-child(3) {
-  background: url('https://cdn.jsdelivr.net/gh/Akilarlxh/Akilarlxh.github.io@v3.3.3_2/img/cover3.webp');
-}
-li.categoryBar-list-item:nth-child(4) {
-  background: url('https://cdn.jsdelivr.net/gh/Akilarlxh/Akilarlxh.github.io@v3.3.3_2/img/cover4.webp');
-}
 li.categoryBar-list-item:nth-child(1)>span::after {
   content: 'PTA' !important;
 }
