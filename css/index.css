@@ -3169,11 +3169,59 @@ li.categoryBar-list-item:nth-child(1) {
 li.categoryBar-list-item:nth-child(2) {
   background: url('https://cdn.jsdelivr.net/gh/Akilarlxh/Akilarlxh.github.io@v3.3.3_2/img/cover2.webp');
 }
+li.categoryBar-list-item:nth-child(3) {
+  background: url('https://cdn.jsdelivr.net/gh/Akilarlxh/Akilarlxh.github.io@v3.3.3_2/img/cover3.webp');
+}
+li.categoryBar-list-item:nth-child(4) {
+  background: url('https://cdn.jsdelivr.net/gh/Akilarlxh/Akilarlxh.github.io@v3.3.3_2/img/cover4.webp');
+}
+li.categoryBar-list-item:nth-child(5) {
+  background: url('https://cdn.jsdelivr.net/gh/Akilarlxh/Akilarlxh.github.io@v3.3.3_2/img/cover1.webp');
+}
+li.categoryBar-list-item:nth-child(6) {
+  background: url('https://cdn.jsdelivr.net/gh/Akilarlxh/Akilarlxh.github.io@v3.3.3_2/img/cover2.webp');
+}
+li.categoryBar-list-item:nth-child(7) {
+  background: url('https://cdn.jsdelivr.net/gh/Akilarlxh/Akilarlxh.github.io@v3.3.3_2/img/cover3.webp');
+}
+li.categoryBar-list-item:nth-child(8) {
+  background: url('https://cdn.jsdelivr.net/gh/Akilarlxh/Akilarlxh.github.io@v3.3.3_2/img/cover4.webp');
+}
+li.categoryBar-list-item:nth-child(9) {
+  background: url('https://cdn.jsdelivr.net/gh/Akilarlxh/Akilarlxh.github.io@v3.3.3_2/img/cover5.webp');
+}
+li.categoryBar-list-item:nth-child(10) {
+  background: url('https://cdn.jsdelivr.net/gh/Akilarlxh/Akilarlxh.github.io@v3.3.3_2/img/cover6.webp');
+}
 li.categoryBar-list-item:nth-child(1)>span::after {
-  content: 'PTA' !important;
+  content: 'JAVA' !important;
 }
 li.categoryBar-list-item:nth-child(2)>span::after {
-  content: '技术' !important;
+  content: 'JAVA WEB' !important;
+}
+li.categoryBar-list-item:nth-child(3)>span::after {
+  content: 'PTA' !important;
+}
+li.categoryBar-list-item:nth-child(4)>span::after {
+  content: '实验' !important;
+}
+li.categoryBar-list-item:nth-child(5)>span::after {
+  content: '操作系统' !important;
+}
+li.categoryBar-list-item:nth-child(6)>span::after {
+  content: '数据结构' !important;
+}
+li.categoryBar-list-item:nth-child(7)>span::after {
+  content: '算法设计与分析' !important;
+}
+li.categoryBar-list-item:nth-child(8)>span::after {
+  content: '计算机组成原理' !important;
+}
+li.categoryBar-list-item:nth-child(9)>span::after {
+  content: '计算机网络' !important;
+}
+li.categoryBar-list-item:nth-child(10)>span::after {
+  content: '软件工程' !important;
 }
 li.categoryBar-list-item {
   width: 24% !important;

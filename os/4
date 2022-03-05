@@ -1,0 +1,958 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>第四章 存储器管理 | Lucifer</title><meta name="keywords" content="操作系统"><meta name="author" content="Lucifer LGX"><meta name="copyright" content="Lucifer LGX"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="第四章 存储器管理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第四章 存储器管理">
+<meta property="og:url" content="http://www.liuguoxing.top/os/4">
+<meta property="og:site_name" content="Lucifer">
+<meta property="og:description" content="第四章 存储器管理">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.liuguoxing.top/img/cover.jpg">
+<meta property="article:published_time" content="2021-04-03T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-03-05T09:04:24.447Z">
+<meta property="article:author" content="Lucifer LGX">
+<meta property="article:tag" content="操作系统">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.liuguoxing.top/img/cover.jpg"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="http://www.liuguoxing.top/os/4"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?af087bb3378df752c6a2fb9a80a690aa";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-03-05 17:04:24'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><link rel="stylesheet" href="/css/cursor.css"><link rel="stylesheet" href="/css/flipcountdown.css"><link rel="stylesheet" href="/css/iconfont.css"><link rel="stylesheet" href="/css/background.css"/><link rel="stylesheet" href="/swiper/swiper.min.css"><link rel="stylesheet" href="/swiper/swiperstyle.css"><link rel="stylesheet" href="/css/bilibiliBanner.css"  media="defer" onload="this.media='screen'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@latest/Hexo/css/hideCategory.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/StaticFile_HEXO@latest/butterfly/css/font-awesome-animation.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/l-lin/font-awesome-animation/dist/font-awesome-animation.min.css"  media="defer" onload="this.media='all'"><link rel="stylesheet" href=""><meta name="generator" content="Hexo 5.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">76</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">11</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-zhuye"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/guide/"><i class="fa-fw iconfont icon-daohang1"></i><span> 导航</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-shijian"></i><span> 时轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw iconfont icon-icon"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/skills/"><i class="fa-fw iconfont icon-ai-book"></i><span> 技术</span></a></div><div class="menus_item"><a class="site-page" href="/pta/"><span> PTA</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw iconfont icon-06"></i><span> 娱乐</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/musics/"><i class="fa-fw iconfont icon-icon-test"></i><span> 音乐</span></a></li><li><a class="site-page" href="/pictures/"><i class="fa-fw iconfont icon-tupian"></i><span> 照片</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw iconfont icon-dianying1"></i><span> 电影</span></a></li><li><a class="site-page" href="/books/"><i class="fa-fw iconfont icon-book-2"></i><span> 读书</span></a></li><li><a class="site-page" href="/games/"><i class="fa-fw iconfont icon-iconfontyouxihudong"></i><span> 游戏</span></a></li><li><a class="site-page" href="/cates/"><i class="fa-fw iconfont icon-meishi1"></i><span> 美食</span></a></li><li><a class="site-page" href="/artitalk"><i class="fa-fw iconfont icon-xinbaniconshangchuan-"></i><span> 说说</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw iconfont icon-wendang"></i><span> 文档</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/api/"><span> VUE</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://vuex.vuejs.org/zh/api/#vuex-store"><span> VUEX</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://www.kancloud.cn/yunye/axios/234845"><span> AXIOS</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://www.jquery123.com/"><span> JQuery</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://www.w3school.com.cn/js/js_htmldom_document.asp"><span> JavaScript</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw iconfont icon-gongju"></i><span> 工具</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" target="_blank" rel="noopener" href="https://cli.im/"><span> QR生成器</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://smallpdf.com/cn/pdf-to-word"><span> PDF转换器</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://www.toyaml.com/index.html"><span> YML转换器</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://tool.chinaz.com/tools/native_ascii.aspx"><span> 编码转换器</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://tool.oschina.net/codeformat/html"><span> Code格式化</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://www.bejson.com/jsoneditoronline"><span> JSON格式化</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://zh.numberempire.com/latexequationeditor.php"><span> LaTeX编辑器</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://tableconvert.com/?output=text"><span> MD表格生成</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://cron.qqe2.com"><span> CRON表达式</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw iconfont icon-tubiaozhizuomoban"></i><span> 学校</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" target="_blank" rel="noopener" href="https://www.zhihuishu.com/"><span> 智慧树</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://10.40.101.111/indexcs/index.jsp?loginErr=0"><span> CG平台</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://openjudge.cn/"><span> OJ平台</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://pintia.cn/problem-sets?tab=0"><span> PAT平台</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://www.mooctest.net/login2"><span> 慕测平台</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://i.chaoxing.com/base?t=1604882532908"><span> 泛雅超星</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://tsg.bzu.edu.cn/"><span> BZU图书馆</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://192.168.200.123/"><span> BZU上网认证</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://pay.bzu.edu.cn/xysf/login.aspx?local=zh-cn"><span> BZU支付平台</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://172.16.16.4/login?errorCode=badCredentials"><span> BZU教务系统</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://mail.bzu.edu.cn/"><span> BZU邮件系统</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw iconfont icon-lianjie1"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw iconfont icon-xinbaniconshangchuan-1"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw iconfont icon-liuyanban-05"></i><span> 留言板</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/cover.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Lucifer</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-zhuye"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/guide/"><i class="fa-fw iconfont icon-daohang1"></i><span> 导航</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-shijian"></i><span> 时轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw iconfont icon-icon"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/skills/"><i class="fa-fw iconfont icon-ai-book"></i><span> 技术</span></a></div><div class="menus_item"><a class="site-page" href="/pta/"><span> PTA</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw iconfont icon-06"></i><span> 娱乐</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/musics/"><i class="fa-fw iconfont icon-icon-test"></i><span> 音乐</span></a></li><li><a class="site-page" href="/pictures/"><i class="fa-fw iconfont icon-tupian"></i><span> 照片</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw iconfont icon-dianying1"></i><span> 电影</span></a></li><li><a class="site-page" href="/books/"><i class="fa-fw iconfont icon-book-2"></i><span> 读书</span></a></li><li><a class="site-page" href="/games/"><i class="fa-fw iconfont icon-iconfontyouxihudong"></i><span> 游戏</span></a></li><li><a class="site-page" href="/cates/"><i class="fa-fw iconfont icon-meishi1"></i><span> 美食</span></a></li><li><a class="site-page" href="/artitalk"><i class="fa-fw iconfont icon-xinbaniconshangchuan-"></i><span> 说说</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw iconfont icon-wendang"></i><span> 文档</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/api/"><span> VUE</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://vuex.vuejs.org/zh/api/#vuex-store"><span> VUEX</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://www.kancloud.cn/yunye/axios/234845"><span> AXIOS</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://www.jquery123.com/"><span> JQuery</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://www.w3school.com.cn/js/js_htmldom_document.asp"><span> JavaScript</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw iconfont icon-gongju"></i><span> 工具</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" target="_blank" rel="noopener" href="https://cli.im/"><span> QR生成器</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://smallpdf.com/cn/pdf-to-word"><span> PDF转换器</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://www.toyaml.com/index.html"><span> YML转换器</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://tool.chinaz.com/tools/native_ascii.aspx"><span> 编码转换器</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://tool.oschina.net/codeformat/html"><span> Code格式化</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://www.bejson.com/jsoneditoronline"><span> JSON格式化</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://zh.numberempire.com/latexequationeditor.php"><span> LaTeX编辑器</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://tableconvert.com/?output=text"><span> MD表格生成</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://cron.qqe2.com"><span> CRON表达式</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw iconfont icon-tubiaozhizuomoban"></i><span> 学校</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" target="_blank" rel="noopener" href="https://www.zhihuishu.com/"><span> 智慧树</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://10.40.101.111/indexcs/index.jsp?loginErr=0"><span> CG平台</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://openjudge.cn/"><span> OJ平台</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://pintia.cn/problem-sets?tab=0"><span> PAT平台</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://www.mooctest.net/login2"><span> 慕测平台</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://i.chaoxing.com/base?t=1604882532908"><span> 泛雅超星</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://tsg.bzu.edu.cn/"><span> BZU图书馆</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://192.168.200.123/"><span> BZU上网认证</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://pay.bzu.edu.cn/xysf/login.aspx?local=zh-cn"><span> BZU支付平台</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://172.16.16.4/login?errorCode=badCredentials"><span> BZU教务系统</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://mail.bzu.edu.cn/"><span> BZU邮件系统</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw iconfont icon-lianjie1"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw iconfont icon-xinbaniconshangchuan-1"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw iconfont icon-liuyanban-05"></i><span> 留言板</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">第四章 存储器管理</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-04-03T16:00:00.000Z" title="发表于 2021-04-04 00:00:00">2021-04-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-03-05T09:04:24.447Z" title="更新于 2022-03-05 17:04:24">2022-03-05</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>9分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="第四章-存储器管理"><a class="markdownIt-Anchor" href="#第四章-存储器管理"></a> 第四章 存储器管理</h2>
+<ul>
+<li>
+<p>【目的要求】</p>
+<ol>
+<li>[了解]存储器的层次结构；</li>
+<li>[熟悉]程序的装入和链接方式；</li>
+<li>[掌握]基于顺序搜索的动态分区分配算法，了解基于索引搜索的动态分区分配算法；</li>
+<li>[熟悉]多道程序环境下的对换技术；</li>
+<li>[掌握]分区、页式、段式的实现原理和地址变换过程；</li>
+<li>[了解]段页式存储管理方式。</li>
+</ol>
+</li>
+<li>
+<p>【重点与难点】</p>
+<ul>
+<li>基于顺序搜索的动态分区分配算法</li>
+<li>页式、段式的实现原理和地址变换过程</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2 id="41-存储器的层次结构"><a class="markdownIt-Anchor" href="#41-存储器的层次结构"></a> 4.1 存储器的层次结构</h2>
+<h4 id="411-多级存储器结构"><a class="markdownIt-Anchor" href="#411-多级存储器结构"></a> 4.1.1 多级存储器结构</h4>
+<h4 id="412-主存储器与寄存器"><a class="markdownIt-Anchor" href="#412-主存储器与寄存器"></a> 4.1.2 主存储器与寄存器</h4>
+<ul>
+<li>主存储器</li>
+<li>寄存器</li>
+</ul>
+<h4 id="413-高速缓存和磁盘缓存"><a class="markdownIt-Anchor" href="#413-高速缓存和磁盘缓存"></a> 4.1.3 高速缓存和磁盘缓存</h4>
+<ul>
+<li>高速缓存</li>
+<li>磁盘缓存</li>
+</ul>
+<h2 id="42-程序的装入和链接"><a class="markdownIt-Anchor" href="#42-程序的装入和链接"></a> 4.2 程序的装入和链接</h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Nightliuguoxing/Pic@main/image/os/1620030172648-OS4200.jpg" alt="对用户程序的处理步骤" /></p>
+<h4 id="421-程序的装入"><a class="markdownIt-Anchor" href="#421-程序的装入"></a> 4.2.1 程序的装入</h4>
+<ol>
+<li>绝对装入方式(Absolute Loading Mode)</li>
+<li>可重定位装入方式(Relocation Loading Mode)
+<ul>
+<li>通常是在装入时对目标程序中的指令和数据进行修改，这个过程称为重定位。因为地址变换通常是在装入时一次完成的，以后不再改变，故称为静态重定位。</li>
+<li><img src="https://cdn.jsdelivr.net/gh/Nightliuguoxing/Pic@main/image/os/1620030440606-OS4212.jpg" alt="作业装入内存时的情况" /></li>
+</ul>
+</li>
+<li>动态运行时装入方式(Denamle Run-time Loading)</li>
+</ol>
+<h4 id="422-程序的链接"><a class="markdownIt-Anchor" href="#422-程序的链接"></a> 4.2.2 程序的链接</h4>
+<ol>
+<li>静态链接方式(Static Linking)
+<ul>
+<li>在程序运行之前，先将各目标模块及它们所需的库函数，链接成一个完整的装配模块，以后不再拆开。</li>
+<li><img src="https://cdn.jsdelivr.net/gh/Nightliuguoxing/Pic@main/image/os/1620030498854-OS4221.jpg" alt="程序链接示意图" /></li>
+</ul>
+</li>
+<li>装入时动态链接(Loadtime Dynamic Linking)
+<ul>
+<li>优点
+<ul>
+<li>便于修改和更新。</li>
+<li>便于实现对目标模块的共享。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>运行时动态链接(Run-time Dynamic Linking)</li>
+</ol>
+<h2 id="43-连续分配方式"><a class="markdownIt-Anchor" href="#43-连续分配方式"></a> 4.3  连续分配方式</h2>
+<h4 id="431-单一连续分配"><a class="markdownIt-Anchor" href="#431-单一连续分配"></a> 4.3.1 单一连续分配</h4>
+<ul>
+<li>采用这种存储管理方式时，可把内存分为系统区和用户区两部分，系统区仅提供给OS使用，通常是放在内存的低址部分；用户区是指除系统区以外的全部内存空间， 提供给用户使用。</li>
+</ul>
+<h4 id="432-固定分区分配"><a class="markdownIt-Anchor" href="#432-固定分区分配"></a> 4.3.2 固定分区分配</h4>
+<ol>
+<li>划分分区的方法
+<ul>
+<li>分区大小相等， 即使所有的内存分区大小相等。</li>
+<li>分区大小不等。</li>
+</ul>
+</li>
+<li>内存分配
+<ul>
+<li><img src="https://cdn.jsdelivr.net/gh/Nightliuguoxing/Pic@main/image/os/1620030543861-OS4322.jpg" alt="固定分区使用表" /></li>
+</ul>
+</li>
+</ol>
+<h4 id="433-动态分区分配"><a class="markdownIt-Anchor" href="#433-动态分区分配"></a> 4.3.3 动态分区分配</h4>
+<ol>
+<li>分区分配中的数据结构
+<ul>
+<li>空闲分区表。</li>
+<li>空闲分区链。</li>
+</ul>
+</li>
+<li>分区分配算法</li>
+<li>分区分配操作
+<ul>
+<li>分配内存 <img src="https://cdn.jsdelivr.net/gh/Nightliuguoxing/Pic@main/image/os/1620030594700-OS43331.jpg" alt="内存分配流程" /></li>
+<li>回收内存 <img src="https://cdn.jsdelivr.net/gh/Nightliuguoxing/Pic@main/image/os/1620030618812-OS43332.jpg" alt="内存回收时的情况" /></li>
+</ul>
+</li>
+</ol>
+<h4 id="434-基于顺序搜索的动态分区分配算法"><a class="markdownIt-Anchor" href="#434-基于顺序搜索的动态分区分配算法"></a> 4.3.4 基于顺序搜索的动态分区分配算法</h4>
+<ul>
+<li>首次适应(first fit，FF)算法。</li>
+<li>循环首次适应(next fit，NF)算法（下次适应算法）。</li>
+<li>最佳适应(best fit，BF)算法。</li>
+<li>最坏适应(worst fit，WF)算法</li>
+</ul>
+<h4 id="435-基于索引搜索的动态分区分配算法"><a class="markdownIt-Anchor" href="#435-基于索引搜索的动态分区分配算法"></a> 4.3.5 基于索引搜索的动态分区分配算法</h4>
+<ol>
+<li>快速适应(quick fit)算法</li>
+<li>伙伴系统</li>
+<li>哈希算法</li>
+</ol>
+<h4 id="436-动态可重定位分区分配"><a class="markdownIt-Anchor" href="#436-动态可重定位分区分配"></a> 4.3.6 动态可重定位分区分配</h4>
+<ol>
+<li>紧凑
+<ul>
+<li><img src="https://cdn.jsdelivr.net/gh/Nightliuguoxing/Pic@main/image/os/1620030706963-OS4361.jpg" alt="紧凑的示意" /></li>
+</ul>
+</li>
+<li>动态重定位
+<ul>
+<li><img src="https://cdn.jsdelivr.net/gh/Nightliuguoxing/Pic@main/image/os/1620030711628-OS4362.jpg" alt="动态重定位示意图" /></li>
+</ul>
+</li>
+<li>动态重定位分区分配算法
+<ul>
+<li><img src="https://cdn.jsdelivr.net/gh/Nightliuguoxing/Pic@main/image/os/1620030714252-OS4363.jpg" alt="动态分区分配算法流程图" /></li>
+</ul>
+</li>
+</ol>
+<h2 id="44-对换swapping"><a class="markdownIt-Anchor" href="#44-对换swapping"></a> 4.4 对换(Swapping)</h2>
+<h4 id="441-多道程序环境下的对换技术"><a class="markdownIt-Anchor" href="#441-多道程序环境下的对换技术"></a> 4.4.1  多道程序环境下的对换技术</h4>
+<ol>
+<li>对换的引入
+<ul>
+<li>所谓“对换”，是指把内存中暂时不能运行的进程或者暂时不用的程序和数据，调出到外存上，以便腾出足够的内存空间，再把已具备运行条件的进程或进程所需要的程序和数据，调入内存。对换是提高内存利用率的有效措施。</li>
+</ul>
+</li>
+<li>对换的类型
+<ul>
+<li>如果对换是以整个进程为单位的，便称之为“整体对换”。而如果对换是以“页”或“段”为单位进行的，则分别称之为“页面对换”或“分段对换”，又统称为“局部对换”。</li>
+</ul>
+</li>
+</ol>
+<h4 id="442-对换空间的管理"><a class="markdownIt-Anchor" href="#442-对换空间的管理"></a> 4.4.2 对换空间的管理</h4>
+<ol>
+<li>对换空间管理的主要目标</li>
+<li>对换区空间盘块管理中的数据结构</li>
+<li>对换空间的分配与回收</li>
+</ol>
+<h4 id="443-进程的换出与换入"><a class="markdownIt-Anchor" href="#443-进程的换出与换入"></a> 4.4.3 进程的换出与换入</h4>
+<ol>
+<li>进程的换出。</li>
+<li>进程的换入。</li>
+</ol>
+<div class="note default simple"><p>例1. 某OS采用分区存储管理技术。OS在低地址部分占用了100KB的空间，用户区主存从100KB处开始占用了512KB。初始时，用户区全部为空闲，分配时截取空闲区的低地址部分作为已分配区。在执行了如下申请、释放操作序列后：<br />
+req(300KB)，req(100KB)，release(300KB)<br />
+req(150KB)，req(50KB)， req(90KB)</p>
+<ul>
+<li>采用首次适应算法，主存中有哪些空闲区？要求画出主存分布图，并指出空闲区的首址和大小。</li>
+<li>采用最佳适应算法，主存中有哪些空闲区？要求画出主存分布图，并指出空闲区的首址和大小。</li>
+<li>若随后又要申请80KB，针对上述两种情况产生什么后果？说明了什么问题？</li>
+</ul>
+</div>
+<div class="note default simple"><p>例2. <code>(南京理工大学)</code> 可变分区存储管理系统中，当一个进程归还一个内存分区后，空闲分区的个数会发生什么变化？</p>
+</div>
+<h2 id="45-分页存储管理方式"><a class="markdownIt-Anchor" href="#45-分页存储管理方式"></a> 4.5 分页存储管理方式</h2>
+<h4 id="451-分页存储管理的基本方法"><a class="markdownIt-Anchor" href="#451-分页存储管理的基本方法"></a> 4.5.1 分页存储管理的基本方法</h4>
+<ol>
+<li>
+<p>页面和物理块</p>
+<ul>
+<li>页面: 分页存储管理，是将一个进程的逻辑地址空间分成若干个大小相等的片，称为页面或页，并为各页加以编号，从0开始，如第0页、第1页等。相应地，把内存空间分成与页面相同大小的若干个存储块，称为(物理)块或页框(frame)，也同样为它们加以编号，如0＃块、1＃块等等。
+<ul>
+<li>在为进程分配内存时，以块为单位将进程中的若干个页分别装入到多个可以不相邻接的物理块中。</li>
+<li>由于进程的最后一页经常装不满一块而形成了不可利用的碎片，称之为“页内碎片”。</li>
+</ul>
+</li>
+<li>页面大小: 在分页系统中的页面其大小应适中
+<ul>
+<li>
+<p>因此，页面的大小应选择得适中，且页面大小应是2的幂，通常为512 B~8 KB。</p>
+</li>
+<li>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">页面</th>
+<th style="text-align:center">页面数</th>
+<th style="text-align:center">分配时间</th>
+<th style="text-align:center">内存碎片</th>
+<th style="text-align:center">内存利用率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">太小</td>
+<td style="text-align:center">多</td>
+<td style="text-align:center">长</td>
+<td style="text-align:center">减小</td>
+<td style="text-align:center">高</td>
+</tr>
+<tr>
+<td style="text-align:center">太大</td>
+<td style="text-align:center">少</td>
+<td style="text-align:center">短</td>
+<td style="text-align:center">变大</td>
+<td style="text-align:center">低</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>地址结构</p>
+<ul>
+<li>对某特定机器，其地址结构是一定的。以32位地址为例，分页地址中的地址结构如下所示：
+<ul>
+<li><img src="https://cdn.jsdelivr.net/gh/Nightliuguoxing/Pic@main/image/os/1620031022753-OS4512.jpg" alt="地址结构" /></li>
+</ul>
+</li>
+<li>若给定一个逻辑地址空间中的地址为A，页面的大小为L，则页号P和页内地址d可按下式求得： $$ P=INT[\frac{A}{L}] $$</li>
+</ul>
+</li>
+<li>
+<p>页表<br />
+<img src="https://cdn.jsdelivr.net/gh/Nightliuguoxing/Pic@main/image/os/1620030956973-OS4513.jpg" alt="页表的作用" /></p>
+</li>
+</ol>
+<h4 id="452-地址变换机构"><a class="markdownIt-Anchor" href="#452-地址变换机构"></a> 4.5.2 地址变换机构</h4>
+<ol>
+<li>基本的地址变换机构</li>
+</ol>
+<div class="note default simple"><p>例1. 已知某分页系统，主存容量为64K，页面大小为1K，对一个4页大的作业，其0，1，2，3页分别被分配到主存的2，4，6，7块中。请将十进制的逻辑地址1023、2500、3500、4500转换成物理地址。</p>
+</div>
+<ol start="2">
+<li>
+<p>具有快表的地址变换机构</p>
+<ul>
+<li>快表：是一个具有并行查寻能力的特殊高速缓冲寄存器，又称为“联想寄存器”。</li>
+<li>快表中存放当前访问的那些页表项。</li>
+<li><img src="https://cdn.jsdelivr.net/gh/Nightliuguoxing/Pic@main/image/os/1620031086005-OS4522.jpg" alt="具有快表的地址变换机构" /></li>
+</ul>
+</li>
+<li>
+<p>访问内存的有效时间(Effective Access Time,EAT)</p>
+<ul>
+<li>定义：从进程发出指定逻辑地址的访问请求，经过地址变换，到在内存中找到对应的实际物理地址单元并取出数据，所需要花费的总时间。</li>
+<li>基本分页存储管理方式中： $$ EAT = t + t = 2t$$</li>
+<li>具有快表的分页存储管理方式中： $$ EAT=aλ + (1 - a) (λ + t) + t = 2t + λ - ta $$</li>
+<li>如果忽略访问快表的时间，则又有：$$ EAT=at + (1 - a) 2t = 2t - at $$</li>
+<li>说明：t为访问一次内存的时间，λ表示查找快表所需要的时间，a表示快表命中率。</li>
+</ul>
+</li>
+</ol>
+<div class="note default simple"><p>例2. 对于一个将页表存放在内存中的分页系统：</p>
+<ul>
+<li>如果访问内存需要0.2μs，有效访问时间为多少？</li>
+<li>如果加一快表，且假定在快表中找到页表项的几率高达90%，则有效访问时间又是多少（假定查快表需花的时间为0）？</li>
+</ul>
+</div>
+<h4 id="453-两级和多级页表"><a class="markdownIt-Anchor" href="#453-两级和多级页表"></a> 4.5.3  两级和多级页表</h4>
+<ol>
+<li>两级页表(Two-Level Page Table)
+<ul>
+<li>逻辑地址结构:
+<ul>
+<li><img src="https://cdn.jsdelivr.net/gh/Nightliuguoxing/Pic@main/image/os/1620031156716-OS45311.jpg" alt="逻辑地址结构" /></li>
+<li><img src="https://cdn.jsdelivr.net/gh/Nightliuguoxing/Pic@main/image/os/1620031158868-OS45312.jpg" alt="两级页表结构" /></li>
+</ul>
+</li>
+<li>地址变换机构
+<ul>
+<li><img src="https://cdn.jsdelivr.net/gh/Nightliuguoxing/Pic@main/image/os/1620031163469-OS45313.jpg" alt="具有两级页表的地址变换机构" /></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>多级页表</li>
+</ol>
+<h4 id="454-反置页表"><a class="markdownIt-Anchor" href="#454-反置页表"></a> 4.5.4 反置页表</h4>
+<ol>
+<li>反置页表的引入
+<ul>
+<li>在分页系统中，为每个进程配置一张页表，而每个页表都有许多页表项，因此占用大量的内存空间。为减少页表占用的内存空间，引入了反置页表，为每一个物理块设置一个页表项，并将它们按物理块的编号排序，其中的内容则是页号和其所属进程的标识符。</li>
+</ul>
+</li>
+<li>地址变换
+<ul>
+<li>根据进程标识符和页号，去检索反置页表。如果检索到与之匹配的页表项，则该页表项的序号i便是该页所在的物理块号，若检索了整个反置页表仍未找到匹配的页表项，则表明此页尚未装入内存。对于基本分页系统意味着地址出错，对于请求分页系统，此时应产生缺页中断，系统将把此页调入内存。</li>
+</ul>
+</li>
+<li>缺点
+<ul>
+<li>由于在反置页表中是为每一个物理块设置一个页表项，当内存容量很大时，页表项的数目还是会非常大的。要利用进程标识符和页号去检索这样大的一张线性表是相当费时的。可以利用Hash算法来进行检索，这样可以很快地找到在反置页表中的相应页表项。</li>
+</ul>
+</li>
+</ol>
+<div class="note default simple"><p>某系统采用页式存储管理策略，拥有逻辑空间32页，每页2K，拥有物理空间1M。</p>
+<ul>
+<li>写出逻辑地址的格式；</li>
+<li>若不考虑访问权限等，进程的页表有多少项？每项至少有多少位？</li>
+<li>如果物理空间减少一半，页表结构应相应作怎样的改变？</li>
+</ul>
+</div>
+<h2 id="46-基本分段存储管理方式"><a class="markdownIt-Anchor" href="#46-基本分段存储管理方式"></a> 4.6 基本分段存储管理方式</h2>
+<h4 id="461-分段存储管理方式的引入"><a class="markdownIt-Anchor" href="#461-分段存储管理方式的引入"></a> 4.6.1 分段存储管理方式的引入</h4>
+<p>引入分段存储管理方式，主要是为了满足用户和程序员的下述一系列需要：</p>
+<ol>
+<li>方便编程</li>
+<li>信息共享</li>
+<li>信息保护</li>
+<li>动态增长</li>
+<li>动态链接</li>
+</ol>
+<h4 id="462-分段系统的基本原理"><a class="markdownIt-Anchor" href="#462-分段系统的基本原理"></a> 4.6.2 分段系统的基本原理</h4>
+<ol>
+<li>分段
+<ul>
+<li><img src="https://cdn.jsdelivr.net/gh/Nightliuguoxing/Pic@main/image/os/1620031613592-OS4621.jpg" alt="分段地址中的地址结构" /></li>
+</ul>
+</li>
+<li>段表
+<ul>
+<li><img src="https://cdn.jsdelivr.net/gh/Nightliuguoxing/Pic@main/image/os/1620031646677-OS4622.jpg" alt="段表实现地址映射" /></li>
+</ul>
+</li>
+<li>地址变换机构
+<ul>
+<li><img src="https://cdn.jsdelivr.net/gh/Nightliuguoxing/Pic@main/image/os/1620031676292-OS4623.jpg" alt="分段系统的地址变换过程" /></li>
+</ul>
+</li>
+<li>分页和分段的主要区别
+<ul>
+<li><code>页是信息的物理单位</code>，分页是为实现离散分配方式，以消减内存的外零头，提高内存的利用率。或者说，分页仅仅是由于系统管理的需要而不是用户的需要。<code>段则是信息的逻辑单位</code>，它含有一组其意义相对完整的信息。 分段的目的是为了能更好地满足用户的需要。</li>
+<li><code>页的大小固定且由系统决定</code>，由系统把逻辑地址划分为页号和页内地址两部分，是由机器硬件实现的，因而在系统中只能有一种大小的页面；而<code>段的长度却不固定</code>， 决定于用户所编写的程序，通常由编译程序在对源程序进行编译时，根据信息的性质来划分。</li>
+<li><code>分页的作业地址空间是一维的</code>，即单一的线性地址空间，程序员只需利用一个记忆符，即可表示一个地址； <code>而分段的作业地址空间则是二维的</code>，程序员在标识一个地址时，既需给出段名， 又需给出段内地址。</li>
+</ul>
+</li>
+</ol>
+<h4 id="463-信息共享"><a class="markdownIt-Anchor" href="#463-信息共享"></a> 4.6.3 信息共享</h4>
+<p><img src="https://cdn.jsdelivr.net/gh/Nightliuguoxing/Pic@main/image/os/1620031718170-OS4631.jpg" alt="分页系统中共享editor的示意图" /><br />
+<img src="https://cdn.jsdelivr.net/gh/Nightliuguoxing/Pic@main/image/os/1620031720852-OS4632.jpg" alt="分段系统中共享editor的示意图" /></p>
+<h4 id="464-段页式存储管理方式"><a class="markdownIt-Anchor" href="#464-段页式存储管理方式"></a> 4.6.4  段页式存储管理方式</h4>
+<ol>
+<li>基本原理
+<ul>
+<li><img src="https://cdn.jsdelivr.net/gh/Nightliuguoxing/Pic@main/image/os/1620031780352-OS46411.jpg" alt="作业地址空间和地址结构" /></li>
+<li><img src="https://cdn.jsdelivr.net/gh/Nightliuguoxing/Pic@main/image/os/1620031782934-OS46412.jpg" alt="利用段表和页表实现地址映射" /></li>
+</ul>
+</li>
+<li>地址变换过程
+<ul>
+<li><img src="https://cdn.jsdelivr.net/gh/Nightliuguoxing/Pic@main/image/os/1620031785798-OS4642.jpg" alt="段页式系统中的地址变换机构" /></li>
+</ul>
+</li>
+</ol>
+<div class="note default simple"><p>思考与练习:<br />
+对于如下所示的段表，</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">段号</th>
+<th style="text-align:center">内存始址</th>
+<th style="text-align:center">段长</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">50K</td>
+<td style="text-align:center">10K</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">60K</td>
+<td style="text-align:center">3K</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">70K</td>
+<td style="text-align:center">5K</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">120K</td>
+<td style="text-align:center">8K</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">150K</td>
+<td style="text-align:center">4K</td>
+</tr>
+</tbody>
+</table>
+<p>请将逻辑地址：（0,137），（1，4000），（2，3600），（5，230）转换成物理地址。</p>
+</div>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a></div><div class="post_share"><div class="social-share" data-image="/img/cover.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/ad/14"><img class="prev-cover" src="/img/cover.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">AD-04</div></div></a></div><div class="next-post pull-right"><a href="/os/3"><img class="next-cover" src="/img/cover.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">第三章 处理机调度与死锁</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/os/3" title="第三章 处理机调度与死锁"><img class="cover" src="/img/cover.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-04-03</div><div class="title">第三章 处理机调度与死锁</div></div></a></div><div><a href="/os/2" title="第二章 进程的描述与控制"><img class="cover" src="/img/cover.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-04-02</div><div class="title">第二章 进程的描述与控制</div></div></a></div><div><a href="/os/1" title="第一章 操作系统引论"><img class="cover" src="/img/cover.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-04-01</div><div class="title">第一章 操作系统引论</div></div></a></div><div><a href="/os/0" title="操作系统 课程标准"><img class="cover" src="/img/cover.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-03-31</div><div class="title">操作系统 课程标准</div></div></a></div><div><a href="/os/t1" title="操作系统 第一章题库"><img class="cover" src="/img/cover.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-03-01</div><div class="title">操作系统 第一章题库</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E5%AD%98%E5%82%A8%E5%99%A8%E7%AE%A1%E7%90%86"><span class="toc-number">1.</span> <span class="toc-text"> 第四章 存储器管理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#41-%E5%AD%98%E5%82%A8%E5%99%A8%E7%9A%84%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84"><span class="toc-number">2.</span> <span class="toc-text"> 4.1 存储器的层次结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#411-%E5%A4%9A%E7%BA%A7%E5%AD%98%E5%82%A8%E5%99%A8%E7%BB%93%E6%9E%84"><span class="toc-number">2.0.1.</span> <span class="toc-text"> 4.1.1 多级存储器结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#412-%E4%B8%BB%E5%AD%98%E5%82%A8%E5%99%A8%E4%B8%8E%E5%AF%84%E5%AD%98%E5%99%A8"><span class="toc-number">2.0.2.</span> <span class="toc-text"> 4.1.2 主存储器与寄存器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#413-%E9%AB%98%E9%80%9F%E7%BC%93%E5%AD%98%E5%92%8C%E7%A3%81%E7%9B%98%E7%BC%93%E5%AD%98"><span class="toc-number">2.0.3.</span> <span class="toc-text"> 4.1.3 高速缓存和磁盘缓存</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#42-%E7%A8%8B%E5%BA%8F%E7%9A%84%E8%A3%85%E5%85%A5%E5%92%8C%E9%93%BE%E6%8E%A5"><span class="toc-number">3.</span> <span class="toc-text"> 4.2 程序的装入和链接</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#421-%E7%A8%8B%E5%BA%8F%E7%9A%84%E8%A3%85%E5%85%A5"><span class="toc-number">3.0.1.</span> <span class="toc-text"> 4.2.1 程序的装入</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#422-%E7%A8%8B%E5%BA%8F%E7%9A%84%E9%93%BE%E6%8E%A5"><span class="toc-number">3.0.2.</span> <span class="toc-text"> 4.2.2 程序的链接</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#43-%E8%BF%9E%E7%BB%AD%E5%88%86%E9%85%8D%E6%96%B9%E5%BC%8F"><span class="toc-number">4.</span> <span class="toc-text"> 4.3  连续分配方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#431-%E5%8D%95%E4%B8%80%E8%BF%9E%E7%BB%AD%E5%88%86%E9%85%8D"><span class="toc-number">4.0.1.</span> <span class="toc-text"> 4.3.1 单一连续分配</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#432-%E5%9B%BA%E5%AE%9A%E5%88%86%E5%8C%BA%E5%88%86%E9%85%8D"><span class="toc-number">4.0.2.</span> <span class="toc-text"> 4.3.2 固定分区分配</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#433-%E5%8A%A8%E6%80%81%E5%88%86%E5%8C%BA%E5%88%86%E9%85%8D"><span class="toc-number">4.0.3.</span> <span class="toc-text"> 4.3.3 动态分区分配</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#434-%E5%9F%BA%E4%BA%8E%E9%A1%BA%E5%BA%8F%E6%90%9C%E7%B4%A2%E7%9A%84%E5%8A%A8%E6%80%81%E5%88%86%E5%8C%BA%E5%88%86%E9%85%8D%E7%AE%97%E6%B3%95"><span class="toc-number">4.0.4.</span> <span class="toc-text"> 4.3.4 基于顺序搜索的动态分区分配算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#435-%E5%9F%BA%E4%BA%8E%E7%B4%A2%E5%BC%95%E6%90%9C%E7%B4%A2%E7%9A%84%E5%8A%A8%E6%80%81%E5%88%86%E5%8C%BA%E5%88%86%E9%85%8D%E7%AE%97%E6%B3%95"><span class="toc-number">4.0.5.</span> <span class="toc-text"> 4.3.5 基于索引搜索的动态分区分配算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#436-%E5%8A%A8%E6%80%81%E5%8F%AF%E9%87%8D%E5%AE%9A%E4%BD%8D%E5%88%86%E5%8C%BA%E5%88%86%E9%85%8D"><span class="toc-number">4.0.6.</span> <span class="toc-text"> 4.3.6 动态可重定位分区分配</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#44-%E5%AF%B9%E6%8D%A2swapping"><span class="toc-number">5.</span> <span class="toc-text"> 4.4 对换(Swapping)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#441-%E5%A4%9A%E9%81%93%E7%A8%8B%E5%BA%8F%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E5%AF%B9%E6%8D%A2%E6%8A%80%E6%9C%AF"><span class="toc-number">5.0.1.</span> <span class="toc-text"> 4.4.1  多道程序环境下的对换技术</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#442-%E5%AF%B9%E6%8D%A2%E7%A9%BA%E9%97%B4%E7%9A%84%E7%AE%A1%E7%90%86"><span class="toc-number">5.0.2.</span> <span class="toc-text"> 4.4.2 对换空间的管理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#443-%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%8D%A2%E5%87%BA%E4%B8%8E%E6%8D%A2%E5%85%A5"><span class="toc-number">5.0.3.</span> <span class="toc-text"> 4.4.3 进程的换出与换入</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#45-%E5%88%86%E9%A1%B5%E5%AD%98%E5%82%A8%E7%AE%A1%E7%90%86%E6%96%B9%E5%BC%8F"><span class="toc-number">6.</span> <span class="toc-text"> 4.5 分页存储管理方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#451-%E5%88%86%E9%A1%B5%E5%AD%98%E5%82%A8%E7%AE%A1%E7%90%86%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%96%B9%E6%B3%95"><span class="toc-number">6.0.1.</span> <span class="toc-text"> 4.5.1 分页存储管理的基本方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#452-%E5%9C%B0%E5%9D%80%E5%8F%98%E6%8D%A2%E6%9C%BA%E6%9E%84"><span class="toc-number">6.0.2.</span> <span class="toc-text"> 4.5.2 地址变换机构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#453-%E4%B8%A4%E7%BA%A7%E5%92%8C%E5%A4%9A%E7%BA%A7%E9%A1%B5%E8%A1%A8"><span class="toc-number">6.0.3.</span> <span class="toc-text"> 4.5.3  两级和多级页表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#454-%E5%8F%8D%E7%BD%AE%E9%A1%B5%E8%A1%A8"><span class="toc-number">6.0.4.</span> <span class="toc-text"> 4.5.4 反置页表</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#46-%E5%9F%BA%E6%9C%AC%E5%88%86%E6%AE%B5%E5%AD%98%E5%82%A8%E7%AE%A1%E7%90%86%E6%96%B9%E5%BC%8F"><span class="toc-number">7.</span> <span class="toc-text"> 4.6 基本分段存储管理方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#461-%E5%88%86%E6%AE%B5%E5%AD%98%E5%82%A8%E7%AE%A1%E7%90%86%E6%96%B9%E5%BC%8F%E7%9A%84%E5%BC%95%E5%85%A5"><span class="toc-number">7.0.1.</span> <span class="toc-text"> 4.6.1 分段存储管理方式的引入</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#462-%E5%88%86%E6%AE%B5%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="toc-number">7.0.2.</span> <span class="toc-text"> 4.6.2 分段系统的基本原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#463-%E4%BF%A1%E6%81%AF%E5%85%B1%E4%BA%AB"><span class="toc-number">7.0.3.</span> <span class="toc-text"> 4.6.3 信息共享</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#464-%E6%AE%B5%E9%A1%B5%E5%BC%8F%E5%AD%98%E5%82%A8%E7%AE%A1%E7%90%86%E6%96%B9%E5%BC%8F"><span class="toc-number">7.0.4.</span> <span class="toc-text"> 4.6.4  段页式存储管理方式</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background-image: url('/img/cover.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2020-2021 - 2022 By Lucifer LGX</div><div class="footer_custom_text"><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/"><img class="icp-icon" src="/img/icp.png"><span>鲁ICP备19034408号</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><script defer src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script defer src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    loader: {
+      source: {
+        '[tex]/amsCd': '[tex]/amscd'
+      }
+    },
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        addClass: [200,() => {
+          document.querySelectorAll('mjx-container:not([display=\'true\']').forEach( node => {
+            const target = node.parentNode
+            if (!target.classList.contains('has-jax')) {
+              target.classList.add('mathjax-overflow')
+            }
+          })
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script>if (document.getElementsByClassName('mermaid').length) {
+  if (window.mermaidJsLoad) mermaid.init()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(() => {
+      window.mermaidJsLoad = true
+      mermaid.initialize({
+        theme: 'default',
+      })
+      true && mermaid.init()
+    })
+  }
+}</script><script defer src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script>var gitcalendar = new Vue({
+  el: '#gitcalendar',
+  data: {
+    simplemode: true, 
+    user: 'Nightliuguoxing',
+    fixed: 'fixed',
+    px: 'px',
+    x: '',
+    y: '',
+    span1: '',
+    span2: '',
+    month: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+    monthchange: [],
+    oneyearbeforeday: '',
+    thisday: '',
+    amonthago: '',
+    aweekago: '',
+    weekdatacore: 0,
+    datacore: 0,
+    total: 0,
+    datadate: '',
+    data: [],
+    positionplusdata: [],
+    firstweek: [],
+    lastweek: [],
+    beforeweek: [],
+    thisweekdatacore: 0,
+    mounthbeforeday: 0,
+    mounthfirstindex: 0,
+    crispedges: 'crispedges',
+    thisdayindex: 0,
+    amonthagoindex: 0,
+    amonthagoweek: [],
+    firstdate: [],
+    first2date: [],
+    montharrbefore: [],
+    monthindex: 0,
+    color: ['#ebedf0', '#fdcdec', '#fc9bd9', '#fa6ac5', '#f838b2', '#f5089f', '#c4067e', '#92055e', '#540336', '#48022f', '#30021f']
+  },
+  methods: {
+    selectStyle(data, event) {
+      document.querySelector('.angle-wrapper').style.display = 'block'
+      this.span1 = data.date;
+      this.span2 = data.count;
+      this.x = event.clientX - 100;
+      this.y = event.clientY - 60
+    },
+    outStyle() {
+      document.querySelector('.angle-wrapper').style.display = 'none'
+    },
+    thiscolor(x) {
+      if (x === 0) {
+        let i = parseInt(x / 2);
+        return this.color[0]
+      } else if (x < 2) {
+        return this.color[1]
+      } else if (x < 20) {
+        let i = parseInt(x / 2);
+        return this.color[i]
+      } else {
+        return this.color[9]
+      }
+    },
+  }
+});
+var apiurl = 'python-github-calendar-api-rouge.vercel.app' ? 'https://python-github-calendar-api-rouge.vercel.app/api?' : 'https://githubapi.ryanchristian.dev/user/'
+var githubapiurl = apiurl + gitcalendar.user;
+//canvas绘图
+function responsiveChart() {
+  let c = document.getElementById("gitcanvas");
+  if (c) {
+    let cmessage = document.getElementById("gitmessage");
+    let ctx = c.getContext("2d");
+    c.width = document.getElementById("gitcalendarcanvasbox").offsetWidth;
+    let linemaxwitdh = 0.96 * c.width / gitcalendar.data.length;
+    c.height = 9 * linemaxwitdh;
+    let lineminwitdh = 0.8 * linemaxwitdh;
+    let setposition = {
+      x: 0.02 * c.width,
+      y: 0.025 * c.width
+    };
+    for (let week in gitcalendar.data) {
+      weekdata = gitcalendar.data[week];
+      for (let day in weekdata) {
+        let dataitem = {
+          date: "",
+          count: "",
+          x: 0,
+          y: 0
+        };
+        gitcalendar.positionplusdata.push(dataitem);
+        ctx.fillStyle = gitcalendar.thiscolor(weekdata[day].count);
+        setposition.y = Math.round(setposition.y * 100) / 100;
+        dataitem.date = weekdata[day].date;
+        dataitem.count = weekdata[day].count;
+        dataitem.x = setposition.x;
+        dataitem.y = setposition.y;
+        ctx.fillRect(setposition.x, setposition.y, lineminwitdh, lineminwitdh);
+        setposition.y = setposition.y + linemaxwitdh
+      };
+      setposition.y = 0.025 * c.width;
+      setposition.x = setposition.x + linemaxwitdh
+    };
+    ctx.font = "600  Arial";
+    ctx.fillStyle = '#aaa';
+    ctx.fillText("日", 0, 1.9 * linemaxwitdh);
+    ctx.fillText("二", 0, 3.9 * linemaxwitdh);
+    ctx.fillText("四", 0, 5.9 * linemaxwitdh);
+    ctx.fillText("六", 0, 7.9 * linemaxwitdh);
+    let monthindexlist = c.width / 24;
+    for (let index in gitcalendar.monthchange) {
+      ctx.fillText(gitcalendar.monthchange[index], monthindexlist, 0.7 * linemaxwitdh);
+      monthindexlist = monthindexlist + c.width / 12
+    };
+    cmessage.onmousemove = function(event) {
+      document.querySelector('.angle-wrapper').style.display = 'none'
+    };
+    c.onmousemove = function(event) {
+      document.querySelector('.angle-wrapper').style.display = 'none'
+      getMousePos(c, event);
+    };
+
+    function getMousePos(canvas, event) {
+      var rect = canvas.getBoundingClientRect();
+      var x = event.clientX - rect.left * (canvas.width / rect.width);
+      var y = event.clientY - rect.top * (canvas.height / rect.height);
+      //console.log("x:"+x+",y:"+y);
+      for (let item of gitcalendar.positionplusdata) {
+        let lenthx = x - item.x;
+        let lenthy = y - item.y;
+        //console.log(lenthx,lenthy);
+        if (0 < lenthx && lenthx < lineminwitdh) {
+          if (0 < lenthy && lenthy < lineminwitdh) {
+            //console.log(item.date,item.count)
+            document.querySelector('.angle-wrapper').style.display = 'block'
+            gitcalendar.span1 = item.date;
+            gitcalendar.span2 = item.count;
+            gitcalendar.x = event.clientX - 100;
+            gitcalendar.y = event.clientY - 60
+          }
+        }
+        //if(0< x - item.x <lineminwitdh&&0< y - item.y <lineminwitdh){
+        //console.log(item.count,item.date);
+        //}
+      }
+    }
+  }
+}
+//数据统计算法
+function addlastmonth() {
+  if (gitcalendar.thisdayindex === 0) {
+    thisweekcore(52);
+    thisweekcore(51);
+    thisweekcore(50);
+    thisweekcore(49);
+    thisweekcore(48);
+    gitcalendar.thisweekdatacore += gitcalendar.firstdate[6].count;
+    gitcalendar.amonthago = gitcalendar.firstdate[6].date
+  } else {
+    thisweekcore(52);
+    thisweekcore(51);
+    thisweekcore(50);
+    thisweekcore(49);
+    thisweek2core();
+    gitcalendar.amonthago = gitcalendar.first2date[gitcalendar.thisdayindex - 1].date
+  }
+};
+
+function thisweek2core() {
+  for (let i = gitcalendar.thisdayindex - 1; i < gitcalendar.first2date.length; i++) {
+    gitcalendar.thisweekdatacore += gitcalendar.first2date[i].count
+  }
+};
+
+function thisweekcore(index) {
+  for (let item of gitcalendar.data[index]) {
+    gitcalendar.thisweekdatacore += item.count
+  }
+};
+
+function addlastweek() {
+  for (let item of gitcalendar.lastweek) {
+    gitcalendar.weekdatacore += item.count
+  }
+};
+
+function addbeforeweek() {
+  for (let i = gitcalendar.thisdayindex; i < gitcalendar.beforeweek.length; i++) {
+    gitcalendar.weekdatacore += gitcalendar.beforeweek[i].count
+  }
+};
+
+function addweek(data) {
+  if (gitcalendar.thisdayindex === 6) {
+    gitcalendar.aweekago = gitcalendar.lastweek[0].date;
+    addlastweek()
+  } else {
+    lastweek = data.contributions[51];
+    gitcalendar.aweekago = lastweek[gitcalendar.thisdayindex + 1].date;
+    addlastweek();
+    addbeforeweek()
+  }
+}
+
+fetch(githubapiurl)
+  .then(data => data.json())
+  .then(data => {
+    gitcalendar.data = data.contributions;
+    gitcalendar.total = data.total;
+    gitcalendar.first2date = gitcalendar.data[48];
+    gitcalendar.firstdate = gitcalendar.data[47];
+    gitcalendar.firstweek = data.contributions[0];
+    gitcalendar.lastweek = data.contributions[52];
+    gitcalendar.beforeweek = data.contributions[51];
+    gitcalendar.thisdayindex = gitcalendar.lastweek.length - 1;
+    gitcalendar.thisday = gitcalendar.lastweek[gitcalendar.thisdayindex].date;
+    gitcalendar.oneyearbeforeday = gitcalendar.firstweek[0].date;
+    gitcalendar.monthindex = gitcalendar.thisday.substring(5, 7) * 1;
+    gitcalendar.montharrbefore = gitcalendar.month.splice(gitcalendar.monthindex, 12 - gitcalendar.monthindex);
+    gitcalendar.monthchange = gitcalendar.montharrbefore.concat(gitcalendar.month);
+    addweek(data);
+    addlastmonth();
+    responsiveChart();
+  })
+  .catch(function(error) {
+    console.log(error);
+  });
+
+//手机版更换为svg绘制
+if (document.getElementById("gitcalendarcanvasbox").offsetWidth < 500) {
+  gitcalendar.simplemode = false
+}
+
+//当改变窗口大小时重新绘制canvas
+window.onresize = function() {
+  if (gitcalendar.simplemode) responsiveChart()
+}
+
+//解决滚动滑轮时出现的标签显示
+window.onscroll = function() {
+  if (document.querySelector('.angle-wrapper')) {
+    document.querySelector('.angle-wrapper').style.display = 'none'
+  }
+};</script></div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/swiper/swiper.min.js"></script><script src="/swiper/swiperindex.js"></script><script src="/js/flipcountdown.js"></script><script data-pjax src="/js/runtime.js"></script><script async src="//at.alicdn.com/t/font_2264842_3izu8i5eoc2.js"></script><script src='https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@latest/Hexo/js/mouse_snow.min.js'></script><script src='https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@latest/Hexo/js/hideMobileSidebar.js'></script><script src='https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@latest/Hexo/js/hideCategory.min.js'></script><script defer src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/hexo-theme-volantis@latest/source/js/issues.min.js"></script><div class="aplayer no-destroy" data-id="000PeZCQ1i4XVs" data-server="tencent" data-type="artist" data-fixed="true" data-mini="true" data-listFolded="false" data-order="random" data-preload="none" data-autoplay="false" muted></div><script src=''></script><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/fireworks.min.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  if (typeof gtag === 'function') {
+    gtag('config', '', {'page_path': window.location.pathname});
+  }
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+
+document.addEventListener('pjax:send', function () {
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/nipsilon.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body></html>
