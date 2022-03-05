@@ -1,0 +1,759 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>第四章 继承 | Lucifer</title><meta name="keywords" content="JAVA"><meta name="author" content="Lucifer LGX"><meta name="copyright" content="Lucifer LGX"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="JAVA 笔记 (四) 继承">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第四章 继承">
+<meta property="og:url" content="http://www.liuguoxing.top/java/4/index.html">
+<meta property="og:site_name" content="Lucifer">
+<meta property="og:description" content="JAVA 笔记 (四) 继承">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lgxs.liuguoxing.top/cover/java.jpg">
+<meta property="article:published_time" content="2020-12-03T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-03-05T09:02:15.978Z">
+<meta property="article:author" content="Lucifer LGX">
+<meta property="article:tag" content="JAVA">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://lgxs.liuguoxing.top/cover/java.jpg"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="http://www.liuguoxing.top/java/4/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?af087bb3378df752c6a2fb9a80a690aa";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-03-05 17:02:15'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><link rel="stylesheet" href="/css/cursor.css"><link rel="stylesheet" href="/css/flipcountdown.css"><link rel="stylesheet" href="/css/iconfont.css"><link rel="stylesheet" href="/css/background.css"/><link rel="stylesheet" href="/swiper/swiper.min.css"><link rel="stylesheet" href="/swiper/swiperstyle.css"><link rel="stylesheet" href="/css/bilibiliBanner.css"  media="defer" onload="this.media='screen'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@latest/Hexo/css/hideCategory.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/StaticFile_HEXO@latest/butterfly/css/font-awesome-animation.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/l-lin/font-awesome-animation/dist/font-awesome-animation.min.css"  media="defer" onload="this.media='all'"><link rel="stylesheet" href=""><meta name="generator" content="Hexo 5.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">76</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">11</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-zhuye"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/guide/"><i class="fa-fw iconfont icon-daohang1"></i><span> 导航</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-shijian"></i><span> 时轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw iconfont icon-icon"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/skills/"><i class="fa-fw iconfont icon-ai-book"></i><span> 技术</span></a></div><div class="menus_item"><a class="site-page" href="/pta/"><span> PTA</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw iconfont icon-06"></i><span> 娱乐</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/musics/"><i class="fa-fw iconfont icon-icon-test"></i><span> 音乐</span></a></li><li><a class="site-page" href="/pictures/"><i class="fa-fw iconfont icon-tupian"></i><span> 照片</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw iconfont icon-dianying1"></i><span> 电影</span></a></li><li><a class="site-page" href="/books/"><i class="fa-fw iconfont icon-book-2"></i><span> 读书</span></a></li><li><a class="site-page" href="/games/"><i class="fa-fw iconfont icon-iconfontyouxihudong"></i><span> 游戏</span></a></li><li><a class="site-page" href="/cates/"><i class="fa-fw iconfont icon-meishi1"></i><span> 美食</span></a></li><li><a class="site-page" href="/artitalk"><i class="fa-fw iconfont icon-xinbaniconshangchuan-"></i><span> 说说</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw iconfont icon-wendang"></i><span> 文档</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/api/"><span> VUE</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://vuex.vuejs.org/zh/api/#vuex-store"><span> VUEX</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://www.kancloud.cn/yunye/axios/234845"><span> AXIOS</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://www.jquery123.com/"><span> JQuery</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://www.w3school.com.cn/js/js_htmldom_document.asp"><span> JavaScript</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw iconfont icon-gongju"></i><span> 工具</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" target="_blank" rel="noopener" href="https://cli.im/"><span> QR生成器</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://smallpdf.com/cn/pdf-to-word"><span> PDF转换器</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://www.toyaml.com/index.html"><span> YML转换器</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://tool.chinaz.com/tools/native_ascii.aspx"><span> 编码转换器</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://tool.oschina.net/codeformat/html"><span> Code格式化</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://www.bejson.com/jsoneditoronline"><span> JSON格式化</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://zh.numberempire.com/latexequationeditor.php"><span> LaTeX编辑器</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://tableconvert.com/?output=text"><span> MD表格生成</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://cron.qqe2.com"><span> CRON表达式</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw iconfont icon-tubiaozhizuomoban"></i><span> 学校</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" target="_blank" rel="noopener" href="https://www.zhihuishu.com/"><span> 智慧树</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://10.40.101.111/indexcs/index.jsp?loginErr=0"><span> CG平台</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://openjudge.cn/"><span> OJ平台</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://pintia.cn/problem-sets?tab=0"><span> PAT平台</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://www.mooctest.net/login2"><span> 慕测平台</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://i.chaoxing.com/base?t=1604882532908"><span> 泛雅超星</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://tsg.bzu.edu.cn/"><span> BZU图书馆</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://192.168.200.123/"><span> BZU上网认证</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://pay.bzu.edu.cn/xysf/login.aspx?local=zh-cn"><span> BZU支付平台</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://172.16.16.4/login?errorCode=badCredentials"><span> BZU教务系统</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://mail.bzu.edu.cn/"><span> BZU邮件系统</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw iconfont icon-lianjie1"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw iconfont icon-xinbaniconshangchuan-1"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw iconfont icon-liuyanban-05"></i><span> 留言板</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://lgxs.liuguoxing.top/cover/java.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Lucifer</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-zhuye"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/guide/"><i class="fa-fw iconfont icon-daohang1"></i><span> 导航</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-shijian"></i><span> 时轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw iconfont icon-icon"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/skills/"><i class="fa-fw iconfont icon-ai-book"></i><span> 技术</span></a></div><div class="menus_item"><a class="site-page" href="/pta/"><span> PTA</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw iconfont icon-06"></i><span> 娱乐</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/musics/"><i class="fa-fw iconfont icon-icon-test"></i><span> 音乐</span></a></li><li><a class="site-page" href="/pictures/"><i class="fa-fw iconfont icon-tupian"></i><span> 照片</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw iconfont icon-dianying1"></i><span> 电影</span></a></li><li><a class="site-page" href="/books/"><i class="fa-fw iconfont icon-book-2"></i><span> 读书</span></a></li><li><a class="site-page" href="/games/"><i class="fa-fw iconfont icon-iconfontyouxihudong"></i><span> 游戏</span></a></li><li><a class="site-page" href="/cates/"><i class="fa-fw iconfont icon-meishi1"></i><span> 美食</span></a></li><li><a class="site-page" href="/artitalk"><i class="fa-fw iconfont icon-xinbaniconshangchuan-"></i><span> 说说</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw iconfont icon-wendang"></i><span> 文档</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/api/"><span> VUE</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://vuex.vuejs.org/zh/api/#vuex-store"><span> VUEX</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://www.kancloud.cn/yunye/axios/234845"><span> AXIOS</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://www.jquery123.com/"><span> JQuery</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://www.w3school.com.cn/js/js_htmldom_document.asp"><span> JavaScript</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw iconfont icon-gongju"></i><span> 工具</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" target="_blank" rel="noopener" href="https://cli.im/"><span> QR生成器</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://smallpdf.com/cn/pdf-to-word"><span> PDF转换器</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://www.toyaml.com/index.html"><span> YML转换器</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://tool.chinaz.com/tools/native_ascii.aspx"><span> 编码转换器</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://tool.oschina.net/codeformat/html"><span> Code格式化</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://www.bejson.com/jsoneditoronline"><span> JSON格式化</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://zh.numberempire.com/latexequationeditor.php"><span> LaTeX编辑器</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://tableconvert.com/?output=text"><span> MD表格生成</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://cron.qqe2.com"><span> CRON表达式</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw iconfont icon-tubiaozhizuomoban"></i><span> 学校</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" target="_blank" rel="noopener" href="https://www.zhihuishu.com/"><span> 智慧树</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://10.40.101.111/indexcs/index.jsp?loginErr=0"><span> CG平台</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://openjudge.cn/"><span> OJ平台</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://pintia.cn/problem-sets?tab=0"><span> PAT平台</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://www.mooctest.net/login2"><span> 慕测平台</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://i.chaoxing.com/base?t=1604882532908"><span> 泛雅超星</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://tsg.bzu.edu.cn/"><span> BZU图书馆</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://192.168.200.123/"><span> BZU上网认证</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://pay.bzu.edu.cn/xysf/login.aspx?local=zh-cn"><span> BZU支付平台</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://172.16.16.4/login?errorCode=badCredentials"><span> BZU教务系统</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://mail.bzu.edu.cn/"><span> BZU邮件系统</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw iconfont icon-lianjie1"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw iconfont icon-xinbaniconshangchuan-1"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw iconfont icon-liuyanban-05"></i><span> 留言板</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">第四章 继承</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-12-03T16:00:00.000Z" title="发表于 2020-12-04 00:00:00">2020-12-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-03-05T09:02:15.978Z" title="更新于 2022-03-05 17:02:15">2022-03-05</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/JAVA/">JAVA</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">7.8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>28分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="一-继承的定义"><a class="markdownIt-Anchor" href="#一-继承的定义"></a> 一、继承的定义</h2>
+<p>继承是在一个已有类的基础上构建新类，新类除了继承已有类的属性和方法，还可以根据需要增加新的属性和方法。新类称作子类(或派生类)，已有类称作父类(或超类)。子类可以从父类继承成员变量和成员方法。如果想声明一个类继承另一个类，使用extends关键字，格式为：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> 子类名 <span class="keyword">extends</span> 父类名 </span>&#123; </span><br><span class="line">    ...</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<p>父类可以是自己编写的类，也可以是已有的类或java类库中的类。继承有利于实现代码的复用，子类只需添加新的代码，父类已有的代码不必重写。Java不支持多重继承，一个子类只能用extends声明一个父类。<code>子类从父类继承的成员变量和成员方法就和子类自己声明的一样。</code><br />
+如果一个类没有声明继承某个父类，那么这个类默认是Object的子类。也就是说，class A {……}与class A extends Object{……}是等价的。Java中所有的类都直接或间接的继承Object类，Object是所有Java类的根父类。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Father</span></span>&#123; <span class="comment">//父亲</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> moneyDollar = <span class="number">300</span>;  <span class="comment">//美元 </span></span><br><span class="line">    <span class="keyword">int</span> moneyHK = <span class="number">200</span>;      <span class="comment">//港币</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> x + y;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">changMoneyDollar</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">        moneyDollar  = x;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Son</span> <span class="keyword">extends</span> <span class="title">Father</span></span>&#123;  <span class="comment">//儿子</span></span><br><span class="line">    <span class="keyword">int</span> moneyRMB = <span class="number">800</span>;   <span class="comment">//人民币</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">changMoneyHK</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">        moneyHK = x;  </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">changMoneyRMB</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">        moneyRMB = x;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">subs</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> x - y;      </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GrandSon</span> <span class="keyword">extends</span> <span class="title">Son</span></span>&#123;   <span class="comment">//孙子</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">multi</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> x * y;  </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Example</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span></span>&#123;</span><br><span class="line">    Son son = <span class="keyword">new</span> Son();</span><br><span class="line">    son.changMoneyHK(<span class="number">600</span>);</span><br><span class="line">    son.changMoneyRMB(<span class="number">400</span>);</span><br><span class="line">    son.changMoneyDollar(<span class="number">500</span>);</span><br><span class="line">    System.out.println(<span class="string">&quot;美元和港币是儿子继承的属性,人民币是儿子新增的属性,港币:&quot;</span> + son.moneyHK + <span class="string">&quot;,人民币:&quot;</span> + son.moneyRMB + <span class="string">&quot;,美元:&quot;</span> + son.moneyDollar);</span><br><span class="line">    GrandSon sunzi = <span class="keyword">new</span> GrandSon(); </span><br><span class="line">    System.out.println(<span class="string">&quot;美元、港币和人民币都是孙子继承的属性, 港币:&quot;</span> + sunzi.moneyHK + <span class="string">&quot;,人民币:&quot;</span> + sunzi.moneyRMB + <span class="string">&quot;,美元:&quot;</span> + suzi.moneyDollar);</span><br><span class="line">    <span class="keyword">int</span> a = <span class="number">5</span>, b = <span class="number">3</span>; </span><br><span class="line">    System.out.println();</span><br><span class="line">    System.out.printf(<span class="string">&quot;加法是儿子继承的功能: %d + %d = %d\n&quot;</span>, a, b, son.add(a, b));</span><br><span class="line">    System.out.printf(<span class="string">&quot;减法是儿子新增的功能: %d - %d = %d\n&quot;</span>, a, b, son.subs(a, b));        </span><br><span class="line">    System.out.println();</span><br><span class="line">    System.out.printf(<span class="string">&quot;乘法是孙子新增的功能: %d * %d = %d\n&quot;</span>, a, b, sunzi.multi(a, b));</span><br><span class="line">    System.out.printf(<span class="string">&quot;加法是孙子间接继承的功能: %d + %d = %d\n&quot;</span>, a, b, sunzi.add(a, b)); </span><br><span class="line">    System.out.printf(<span class="string">&quot;减法是孙子直接继承的功能: %d - %d = %d\n&quot;</span>, a, b, sunzi.subs(a, b));   </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<div class="note danger simple"><p>注意:Java只支持单继承，一个类只能有一个父类，但是多个类可以继承同一个父类；<br />
+继承关系可以传递：C继承B，B继承A，则C也间接继承A，是A的子类(间接子类)，A也是C的父类(间接父类)。</p>
+</div>
+<ol>
+<li>
+<p>继承的内容<br />
+子类的成员有一部分是自己定义的，另一部分是从父类继承的。子类可以继承父类的实例变量和实例方法，但是<code>子类不继承父类的构造方法</code>。<br />
+子类也可以继承父类的类变量和类方法。被继承的类变量和类方法，除了可以通过子类对象或父类对象访问，还可以通过&quot;子类名.类方法/类变量&quot;或者&quot;父类名.类方法/类变量&quot;的方式来访问。<br />
+<code>子类从父类继承的成员变量和成员方法的访问权限不变。</code></p>
+</li>
+<li>
+<p>子类和父类在同一包中的继承性<br />
+如果子类和父类在同一个包中，那么子类能够继承父类的非private的成员变量和成员方法。<code>任何情况下，父类的private的成员变量和成员方法都不能被继承。</code></p>
+</li>
+<li>
+<p>子类和父类不在同一包中的继承性<br />
+如果子类和父类不在同一个包中，那么子类只能继承父类的protected和public成员，不能继承父类的友好成员和private成员。</p>
+</li>
+<li>
+<p>访问修饰符protected的进一步说明<br />
+如果一个类B要访问另一个类A的protected成员，则权限如下所述：</p>
+</li>
+</ol>
+<ul>
+<li>如果类A的protected成员是自己定义的，则类B和类A在同一个包中就可以访问，否则不能访问。</li>
+<li>如果类A的protected成员是继承的，那就要追溯到定义该protected成员的那个祖先类，如果类B和类A的那个祖先类在同一个包中，就能访问该protected成员，否则不能访问。</li>
+</ul>
+<ol start="5">
+<li>子类对象的创建<br />
+子类对象是按照下面的顺序创建的：<br />
+(1) 创建并初始化父类的静态成员变量(只在第一次使用父类时执行一次)<br />
+(2) 创建并初始化子类的静态成员变量(只在第一次使用子类时执行一次)<br />
+(3) 创建并初始化父类的实例成员变量 (<code>不管是否被继承</code>)。<br />
+(4) 调用父类的构造方法；<br />
+(5) 创建并初始化子类的实例成员变量<br />
+(6) 调用子类的构造方法。</li>
+</ol>
+<p>子类可以通过继承父类的方法来访问父类不能被继承的那些成员，看下面的例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> x = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">protected</span>  <span class="keyword">int</span> y = <span class="number">20</span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">()</span></span>&#123;</span><br><span class="line">        x = x + <span class="number">1</span>;</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> <span class="keyword">extends</span> <span class="title">A</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">g</span><span class="params">()</span></span>&#123;</span><br><span class="line">        y = y + <span class="number">1</span>;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Example</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span></span>&#123;</span><br><span class="line">        B b=<span class="keyword">new</span> B();</span><br><span class="line">        b.g();         <span class="comment">//在子类自己定义的方法g()中访问继承的父类成员变量y</span></span><br><span class="line">        b.f();         <span class="comment">//继承父类的方法f()，来访问未被继承的父类成员变量x</span></span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="二-成员变量的隐藏和成员方法的重写"><a class="markdownIt-Anchor" href="#二-成员变量的隐藏和成员方法的重写"></a> 二、成员变量的隐藏和成员方法的重写</h2>
+<ol>
+<li>成员变量的隐藏<br />
+当子类的成员变量和从父类<code>继承的</code>成员变量同名时(类型不必相同，可以是实例变量也可以是类变量)，子类会隐藏父类的同名成员变量，也就是说，在子类中访问的同名成员变量是子类自己定义的变量。不能被继承的父类成员变量不存在隐藏问题。</li>
+</ol>
+<div class="note danger simple"><p>注意:当子类和父类有同名成员变量时，在子类方法中访问的是子类的成员变量，在父类方法中访问的是父类的成员变量。</p>
+</div>
+<p>在下面的例子中，子类的int型成员变量y隐藏了从父类继承的double型成员变量y，但是子类可以使用从父类继承的方法f()访问被隐藏的父类成员变量y。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span>&#123;</span><br><span class="line">     <span class="keyword">public</span> <span class="keyword">double</span> y = <span class="number">11.456789</span>;</span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">f</span><span class="params">()</span></span>&#123;</span><br><span class="line">        y = y + <span class="number">1</span>;</span><br><span class="line">        System.out.println(<span class="string">&quot;y = &quot;</span> + y);</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> <span class="keyword">extends</span> <span class="title">A</span></span>&#123;</span><br><span class="line">     <span class="keyword">int</span> y = <span class="number">0</span>;</span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">g</span><span class="params">()</span></span>&#123;</span><br><span class="line">        y = y + <span class="number">1</span>;</span><br><span class="line">        System.out.println(<span class="string">&quot;y = &quot;</span> + y);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Example</span></span>&#123;</span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[ ])</span></span>&#123;</span><br><span class="line">        B b = <span class="keyword">new</span> B();</span><br><span class="line">        b.y = <span class="number">200</span>;     <span class="comment">//这里的y是谁的成员变量？</span></span><br><span class="line">        b.g();         <span class="comment">//调用子类的方法g()操作子类的成员变量y</span></span><br><span class="line">        b.f();         <span class="comment">//调用继承的父类方法f()操作父类的成员变量y</span></span><br><span class="line">     &#125;  </span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>2.方法重写<br />
+在子类中定义一个方法，这个方法的名字、参数、返回值类型与从父类继承的某个方法完全相同，这就是子类对父类方法的重写(或者叫覆盖)。子类隐藏父类被重写的方法，当<code>通过子类对象或在子类内部</code>调用同名方法时，调用的总是子类重写的方法。如果子类对象或在子类内部想使用被重写的父类方法，可以使用关键字super。<br />
+重写是针对实例方法，类方法不存在重写问题。不能被继承的父类方法也不存在重写问题。<br />
+重写父类方法时，不能降低子类方法的访问权限。例如，若父类方法的访问权限protected，则子类重写方法的访问权限不能低于protected级别，可以是protected或public。<br />
+如果子类的某个方法与继承的父类的某个方法同名，但参数不同，则不是重写。这种情况下，子类拥有名字相同而参数不同的两个方法，这是方法的重载。<br />
+下面这个例子可以帮助我们更好的理解方法重写:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">double</span> x = <span class="number">8.0</span>,  y = <span class="number">0.888888</span>;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">speak</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;x =&quot;</span> + x + <span class="string">&quot;; y = &quot;</span> + y);         </span><br><span class="line">    &#125;    </span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">cry</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;I am class A&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> <span class="keyword">extends</span> <span class="title">A</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> y =<span class="number">100</span>, z;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">speak</span><span class="params">()</span></span>&#123;   <span class="comment">//子类重写父类方法</span></span><br><span class="line">        System.out.println(y);</span><br><span class="line">        System.out.println(z + x);</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">cry</span><span class="params">()</span></span>&#123;        <span class="comment">//这不是重写，静态方法不会被重写</span></span><br><span class="line">        System.out.println(<span class="string">&quot;I am class B&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Example</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[ ])</span></span>&#123;</span><br><span class="line">        B b = <span class="keyword">new</span> B();                 A a   = <span class="keyword">new</span> A();</span><br><span class="line">        a.cry();        <span class="comment">//调用父类A的静态方法cry()</span></span><br><span class="line">        a.speak();    <span class="comment">//调用父类A的speak()方法</span></span><br><span class="line">        b.cry();        <span class="comment">//调用子类B的的静态方法cry()</span></span><br><span class="line">        b.speak();    <span class="comment">//调用子类B重写的speak()方法</span></span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="三-super关键字"><a class="markdownIt-Anchor" href="#三-super关键字"></a> 三、Super关键字</h2>
+<p>super关键字表示当前的父类，有两种用法：(1)在子类的构造方法中，使用super关键字指定调用父类的某个构造方法；(2) 在子类中通过super关键字访问父类的成员变量和成员方法。<br />
+<code>super关键字只能用于构造方法和实例方法，不能用于类方法。</code></p>
+<ol>
+<li>使用super调用父类的构造方法<br />
+在子类的构造方法中，通过&quot;super(参数列表);&quot;的形式，来指定调用父类的某个构造方法，由参数列表确定具体调用哪个构造方法。super语句必须是第一条语句。如果子类构造方法中没有super语句，系统默认调用父类不带参数的构造方法，这种情况下要确保父类有不带参数的构造方法(或者自己定义，或者由系统默认添加)，否则编译出错。</li>
+</ol>
+<div class="note danger simple"><p>注意:构造方法中的super语句只是起到占位符的作用，用于确定调用父类的哪个构造方法，并不是先执行super语句然后再执行子类构造方法中剩余语句的意思，而是：先创建父类成员变量，再调用父类构造方法，然后创建子类成员变量，再调用子类构造方法。</p>
+</div>
+<ol start="2">
+<li>使用super访问父类的成员变量和成员方法<br />
+如果子类想访问父类被隐藏的成员变量以及被重写的成员方法，可以使用关键字super。访问父类其它的成员变量和成员方法，也可以使用super关键字，只是这种情况下一般省略super。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span>&#123;         </span><br><span class="line">    <span class="keyword">int</span> x, y;</span><br><span class="line">    A()&#123;</span><br><span class="line">        x = <span class="number">100</span>;  y = <span class="number">200</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    A(<span class="keyword">int</span> x, <span class="keyword">int</span> y)&#123;</span><br><span class="line">        <span class="keyword">this</span>.x = x;</span><br><span class="line">        <span class="keyword">this</span>.y = y;</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> <span class="keyword">extends</span> <span class="title">A</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> x, z, y = <span class="keyword">super</span>.y;</span><br><span class="line">    B(<span class="keyword">int</span> x, <span class="keyword">int</span> y)&#123;</span><br><span class="line">        <span class="keyword">super</span>(x, y);    <span class="comment">//通过super调用父类的构造方法，不能省略</span></span><br><span class="line">        <span class="keyword">this</span>.x = <span class="number">300</span> + <span class="keyword">super</span>.x; </span><br><span class="line">        z = <span class="number">200</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    B()&#123;</span><br><span class="line">        <span class="keyword">super</span>();        <span class="comment">//通过super调用父类的构造方法，可以省略</span></span><br><span class="line">        z = <span class="number">800</span>; </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">f</span><span class="params">()</span></span>&#123; </span><br><span class="line">        System.out.printf(<span class="string">&quot;x = &quot;</span> + x + <span class="string">&quot;; y = &quot;</span> + y + <span class="string">&quot;; z &quot;</span> = + z); </span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> m = <span class="number">0</span>, n = <span class="number">0</span>, z = <span class="number">0</span>;</span><br><span class="line">    <span class="function"><span class="keyword">long</span> <span class="title">f</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">return</span> m + n;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> <span class="keyword">extends</span> <span class="title">A</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> m = <span class="number">1</span>, n = <span class="number">1</span>;  </span><br><span class="line">    <span class="function"><span class="keyword">long</span> <span class="title">f</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">long</span> result = <span class="number">0</span>;  </span><br><span class="line">        <span class="keyword">super</span>.m = <span class="number">10</span>;       <span class="comment">//通过super关键字访问父类被隐藏的成员变量m</span></span><br><span class="line">        <span class="keyword">super</span>.n = <span class="number">20</span>;       <span class="comment">//通过super关键字访问父类被隐藏的成员变量n</span></span><br><span class="line">        result = <span class="keyword">super</span>.f() + (m + n) + z;  <span class="comment">//通过super关键字访问父类被重写的方法f()</span></span><br><span class="line">        <span class="keyword">return</span> result; </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">long</span> <span class="title">g</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">long</span> result = <span class="number">0</span>;</span><br><span class="line">        result = <span class="keyword">super</span>.f();  <span class="comment">//通过super关键字访问父类被重写的方法f()</span></span><br><span class="line">        <span class="keyword">return</span> result / <span class="number">2</span>; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="四-final类与final方法"><a class="markdownIt-Anchor" href="#四-final类与final方法"></a> 四、Final类与Final方法</h2>
+<p>用final关键字修饰的类称为final类。final类不能被继承，即不能有子类。按照如下方式定义的类A就是一个final类。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">A</span></span>&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>有时候出于安全性的考虑，将一些类修饰为final类。例如，Java提供的String类，它对于编译器和解释器的正常运行有很重要的作用，对它不能轻易改变，因此它被修饰为final类。<br />
+用final关键字修饰的方法称为final方法。如果一个方法被修饰为final方法，则这个方法可以被继承，但不能被重写，即不允许子类重写父类的final方法。</p>
+<div class="note default simple"><p>上机作业:<br />
+编写一个父类A，该类有个方法int f1(int a, int b)，计算a和b的最大公约数。再编写一个子类B，该类有个方法int f2(int a, int b)，计算a和b的最小公倍数，在该方法中调用父类的方法f1()完成最小公倍数的计算，提示：最大公约数 * 最小公倍数 = a * b。在应用程序的主类C中，创建一个子类B的对象，分别计算两个数的最大公约数和最小公倍数，并输出结果。<br/><br />
+<code>程序大致如下，不要再问我、或让我写程序、或呆坐在那里！最大公约数的计算代码，上网查，但不要用递归程序实现！</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">A</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">f1</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;  <span class="comment">//计算a和b的最大公约数</span></span><br><span class="line">        ....</span><br><span class="line">    &#125;     </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> <span class="keyword">extends</span> <span class="title">A</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">f2</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;  <span class="comment">//计算a和b的最大公约数，要调用父类方法f1()</span></span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">C</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span></span>&#123;</span><br><span class="line">        B b = <span class="keyword">new</span> B();</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h2 id="五-上转型与多态"><a class="markdownIt-Anchor" href="#五-上转型与多态"></a> 五、上转型与多态</h2>
+<h3 id="1-上转型"><a class="markdownIt-Anchor" href="#1-上转型"></a> 1. 上转型</h3>
+<p>设类B是类A的子类(直接或间接子类)，将子类B的对象赋值给父类A的变量：A a = new B()，这称为子类对象的上转型，a称为上转型对象。上转型可以自动将子类对象转换为父类对象，不需要强制转换。<br />
+子类对象上转型后，不能再使用子类新增的属性和方法，只能使用<code>从父类继承的属性和方法。对于父类被子类重写的方法，实际访问的是子类的方法，但访问权限还是按照父类方法的访问权限。</code><br />
+对于上转型，需要注意以下几点：</p>
+<ul>
+<li>调用一个方法时，把子类对象作为实参传给父类的形参，这也是上转型。</li>
+<li>若子类重写了父类的方法，则上转型对象在调用同名方法时，调用的是子类重写的方法。</li>
+<li>若子类隐藏了父类的属性，则上转型对象在访问同名属性时，访问的是父类被隐藏的属性。</li>
+<li>父类不能被子类继承的属性和方法，则上转型对象不能访问。</li>
+</ul>
+<div class="note danger simple"><p>注意:如果两种类型之间没有继承关系，那么Java编译器不允许在两者间进行类型转换，例如：</p>
+</div>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">Dog dog = <span class="keyword">new</span> Dog();</span><br><span class="line">Cat cat = (Cat)dog;</span><br><span class="line">```    </span><br><span class="line">`编译会出错，不允许把Dog对象转换为Cat对象。`</span><br><span class="line"></span><br><span class="line">```java</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span>&#123;</span><br><span class="line">    <span class="keyword">double</span> m, n;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> k;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.printf(<span class="string">&quot;父类的方法f(), n = %f, m = %d\n&quot;</span>, n, m); </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">g</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.printf(<span class="string">&quot;父类的方法g(), n = %f, m = %d\n&quot;</span>, n, m);  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> <span class="keyword">extends</span> <span class="title">A</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n=<span class="number">12</span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">g</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.printf(<span class="string">&quot;子类重写的方法g(), n = %d, m = %d\n&quot;</span>, n, m); </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">cry</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.printf(<span class="string">&quot;子类新增的方法cry(), n = %d, m = %d\n&quot;</span>, n, m); </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Example</span></span>&#123;</span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[ ])</span></span>&#123;</span><br><span class="line">          A a = <span class="keyword">new</span> B();    <span class="comment">//子类对象上转型</span></span><br><span class="line">          a.n = <span class="number">0.618</span>;      <span class="comment">//访问的是被子类隐藏的父类成员变量n</span></span><br><span class="line">          a.m = <span class="number">200</span>;        <span class="comment">//访问的是子类继承的父类成员变量m;</span></span><br><span class="line">          a.k = <span class="number">0</span>;          <span class="comment">//非法，成员变量k不能被子类继承，所以上转型对象不能访问</span></span><br><span class="line">          a.f();            <span class="comment">//访问的是子类继承的父类方法;</span></span><br><span class="line">          a.g();            <span class="comment">//访问的是子类重写的方法;</span></span><br><span class="line">          a.cry();          <span class="comment">//非法的，上转型对象只能访问从父类继承的成员变量或方法</span></span><br><span class="line">         <span class="comment">//上转型对象再执行下转型，又变回原来的子类对象，这时就可以访问子类所有可访</span></span><br><span class="line">         <span class="comment">//问的属性和方法</span></span><br><span class="line">          B b = (B)a;            </span><br><span class="line">          b.n = <span class="number">555</span>;        <span class="comment">//访问子类的成员变量n        </span></span><br><span class="line">          b.cry();          <span class="comment">//访问子类新增的方法cry()</span></span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>下转型是把父类对象赋值给子类变量：B b = (B)a; b称为下转型对象。下转型需要强制转换，分两种情况：</p>
+<ul>
+<li>把一个父类对象强制转换为子类对象。这是不允许的，尽管编译能通过，但不能运行。</li>
+<li>先将子类对象上转型，然后再下转型。这是允许的，上转型对象通过下转型又转换回原来的子类对象，可以使用子类的全部属性和方法。</li>
+</ul>
+<div class="note primary simple"><p>总结：把子类对象赋值给父类变量叫上转型，上转型不用强制转换；把父类对象赋值给子类变量叫下转型，要强制转换。当出现下转型时，一定要在此之前先执行过上转型，然后再执行下转型。</p>
+</div>
+<h3 id="2-多态"><a class="markdownIt-Anchor" href="#2-多态"></a> 2. 多态</h3>
+<p>Java的多态有两种实现方式：</p>
+<ul>
+<li>静态多态：重载(Overloading)；</li>
+<li>动态多态：和重写(Overwriting)相关。</li>
+</ul>
+<p>父类的方法被不同的子类重写时，表现出不同的行为。例如，哺乳动物是父类，具有行为&quot;叫&quot;，而子类狗的&quot;叫&quot; 是&quot;汪汪…，子类猫的&quot;叫&quot; 是&quot;喵喵…&quot;。<br />
+一个父类有多个子类，这些子类都重写了父类的方法，通过上转型对象访问父类被重写的方法，则不同子类的上转型对象表现出不同的行为，这就是多态。<br />
+多态的实现条件：继承—重写—上转型。看下面的例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">cry</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Dog</span> <span class="keyword">extends</span> <span class="title">Animal</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">cry</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Wang!Wang! ...&quot;</span>); </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cat</span> <span class="keyword">extends</span> <span class="title">Animal</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">cry</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;miao~~miao~~ ...&quot;</span>); </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Example</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span></span>&#123;</span><br><span class="line">        Animal animal;</span><br><span class="line">        animal=<span class="keyword">new</span> Dog();     <span class="comment">//animal是Dog对象的上转型对象</span></span><br><span class="line">        animal.cry();         <span class="comment">//输出：Wang!Wang! ......</span></span><br><span class="line">        animal=<span class="keyword">new</span> Cat();     <span class="comment">//animal是Cat对象的上转型对象</span></span><br><span class="line">        animal.cry();         <span class="comment">//输出miao~~miao~~ ...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="六-抽象类和抽象方法"><a class="markdownIt-Anchor" href="#六-抽象类和抽象方法"></a> 六、抽象类和抽象方法</h2>
+<p>用关键字abstract修饰的类称为抽象类(abstract类)，定义格式如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">A</span></span>&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>abstract类不能用来创建对象实例，但是可以被继承，也可以用来声明变量。不允许使用final和abstract同时修饰一个类。<br />
+用关键字abstract修饰的成员方法称为抽象方法(abstract方法)，抽象方法只有声明没有实现，也就是没有方法体。抽象方法必须是实例方法。抽象方法可以被子类重写(在子类中实现方法体)，重写的方法不再是抽象方法。如果子类不重写父类的抽象方法，则继承该抽象方法。同样不允许使用final和abstract同时修饰一个方法。有abstract方法的类一定是abstract类，而abstract类不一定有abstract方法。<br />
+抽象类和抽象方法的例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">A</span></span>&#123;                                <span class="comment">//抽象类</span></span><br><span class="line">    <span class="function"><span class="keyword">abstract</span> <span class="keyword">int</span> <span class="title">min</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span></span>;              <span class="comment">//抽象方法，没有方法体</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">max</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123; <span class="keyword">return</span>  x&gt;y ? x:y; &#125; <span class="comment">//非抽象方法，有方法体</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>子类如果不重写abstract父类的abstract方法，则会继承该abstract方法，从而子类也成abstract类。</code><br />
+思考：</p>
+<ol>
+<li>构造方法可以是抽象方法吗？</li>
+<li>抽象类不能用new操作符创建对象，那么有构造方法吗？</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Geometry</span></span>&#123;      <span class="comment">//抽象类</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">double</span> <span class="title">getArea</span><span class="params">()</span></span>;   <span class="comment">//抽象方法</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Ladder</span> <span class="keyword">extends</span> <span class="title">Geometry</span></span>&#123;       <span class="comment">//非抽象子类，重写了父类的抽象方法getArea()</span></span><br><span class="line">        <span class="keyword">double</span> a, b, h;</span><br><span class="line">        Ladder(<span class="keyword">double</span> a, <span class="keyword">double</span> b, <span class="keyword">double</span> h)&#123;</span><br><span class="line">            <span class="keyword">this</span>.a = a; <span class="keyword">this</span>.b = b; <span class="keyword">this</span>.h = h;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">getArea</span><span class="params">()</span></span>&#123;</span><br><span class="line">            <span class="keyword">return</span> ((<span class="number">1</span> / <span class="number">2.0</span>) * (a + b) * h);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Circle</span> <span class="keyword">extends</span> <span class="title">Geometry</span></span>&#123;      <span class="comment">//非抽象子类，重写了父类的抽象方法getArea()</span></span><br><span class="line">    <span class="keyword">double</span> r;</span><br><span class="line">    Circle(<span class="keyword">double</span> r)&#123;</span><br><span class="line">        <span class="keyword">this</span>.r = r;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">getArea</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span>  (<span class="number">3.14</span> * r * r);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Example</span> </span>&#123;</span><br><span class="line">       <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span></span>&#123;</span><br><span class="line">            Geometry tuxing;                                 <span class="comment">//抽象父类声明的对象变量</span></span><br><span class="line">            tuxing = <span class="keyword">new</span> Ladder(<span class="number">12</span>, <span class="number">22</span>, <span class="number">100</span>);                <span class="comment">//非抽象子类创建的对象，执行上转型</span></span><br><span class="line">            System.out.println(<span class="string">&quot;梯形的面积&quot;</span> + tuxing.getArea());</span><br><span class="line">            tuxing = <span class="keyword">new</span> Circle(<span class="number">10</span>);                         <span class="comment">//非抽象子类创建的对象，执行上转型</span></span><br><span class="line">            System.out.println(<span class="string">&quot;半径是10的圆的面积&quot;</span> + tuxing.getArea());</span><br><span class="line">       &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<div class="note danger simple"><p>上机作业：<br><br />
+编写一个Java程序，除了主类TestGeometry外，该程序还有一个抽象类Geometry、一个类Rectangle和一个类Circle。要求：<br><br />
+(1) 抽象类Geometry有两个抽象方法：public abstract double computeArea()，用于计算面积；public abstract double computeLength()，用于计算周长。<br><br />
+(2) Rectangle类继承Geometry，重写父类计算面积和周长的方法，并打印输出面积和周长，格式为：矩形的面积 = xxx;   矩形的周长 =  xxx; 有两个私有成员变量分别保存矩形的长和宽，一个构造方法用于初始化这两个成员变量。<br><br />
+(3) Circle类继承Geometry，重写父类计算面积和周长的方法，并打印输出面积和周长，格式为：圆的面积 =  xxx;  园的周长 =  xxx; 有一个私有成员变量用于保存圆的半径，一个构造方法用于初始化这个成员变量。圆周率PI = 3.142定义为常量。<br><br />
+(4) 在TestGeometry类的main方法中分别创建Rectangle类和Circle类的对象，从键盘输入矩形的长和宽，以及圆的半径.。通过上转型对象计算并打印输出各个对象的面积和周长。<br></p>
+</div>
+<h2 id="七-内部类"><a class="markdownIt-Anchor" href="#七-内部类"></a> 七、内部类</h2>
+<p>所谓的内部类，就是定义在一个类内部的类，包括常规内部类、匿名内部类、<code>静态内部类(不要求掌握)</code>、<code>局部内部类(不要求掌握)</code>。</p>
+<h3 id="1-常规内部类"><a class="markdownIt-Anchor" href="#1-常规内部类"></a> 1. 常规内部类</h3>
+<p>定义在类体中(不是方法体中)且没有用static关键字修饰的类。<br />
+定义常规内部类时可以使用private、protected、public、友好等访问权限，与用于成员变量和成员方法时的规则相同。也就是说，可以将常规内部类看作是外部类的一个成员。<br />
+在常规内部类中可以访问外部类的成员，用&quot;外部类名.this.外部类成员&quot;的形式访问外部类的实例成员，用&quot;外部类名.外部类成员&quot;的形式访问外部类的静态成员。在不引起歧义的情况下，前缀&quot;外部类名.this&quot;和&quot;外部类名&quot;可以省略。<br />
+在外部类的实例方法和构造方法中可以直接声明内部类的变量，以及创建内部类的对象：<br />
+内部类名   变量名 = new 内部类名(…)。<br />
+在外部类的实例方法和构造方法之外的地方创建常规内部类的对象：</p>
+<ul>
+<li>声明内部类的变量：  外部类名.内部类名   变量名;</li>
+<li>创建内部类的对象：  外部类对象.new   内部类名(…);<br />
+<code>也就是要先创建外部类对象，然后通过外部类对象创建内部类对象。</code></li>
+</ul>
+<div class="note info simple"><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyOuter</span> </span>&#123;    </span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">private</span> <span class="keyword">int</span>  x = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> y = <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">double</span> z = <span class="number">3</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">MyInner</span> </span>&#123;    <span class="comment">//内部类</span></span><br><span class="line">        <span class="keyword">private</span> String y = <span class="string">&quot;Hello!&quot;</span>;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">innerMethod</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="comment">// 访问内部类的成员变量y</span></span><br><span class="line">            System.out.println(<span class="string">&quot;内部类的成员变量y = &quot;</span> + y);  </span><br><span class="line">            <span class="comment">// 访问外部类的实例成员变量y，因为内部类和外部类都有成员变量y，所以不能略MyOuter.this</span></span><br><span class="line">            System.out.println(<span class="string">&quot;外部类的实例成员变量y = &quot;</span> + MyOuter.<span class="keyword">this</span>.y);  </span><br><span class="line">            <span class="comment">// 访问外部类的实例成员变量z，可以省略MyOuter.this</span></span><br><span class="line">            System.out.println(<span class="string">&quot;外部类的实例成员变量z = &quot;</span> + z);  </span><br><span class="line">            <span class="comment">// 访问外部类的静态成员变量x</span></span><br><span class="line">            System.out.println(<span class="string">&quot;外部类的静态成员变量x = &quot;</span> + MyOuter.x);  </span><br><span class="line">            <span class="comment">// 访问外部类的静态成员变量x，省略了MyOuter </span></span><br><span class="line">            System.out.println(<span class="string">&quot;外部类的静态成员变量x = &quot;</span> + x);     </span><br><span class="line">        &#125; </span><br><span class="line">           </span><br><span class="line">        <span class="function"><span class="keyword">public</span> MyOuter <span class="title">outer</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> MyOuter.<span class="keyword">this</span>;   &#125;         <span class="comment">//返回外部类对象</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> MyInner <span class="title">makeInner</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        MyInner in = <span class="keyword">new</span> MyInner();  <span class="comment">//在外部类的实例方法中创建内部类对象</span></span><br><span class="line">        <span class="keyword">return</span> in;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;    	       	     </span><br><span class="line">        MyOuter  mo = <span class="keyword">new</span> MyOuter(); <span class="comment">//创建外部类对象             </span></span><br><span class="line">        MyOuter.MyInner  inner;  <span class="comment">//声明常规内部类的变量 </span></span><br><span class="line">        </span><br><span class="line">        inner = mo.makeInner();  <span class="comment">//调用外部类的方法创建内部类对象</span></span><br><span class="line">        inner.innerMethod();               </span><br><span class="line">        System.out.println();</span><br><span class="line">        </span><br><span class="line">        inner = mo.<span class="function">new  <span class="title">MyInner</span><span class="params">()</span></span>;  <span class="comment">//通过外部类的对象创建内部类对象</span></span><br><span class="line">        inner.innerMethod();   </span><br><span class="line">        System.out.println();</span><br><span class="line">        </span><br><span class="line">        mo = inner.outer();  <span class="comment">//通过内部类的对象，获得外部类的当前对象</span></span><br><span class="line">        System.out.println(mo);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h3 id="2-匿名内部类简称匿名类"><a class="markdownIt-Anchor" href="#2-匿名内部类简称匿名类"></a> 2. 匿名内部类(简称匿名类)</h3>
+<p>在一个类的内部定义，在定义类的同时创建对象并且类没有名字，这种类称为匿名内部类，定义格式：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span>  类或接口(…)&#123;   </span><br><span class="line">    匿名内部类的类体    </span><br><span class="line">&#125;;   </span><br></pre></td></tr></table></figure>
+<p>匿名类必须继承一个类或实现一个接口，new后面的名字是匿名类的父类或要实现的接口，new返回的是所创建的匿名类对象。匿名类的定义和使用都在同一个地方，如果某个类的对象只使用一次，可以考虑使用匿名类。</p>
+<p>由于匿名类没有名字，所以不能定义构造方法。<code>思考：为什么？</code></p>
+<p>匿名类可以访问外部类的成员变量和成员方法：</p>
+<ul>
+<li>如果匿名类定义在外部类的静态方法中，那么只能访问外部类的静态成员；如果匿名类定义在外部类的实例方法中，则外部类的静态成员和非静态成员都可以访问。</li>
+<li>如果匿名类定义在外部类的类体中，那就看把匿名类对象赋值给外部类的静态成员变量还是实例成员变量。如果是赋值给静态成员变量，则只能访问外部类的静态成员；如果赋值给实例成员变量，则外<br />
+部类的静态的和非静态成员都可以访问。</li>
+<li>可以用&quot;外部类名.this.成员&quot;的形式来访问外部类的实例成员，用&quot;外部类名.成员&quot;的形式来访问外部类的静态成员。在不引起歧义的情况下，前缀&quot;外部类名.this&quot;和&quot;外部类名&quot;可以省略。</li>
+</ul>
+<h4 id="定义形式"><a class="markdownIt-Anchor" href="#定义形式"></a> 定义形式</h4>
+<ol>
+<li>new ClassName(…) {…};            //匿名类继承父类ClassName，圆括号内如果有参数，是传给父类ClassName的构造方法的参数</li>
+<li>new InterfaceName() {…};         //匿名类实现接口InterfaceName，圆括号内不能有参数。</li>
+</ol>
+<h4 id="常用方式"><a class="markdownIt-Anchor" href="#常用方式"></a> 常用方式</h4>
+<ol>
+<li>someMethod(new Xxx(){ … });      //将匿名类对象作为方法的参数</li>
+<li>return new Xxx(){ … };           //将匿名类对象作为方法的返回值</li>
+<li>Xxx a =  new Xxx(…) {…};         //匿名类对象上转型</li>
+</ol>
+<div class="note info simple"><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyOuter</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span>  <span class="keyword">int</span> size = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">private</span> <span class="keyword">int</span> n = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">    Object x = <span class="keyword">new</span> Object() &#123; <span class="comment">//将匿名类对象赋值给父类Object类型的成员变量x，是上转型</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span></span>&#123;  </span><br><span class="line">            <span class="keyword">return</span>  <span class="string">&quot;成员变量x的值是: &quot;</span> + MyOuter.<span class="keyword">this</span>.size / MyOuter.n; </span><br><span class="line">        &#125;   <span class="comment">//重写父类的toString()方法</span></span><br><span class="line">    &#125;; </span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span>  Object <span class="title">makeInner</span><span class="params">(<span class="keyword">int</span> localVar)</span></span>&#123;    <span class="comment">//将匿名类对象作为方法的返回值            </span></span><br><span class="line">        <span class="keyword">int</span>  unit = <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Object() &#123;  </span><br><span class="line">            <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">                <span class="keyword">return</span>   <span class="string">&quot;OuterSize =  &quot;</span> + size / unit + <span class="string">&quot;  LocalVar = &quot;</span> + localVar / n;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;  <span class="comment">//重写父类的toString()方法</span></span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">printObject</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123; </span><br><span class="line">        System.out.println(  </span><br><span class="line">            <span class="keyword">new</span> Object()&#123; </span><br><span class="line">                <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span></span>&#123;  </span><br><span class="line">                    <span class="keyword">return</span> <span class="string">&quot;输入参数的值是: &quot;</span> + MyOuter.<span class="keyword">this</span>.size / MyOuter.n; </span><br><span class="line">                &#125; </span><br><span class="line">            &#125;</span><br><span class="line">        ); <span class="comment">//匿名类对象做方法的输入参数</span></span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> </span>&#123;</span><br><span class="line">        MyOuter obj = <span class="keyword">new</span> MyOuter();            </span><br><span class="line">        obj.printObject(<span class="number">15</span>);            </span><br><span class="line">        System.out.println(obj.makeInner(<span class="number">47</span>)); </span><br><span class="line">        System.out.println(obj.x);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h3 id="3-静态内部类不要求掌握"><a class="markdownIt-Anchor" href="#3-静态内部类不要求掌握"></a> 3. 静态内部类(不要求掌握)</h3>
+<p>定义在类体中并且用static关键字修饰的内部类。</p>
+<p>静态内部类可以直接访问外部类的static成员，但不能直接访问外部类的实例成员。同样可以用权限修饰符限制静态内部类的访问权限。<br />
+在static内部类中不能使用&quot;外部类名.this&quot;访问外部类的成员。<br />
+创建静态内部类的对象：</p>
+<ul>
+<li>声明静态内部类的对象变量：外部类名.内部类名    对象变量;</li>
+<li>创建静态内部类的对象实例：new  外部类名.内部类名(…);<br />
+静态内部类可以定义在接口中，定义在接口中的任何类都自动成为public和static的。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyOuter</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> x = <span class="number">100</span>;</span><br><span class="line">    <span class="keyword">int</span> m = <span class="number">20</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">MyInner</span></span>&#123;</span><br><span class="line">        <span class="keyword">private</span> String y = <span class="string">&quot;Hello!&quot;</span>;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">innerMethod</span><span class="params">()</span></span>&#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;x = &quot;</span> + x);</span><br><span class="line">            System.out.println(<span class="string">&quot;y = &quot;</span> + y);  </span><br><span class="line">            System.out.println(<span class="string">&quot;m = &quot;</span> + m);   <span class="comment">// 错误，静态内部类不能直接访问外部类的实例成员</span></span><br><span class="line">        &#125;   </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        MyOuter.MyInner  si = <span class="keyword">new</span>  MyOuter.MyInner();   <span class="comment">//创建静态内部类的对象 </span></span><br><span class="line">        si.innerMethod();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4-局部内部类不要求掌握"><a class="markdownIt-Anchor" href="#4-局部内部类不要求掌握"></a> 4. 局部内部类(不要求掌握)</h3>
+<p>在方法或语句块中定义的类称为局部内部类。</p>
+<ul>
+<li>局部内部类只能在定义它的方法或语句块内可以使用。</li>
+<li>局部内部类同局部变量一样不能使用private、protected、public等访问修饰符，也不能使用static修饰。</li>
+<li>局部内部类可以访问外部类的成员(static成员和实例成员)，也可以通过&quot;外部类名.this&quot;访问外部类对象及成员。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyOuter</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> size = <span class="number">5</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> y = <span class="number">7</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">makeInner</span><span class="params">(<span class="keyword">int</span> localVar)</span></span>&#123;</span><br><span class="line">        <span class="class"><span class="keyword">class</span> <span class="title">MyInner</span></span>&#123;            <span class="comment">// 该内部类只在makeInner()方法中有效</span></span><br><span class="line">            <span class="keyword">int</span> y = <span class="number">4</span>;</span><br><span class="line">            <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                String s1 = <span class="string">&quot;Outer size = &quot;</span> + size;</span><br><span class="line">                <span class="comment">// 访问局部变量</span></span><br><span class="line">                String s2 = <span class="string">&quot; Inner localVar = &quot;</span> + localVar;  </span><br><span class="line">                <span class="comment">// 访问内部类的成员变量y，可以省略this</span></span><br><span class="line">                String s3 = <span class="string">&quot; Inner y = &quot;</span> + <span class="keyword">this</span>.y;     </span><br><span class="line">                <span class="comment">// 必须通过MyOuter.this访问外部类的同名成员变量y</span></span><br><span class="line">                String s4 = <span class="string">&quot; Outer y = &quot;</span> + MyOuter.<span class="keyword">this</span>.y;   </span><br><span class="line">                <span class="keyword">return</span>  s1 + s2 + s3 + s4;</span><br><span class="line">            &#125;  </span><br><span class="line">        &#125; </span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> MyInner(); </span><br><span class="line">    &#125; </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;  </span><br><span class="line">        <span class="comment">// 创建MyOuter对象，不能使用MyInner来声明对象变量</span></span><br><span class="line">        Object obj = <span class="keyword">new</span> MyOuter().makeInner(<span class="number">47</span>);   </span><br><span class="line">        System.out.println(obj.toString());</span><br><span class="line">    &#125;    </span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<div class="note default simple"><p>上机作业:</p>
+<ul>
+<li>抽象类Geometry有两个成员变量double width和double height(保存矩形的宽和高)。</li>
+<li>一个构造方法Geometry(double width, double height)用于给两个成员变量赋初值。</li>
+<li>有两个抽象方法：double computeArea()计算矩形面积，double computeLength()计算矩形周长。</li>
+<li>主类TestClass有一个Geometry类型的成员变量ge。</li>
+<li>有一个构造方法TestClass(double width, double height)，width和height分别指定矩形的宽和高。</li>
+<li>在构造方法中定义一个父类为Geometry的匿名类，在匿名类中重写Geometry的抽象方法double computeArea()和double computeLength()，创建匿名类对象所需的宽和高由构造方法TestClass(double width, double height)的参数提供，将匿名类对象赋值给变量ge，从而成上转型对象。</li>
+<li>在TestClass中定义两个实例方法public double computeArea()和public double computeLength()，分别使用匿名类的上转型对象ge计算周长和面积，并打印输出，格式为：矩形的面积 = xxx;  矩形的周长 = xxx。</li>
+<li>在类TestClass的main方法中创建一个TestClass对象，调用该对象的方法完成周长和面积的计算及打印输出。</li>
+</ul>
+</div>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/JAVA/">JAVA</a></div><div class="post_share"><div class="social-share" data-image="https://lgxs.liuguoxing.top/cover/java.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/ds/4/"><img class="prev-cover" src="https://lgxs.liuguoxing.top/cover/ds.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">第四章串</div></div></a></div><div class="next-post pull-right"><a href="/ds/3/"><img class="next-cover" src="https://lgxs.liuguoxing.top/cover/ds.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">第三章栈和队列</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/java/17/" title="复习总结七"><img class="cover" src="https://lgxs.liuguoxing.top/cover/java.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-12-17</div><div class="title">复习总结七</div></div></a></div><div><a href="/java/15/" title="复习总结五"><img class="cover" src="https://lgxs.liuguoxing.top/cover/java.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-12-15</div><div class="title">复习总结五</div></div></a></div><div><a href="/java/14/" title="复习总结四"><img class="cover" src="https://lgxs.liuguoxing.top/cover/java.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-12-14</div><div class="title">复习总结四</div></div></a></div><div><a href="/java/13/" title="复习总结三"><img class="cover" src="https://lgxs.liuguoxing.top/cover/java.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-12-13</div><div class="title">复习总结三</div></div></a></div><div><a href="/java/12/" title="复习总结二"><img class="cover" src="https://lgxs.liuguoxing.top/cover/java.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-12-12</div><div class="title">复习总结二</div></div></a></div><div><a href="/java/11/" title="复习总结一"><img class="cover" src="https://lgxs.liuguoxing.top/cover/java.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-12-11</div><div class="title">复习总结一</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80-%E7%BB%A7%E6%89%BF%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-number">1.</span> <span class="toc-text"> 一、继承的定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C-%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F%E7%9A%84%E9%9A%90%E8%97%8F%E5%92%8C%E6%88%90%E5%91%98%E6%96%B9%E6%B3%95%E7%9A%84%E9%87%8D%E5%86%99"><span class="toc-number">2.</span> <span class="toc-text"> 二、成员变量的隐藏和成员方法的重写</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89-super%E5%85%B3%E9%94%AE%E5%AD%97"><span class="toc-number">3.</span> <span class="toc-text"> 三、Super关键字</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B-final%E7%B1%BB%E4%B8%8Efinal%E6%96%B9%E6%B3%95"><span class="toc-number">4.</span> <span class="toc-text"> 四、Final类与Final方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94-%E4%B8%8A%E8%BD%AC%E5%9E%8B%E4%B8%8E%E5%A4%9A%E6%80%81"><span class="toc-number">5.</span> <span class="toc-text"> 五、上转型与多态</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%B8%8A%E8%BD%AC%E5%9E%8B"><span class="toc-number">5.1.</span> <span class="toc-text"> 1. 上转型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%A4%9A%E6%80%81"><span class="toc-number">5.2.</span> <span class="toc-text"> 2. 多态</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD-%E6%8A%BD%E8%B1%A1%E7%B1%BB%E5%92%8C%E6%8A%BD%E8%B1%A1%E6%96%B9%E6%B3%95"><span class="toc-number">6.</span> <span class="toc-text"> 六、抽象类和抽象方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83-%E5%86%85%E9%83%A8%E7%B1%BB"><span class="toc-number">7.</span> <span class="toc-text"> 七、内部类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%B8%B8%E8%A7%84%E5%86%85%E9%83%A8%E7%B1%BB"><span class="toc-number">7.1.</span> <span class="toc-text"> 1. 常规内部类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%8C%BF%E5%90%8D%E5%86%85%E9%83%A8%E7%B1%BB%E7%AE%80%E7%A7%B0%E5%8C%BF%E5%90%8D%E7%B1%BB"><span class="toc-number">7.2.</span> <span class="toc-text"> 2. 匿名内部类(简称匿名类)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E5%BD%A2%E5%BC%8F"><span class="toc-number">7.2.1.</span> <span class="toc-text"> 定义形式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E6%96%B9%E5%BC%8F"><span class="toc-number">7.2.2.</span> <span class="toc-text"> 常用方式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E9%9D%99%E6%80%81%E5%86%85%E9%83%A8%E7%B1%BB%E4%B8%8D%E8%A6%81%E6%B1%82%E6%8E%8C%E6%8F%A1"><span class="toc-number">7.3.</span> <span class="toc-text"> 3. 静态内部类(不要求掌握)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%B1%80%E9%83%A8%E5%86%85%E9%83%A8%E7%B1%BB%E4%B8%8D%E8%A6%81%E6%B1%82%E6%8E%8C%E6%8F%A1"><span class="toc-number">7.4.</span> <span class="toc-text"> 4. 局部内部类(不要求掌握)</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background-image: url('https://lgxs.liuguoxing.top/cover/java.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2020-2021 - 2022 By Lucifer LGX</div><div class="footer_custom_text"><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/"><img class="icp-icon" src="/img/icp.png"><span>鲁ICP备19034408号</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><script defer src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script defer src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>if (document.getElementsByClassName('mermaid').length) {
+  if (window.mermaidJsLoad) mermaid.init()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(() => {
+      window.mermaidJsLoad = true
+      mermaid.initialize({
+        theme: 'default',
+      })
+      true && mermaid.init()
+    })
+  }
+}</script><script>function loadValine () {
+  function initValine () {
+    let initData = {
+      el: '#vcomment',
+      appId: 'HiHYvf5onwRzqyXaABTznB3Q-gzGzoHsz',
+      appKey: '9b1pQs8nNJBAClfhJbLqRPYH',
+      placeholder: 'Please leave your footprints',
+      avatar: 'hide',
+      meta: 'nick,mail,link'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+    }
+
+    if (true) { 
+      initData.requiredFields= ('nick,mail'.split(','))
+    }
+    
+    if (false) {
+      const otherData = false
+      initData = Object.assign(initData, otherData)
+    }
+    
+    const valine = new Valine(initData)
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script defer src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script>var gitcalendar = new Vue({
+  el: '#gitcalendar',
+  data: {
+    simplemode: true, 
+    user: 'Nightliuguoxing',
+    fixed: 'fixed',
+    px: 'px',
+    x: '',
+    y: '',
+    span1: '',
+    span2: '',
+    month: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+    monthchange: [],
+    oneyearbeforeday: '',
+    thisday: '',
+    amonthago: '',
+    aweekago: '',
+    weekdatacore: 0,
+    datacore: 0,
+    total: 0,
+    datadate: '',
+    data: [],
+    positionplusdata: [],
+    firstweek: [],
+    lastweek: [],
+    beforeweek: [],
+    thisweekdatacore: 0,
+    mounthbeforeday: 0,
+    mounthfirstindex: 0,
+    crispedges: 'crispedges',
+    thisdayindex: 0,
+    amonthagoindex: 0,
+    amonthagoweek: [],
+    firstdate: [],
+    first2date: [],
+    montharrbefore: [],
+    monthindex: 0,
+    color: ['#ebedf0', '#fdcdec', '#fc9bd9', '#fa6ac5', '#f838b2', '#f5089f', '#c4067e', '#92055e', '#540336', '#48022f', '#30021f']
+  },
+  methods: {
+    selectStyle(data, event) {
+      document.querySelector('.angle-wrapper').style.display = 'block'
+      this.span1 = data.date;
+      this.span2 = data.count;
+      this.x = event.clientX - 100;
+      this.y = event.clientY - 60
+    },
+    outStyle() {
+      document.querySelector('.angle-wrapper').style.display = 'none'
+    },
+    thiscolor(x) {
+      if (x === 0) {
+        let i = parseInt(x / 2);
+        return this.color[0]
+      } else if (x < 2) {
+        return this.color[1]
+      } else if (x < 20) {
+        let i = parseInt(x / 2);
+        return this.color[i]
+      } else {
+        return this.color[9]
+      }
+    },
+  }
+});
+var apiurl = 'python-github-calendar-api-rouge.vercel.app' ? 'https://python-github-calendar-api-rouge.vercel.app/api?' : 'https://githubapi.ryanchristian.dev/user/'
+var githubapiurl = apiurl + gitcalendar.user;
+//canvas绘图
+function responsiveChart() {
+  let c = document.getElementById("gitcanvas");
+  if (c) {
+    let cmessage = document.getElementById("gitmessage");
+    let ctx = c.getContext("2d");
+    c.width = document.getElementById("gitcalendarcanvasbox").offsetWidth;
+    let linemaxwitdh = 0.96 * c.width / gitcalendar.data.length;
+    c.height = 9 * linemaxwitdh;
+    let lineminwitdh = 0.8 * linemaxwitdh;
+    let setposition = {
+      x: 0.02 * c.width,
+      y: 0.025 * c.width
+    };
+    for (let week in gitcalendar.data) {
+      weekdata = gitcalendar.data[week];
+      for (let day in weekdata) {
+        let dataitem = {
+          date: "",
+          count: "",
+          x: 0,
+          y: 0
+        };
+        gitcalendar.positionplusdata.push(dataitem);
+        ctx.fillStyle = gitcalendar.thiscolor(weekdata[day].count);
+        setposition.y = Math.round(setposition.y * 100) / 100;
+        dataitem.date = weekdata[day].date;
+        dataitem.count = weekdata[day].count;
+        dataitem.x = setposition.x;
+        dataitem.y = setposition.y;
+        ctx.fillRect(setposition.x, setposition.y, lineminwitdh, lineminwitdh);
+        setposition.y = setposition.y + linemaxwitdh
+      };
+      setposition.y = 0.025 * c.width;
+      setposition.x = setposition.x + linemaxwitdh
+    };
+    ctx.font = "600  Arial";
+    ctx.fillStyle = '#aaa';
+    ctx.fillText("日", 0, 1.9 * linemaxwitdh);
+    ctx.fillText("二", 0, 3.9 * linemaxwitdh);
+    ctx.fillText("四", 0, 5.9 * linemaxwitdh);
+    ctx.fillText("六", 0, 7.9 * linemaxwitdh);
+    let monthindexlist = c.width / 24;
+    for (let index in gitcalendar.monthchange) {
+      ctx.fillText(gitcalendar.monthchange[index], monthindexlist, 0.7 * linemaxwitdh);
+      monthindexlist = monthindexlist + c.width / 12
+    };
+    cmessage.onmousemove = function(event) {
+      document.querySelector('.angle-wrapper').style.display = 'none'
+    };
+    c.onmousemove = function(event) {
+      document.querySelector('.angle-wrapper').style.display = 'none'
+      getMousePos(c, event);
+    };
+
+    function getMousePos(canvas, event) {
+      var rect = canvas.getBoundingClientRect();
+      var x = event.clientX - rect.left * (canvas.width / rect.width);
+      var y = event.clientY - rect.top * (canvas.height / rect.height);
+      //console.log("x:"+x+",y:"+y);
+      for (let item of gitcalendar.positionplusdata) {
+        let lenthx = x - item.x;
+        let lenthy = y - item.y;
+        //console.log(lenthx,lenthy);
+        if (0 < lenthx && lenthx < lineminwitdh) {
+          if (0 < lenthy && lenthy < lineminwitdh) {
+            //console.log(item.date,item.count)
+            document.querySelector('.angle-wrapper').style.display = 'block'
+            gitcalendar.span1 = item.date;
+            gitcalendar.span2 = item.count;
+            gitcalendar.x = event.clientX - 100;
+            gitcalendar.y = event.clientY - 60
+          }
+        }
+        //if(0< x - item.x <lineminwitdh&&0< y - item.y <lineminwitdh){
+        //console.log(item.count,item.date);
+        //}
+      }
+    }
+  }
+}
+//数据统计算法
+function addlastmonth() {
+  if (gitcalendar.thisdayindex === 0) {
+    thisweekcore(52);
+    thisweekcore(51);
+    thisweekcore(50);
+    thisweekcore(49);
+    thisweekcore(48);
+    gitcalendar.thisweekdatacore += gitcalendar.firstdate[6].count;
+    gitcalendar.amonthago = gitcalendar.firstdate[6].date
+  } else {
+    thisweekcore(52);
+    thisweekcore(51);
+    thisweekcore(50);
+    thisweekcore(49);
+    thisweek2core();
+    gitcalendar.amonthago = gitcalendar.first2date[gitcalendar.thisdayindex - 1].date
+  }
+};
+
+function thisweek2core() {
+  for (let i = gitcalendar.thisdayindex - 1; i < gitcalendar.first2date.length; i++) {
+    gitcalendar.thisweekdatacore += gitcalendar.first2date[i].count
+  }
+};
+
+function thisweekcore(index) {
+  for (let item of gitcalendar.data[index]) {
+    gitcalendar.thisweekdatacore += item.count
+  }
+};
+
+function addlastweek() {
+  for (let item of gitcalendar.lastweek) {
+    gitcalendar.weekdatacore += item.count
+  }
+};
+
+function addbeforeweek() {
+  for (let i = gitcalendar.thisdayindex; i < gitcalendar.beforeweek.length; i++) {
+    gitcalendar.weekdatacore += gitcalendar.beforeweek[i].count
+  }
+};
+
+function addweek(data) {
+  if (gitcalendar.thisdayindex === 6) {
+    gitcalendar.aweekago = gitcalendar.lastweek[0].date;
+    addlastweek()
+  } else {
+    lastweek = data.contributions[51];
+    gitcalendar.aweekago = lastweek[gitcalendar.thisdayindex + 1].date;
+    addlastweek();
+    addbeforeweek()
+  }
+}
+
+fetch(githubapiurl)
+  .then(data => data.json())
+  .then(data => {
+    gitcalendar.data = data.contributions;
+    gitcalendar.total = data.total;
+    gitcalendar.first2date = gitcalendar.data[48];
+    gitcalendar.firstdate = gitcalendar.data[47];
+    gitcalendar.firstweek = data.contributions[0];
+    gitcalendar.lastweek = data.contributions[52];
+    gitcalendar.beforeweek = data.contributions[51];
+    gitcalendar.thisdayindex = gitcalendar.lastweek.length - 1;
+    gitcalendar.thisday = gitcalendar.lastweek[gitcalendar.thisdayindex].date;
+    gitcalendar.oneyearbeforeday = gitcalendar.firstweek[0].date;
+    gitcalendar.monthindex = gitcalendar.thisday.substring(5, 7) * 1;
+    gitcalendar.montharrbefore = gitcalendar.month.splice(gitcalendar.monthindex, 12 - gitcalendar.monthindex);
+    gitcalendar.monthchange = gitcalendar.montharrbefore.concat(gitcalendar.month);
+    addweek(data);
+    addlastmonth();
+    responsiveChart();
+  })
+  .catch(function(error) {
+    console.log(error);
+  });
+
+//手机版更换为svg绘制
+if (document.getElementById("gitcalendarcanvasbox").offsetWidth < 500) {
+  gitcalendar.simplemode = false
+}
+
+//当改变窗口大小时重新绘制canvas
+window.onresize = function() {
+  if (gitcalendar.simplemode) responsiveChart()
+}
+
+//解决滚动滑轮时出现的标签显示
+window.onscroll = function() {
+  if (document.querySelector('.angle-wrapper')) {
+    document.querySelector('.angle-wrapper').style.display = 'none'
+  }
+};</script></div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/swiper/swiper.min.js"></script><script src="/swiper/swiperindex.js"></script><script src="/js/flipcountdown.js"></script><script data-pjax src="/js/runtime.js"></script><script async src="//at.alicdn.com/t/font_2264842_3izu8i5eoc2.js"></script><script src='https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@latest/Hexo/js/mouse_snow.min.js'></script><script src='https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@latest/Hexo/js/hideMobileSidebar.js'></script><script src='https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@latest/Hexo/js/hideCategory.min.js'></script><script defer src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/hexo-theme-volantis@latest/source/js/issues.min.js"></script><div class="aplayer no-destroy" data-id="000PeZCQ1i4XVs" data-server="tencent" data-type="artist" data-fixed="true" data-mini="true" data-listFolded="false" data-order="random" data-preload="none" data-autoplay="false" muted></div><script src=''></script><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/fireworks.min.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  if (typeof gtag === 'function') {
+    gtag('config', '', {'page_path': window.location.pathname});
+  }
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+
+document.addEventListener('pjax:send', function () {
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/nipsilon.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body></html>

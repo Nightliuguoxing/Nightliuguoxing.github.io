@@ -1,0 +1,1236 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>第一章 概述 | Lucifer</title><meta name="keywords" content="计算机网络"><meta name="author" content="Lucifer LGX"><meta name="copyright" content="Lucifer LGX"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="第一章 概述">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第一章 概述">
+<meta property="og:url" content="http://www.liuguoxing.top/ci/11/index.html">
+<meta property="og:site_name" content="Lucifer">
+<meta property="og:description" content="第一章 概述">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lgxs.liuguoxing.top/cover/wl.jpg">
+<meta property="article:published_time" content="2020-12-19T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-03-04T12:41:02.930Z">
+<meta property="article:author" content="Lucifer LGX">
+<meta property="article:tag" content="计算机网络">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://lgxs.liuguoxing.top/cover/wl.jpg"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="http://www.liuguoxing.top/ci/11/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?af087bb3378df752c6a2fb9a80a690aa";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-03-04 20:41:02'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><link rel="stylesheet" href="/css/cursor.css"><link rel="stylesheet" href="/css/flipcountdown.css"><link rel="stylesheet" href="/css/iconfont.css"><link rel="stylesheet" href="/css/background.css"/><link rel="stylesheet" href="/swiper/swiper.min.css"><link rel="stylesheet" href="/swiper/swiperstyle.css"><link rel="stylesheet" href="/css/bilibiliBanner.css"  media="defer" onload="this.media='screen'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@latest/Hexo/css/hideCategory.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/StaticFile_HEXO@latest/butterfly/css/font-awesome-animation.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/l-lin/font-awesome-animation/dist/font-awesome-animation.min.css"  media="defer" onload="this.media='all'"><link rel="stylesheet" href=""><meta name="generator" content="Hexo 5.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">76</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">11</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-zhuye"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/guide/"><i class="fa-fw iconfont icon-daohang1"></i><span> 导航</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-shijian"></i><span> 时轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw iconfont icon-icon"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/skills/"><i class="fa-fw iconfont icon-ai-book"></i><span> 技术</span></a></div><div class="menus_item"><a class="site-page" href="/pta/"><span> PTA</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw iconfont icon-06"></i><span> 娱乐</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/musics/"><i class="fa-fw iconfont icon-icon-test"></i><span> 音乐</span></a></li><li><a class="site-page" href="/pictures/"><i class="fa-fw iconfont icon-tupian"></i><span> 照片</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw iconfont icon-dianying1"></i><span> 电影</span></a></li><li><a class="site-page" href="/books/"><i class="fa-fw iconfont icon-book-2"></i><span> 读书</span></a></li><li><a class="site-page" href="/games/"><i class="fa-fw iconfont icon-iconfontyouxihudong"></i><span> 游戏</span></a></li><li><a class="site-page" href="/cates/"><i class="fa-fw iconfont icon-meishi1"></i><span> 美食</span></a></li><li><a class="site-page" href="/artitalk"><i class="fa-fw iconfont icon-xinbaniconshangchuan-"></i><span> 说说</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw iconfont icon-wendang"></i><span> 文档</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/api/"><span> VUE</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://vuex.vuejs.org/zh/api/#vuex-store"><span> VUEX</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://www.kancloud.cn/yunye/axios/234845"><span> AXIOS</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://www.jquery123.com/"><span> JQuery</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://www.w3school.com.cn/js/js_htmldom_document.asp"><span> JavaScript</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw iconfont icon-gongju"></i><span> 工具</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" target="_blank" rel="noopener" href="https://cli.im/"><span> QR生成器</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://smallpdf.com/cn/pdf-to-word"><span> PDF转换器</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://www.toyaml.com/index.html"><span> YML转换器</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://tool.chinaz.com/tools/native_ascii.aspx"><span> 编码转换器</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://tool.oschina.net/codeformat/html"><span> Code格式化</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://www.bejson.com/jsoneditoronline"><span> JSON格式化</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://zh.numberempire.com/latexequationeditor.php"><span> LaTeX编辑器</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://tableconvert.com/?output=text"><span> MD表格生成</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://cron.qqe2.com"><span> CRON表达式</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw iconfont icon-tubiaozhizuomoban"></i><span> 学校</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" target="_blank" rel="noopener" href="https://www.zhihuishu.com/"><span> 智慧树</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://10.40.101.111/indexcs/index.jsp?loginErr=0"><span> CG平台</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://openjudge.cn/"><span> OJ平台</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://pintia.cn/problem-sets?tab=0"><span> PAT平台</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://www.mooctest.net/login2"><span> 慕测平台</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://i.chaoxing.com/base?t=1604882532908"><span> 泛雅超星</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://tsg.bzu.edu.cn/"><span> BZU图书馆</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://192.168.200.123/"><span> BZU上网认证</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://pay.bzu.edu.cn/xysf/login.aspx?local=zh-cn"><span> BZU支付平台</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://172.16.16.4/login?errorCode=badCredentials"><span> BZU教务系统</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://mail.bzu.edu.cn/"><span> BZU邮件系统</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw iconfont icon-lianjie1"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw iconfont icon-xinbaniconshangchuan-1"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw iconfont icon-liuyanban-05"></i><span> 留言板</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://lgxs.liuguoxing.top/cover/wl.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Lucifer</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-zhuye"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/guide/"><i class="fa-fw iconfont icon-daohang1"></i><span> 导航</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-shijian"></i><span> 时轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw iconfont icon-icon"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/skills/"><i class="fa-fw iconfont icon-ai-book"></i><span> 技术</span></a></div><div class="menus_item"><a class="site-page" href="/pta/"><span> PTA</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw iconfont icon-06"></i><span> 娱乐</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/musics/"><i class="fa-fw iconfont icon-icon-test"></i><span> 音乐</span></a></li><li><a class="site-page" href="/pictures/"><i class="fa-fw iconfont icon-tupian"></i><span> 照片</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw iconfont icon-dianying1"></i><span> 电影</span></a></li><li><a class="site-page" href="/books/"><i class="fa-fw iconfont icon-book-2"></i><span> 读书</span></a></li><li><a class="site-page" href="/games/"><i class="fa-fw iconfont icon-iconfontyouxihudong"></i><span> 游戏</span></a></li><li><a class="site-page" href="/cates/"><i class="fa-fw iconfont icon-meishi1"></i><span> 美食</span></a></li><li><a class="site-page" href="/artitalk"><i class="fa-fw iconfont icon-xinbaniconshangchuan-"></i><span> 说说</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw iconfont icon-wendang"></i><span> 文档</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/api/"><span> VUE</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://vuex.vuejs.org/zh/api/#vuex-store"><span> VUEX</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://www.kancloud.cn/yunye/axios/234845"><span> AXIOS</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://www.jquery123.com/"><span> JQuery</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://www.w3school.com.cn/js/js_htmldom_document.asp"><span> JavaScript</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw iconfont icon-gongju"></i><span> 工具</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" target="_blank" rel="noopener" href="https://cli.im/"><span> QR生成器</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://smallpdf.com/cn/pdf-to-word"><span> PDF转换器</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://www.toyaml.com/index.html"><span> YML转换器</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://tool.chinaz.com/tools/native_ascii.aspx"><span> 编码转换器</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://tool.oschina.net/codeformat/html"><span> Code格式化</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://www.bejson.com/jsoneditoronline"><span> JSON格式化</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://zh.numberempire.com/latexequationeditor.php"><span> LaTeX编辑器</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://tableconvert.com/?output=text"><span> MD表格生成</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://cron.qqe2.com"><span> CRON表达式</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw iconfont icon-tubiaozhizuomoban"></i><span> 学校</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" target="_blank" rel="noopener" href="https://www.zhihuishu.com/"><span> 智慧树</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://10.40.101.111/indexcs/index.jsp?loginErr=0"><span> CG平台</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://openjudge.cn/"><span> OJ平台</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://pintia.cn/problem-sets?tab=0"><span> PAT平台</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://www.mooctest.net/login2"><span> 慕测平台</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://i.chaoxing.com/base?t=1604882532908"><span> 泛雅超星</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://tsg.bzu.edu.cn/"><span> BZU图书馆</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://192.168.200.123/"><span> BZU上网认证</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://pay.bzu.edu.cn/xysf/login.aspx?local=zh-cn"><span> BZU支付平台</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="http://172.16.16.4/login?errorCode=badCredentials"><span> BZU教务系统</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://mail.bzu.edu.cn/"><span> BZU邮件系统</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw iconfont icon-lianjie1"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw iconfont icon-xinbaniconshangchuan-1"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw iconfont icon-liuyanban-05"></i><span> 留言板</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">第一章 概述</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-12-19T16:00:00.000Z" title="发表于 2020-12-20 00:00:00">2020-12-20</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-03-04T12:41:02.930Z" title="更新于 2022-03-04 20:41:02">2022-03-04</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">6.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>19分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="第一章-概述"><a class="markdownIt-Anchor" href="#第一章-概述"></a> 第一章 概述</h1>
+<h2 id="学习资源"><a class="markdownIt-Anchor" href="#学习资源"></a> 学习资源</h2>
+<h3 id="网课ppt"><a class="markdownIt-Anchor" href="#网课ppt"></a> 网课PPT</h3>
+<p><a target="_blank" rel="noopener" href="https://www.yuque.com/attachments/yuque/0/2020/pdf/2579946/1600856892935-142c5723-06b2-4419-b866-6ceb683fb502.pdf?_lake_card=%7B%22uid%22%3A%221600856894750-0%22%2C%22src%22%3A%22https%3A%2F%2Fwww.yuque.com%2Fattachments%2Fyuque%2F0%2F2020%2Fpdf%2F2579946%2F1600856892935-142c5723-06b2-4419-b866-6ceb683fb502.pdf%22%2C%22name%22%3A%221.1%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%A6%82%E8%BF%B0.pdf%22%2C%22size%22%3A145775%2C%22type%22%3A%22application%2Fpdf%22%2C%22ext%22%3A%22pdf%22%2C%22progress%22%3A%7B%22percent%22%3A99%7D%2C%22status%22%3A%22done%22%2C%22percent%22%3A0%2C%22id%22%3A%22koujq%22%2C%22card%22%3A%22file%22%7D">1.1计算机网络概述.pdf</a><br/><br />
+<a target="_blank" rel="noopener" href="https://www.yuque.com/attachments/yuque/0/2020/pdf/2579946/1600856893280-31bddbf3-f7f0-4a55-bcce-899c48a94834.pdf?_lake_card=%7B%22uid%22%3A%221600856894750-1%22%2C%22src%22%3A%22https%3A%2F%2Fwww.yuque.com%2Fattachments%2Fyuque%2F0%2F2020%2Fpdf%2F2579946%2F1600856893280-31bddbf3-f7f0-4a55-bcce-899c48a94834.pdf%22%2C%22name%22%3A%221.2%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5.pdf%22%2C%22size%22%3A183256%2C%22type%22%3A%22application%2Fpdf%22%2C%22ext%22%3A%22pdf%22%2C%22progress%22%3A%7B%22percent%22%3A99%7D%2C%22status%22%3A%22done%22%2C%22percent%22%3A0%2C%22id%22%3A%227ijKq%22%2C%22card%22%3A%22file%22%7D">1.2计算机网络基本概念.pdf</a><br/><br />
+<a target="_blank" rel="noopener" href="https://www.yuque.com/attachments/yuque/0/2020/pdf/2579946/1600856893850-abd95bc5-37b0-4885-b943-756bffe37192.pdf?_lake_card=%7B%22uid%22%3A%221600856894750-2%22%2C%22src%22%3A%22https%3A%2F%2Fwww.yuque.com%2Fattachments%2Fyuque%2F0%2F2020%2Fpdf%2F2579946%2F1600856893850-abd95bc5-37b0-4885-b943-756bffe37192.pdf%22%2C%22name%22%3A%221.3%E7%BD%91%E7%BB%9C%E7%9A%84%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87.pdf%22%2C%22size%22%3A158419%2C%22type%22%3A%22application%2Fpdf%22%2C%22ext%22%3A%22pdf%22%2C%22progress%22%3A%7B%22percent%22%3A99%7D%2C%22status%22%3A%22done%22%2C%22percent%22%3A0%2C%22id%22%3A%22xI20D%22%2C%22card%22%3A%22file%22%7D">1.3网络的性能指标.pdf</a><br/><br />
+<a target="_blank" rel="noopener" href="https://www.yuque.com/attachments/yuque/0/2020/pdf/2579946/1600856894809-97a72634-b33b-4b9a-8a14-0a6be08f9fa4.pdf?_lake_card=%7B%22uid%22%3A%221600856894750-4%22%2C%22src%22%3A%22https%3A%2F%2Fwww.yuque.com%2Fattachments%2Fyuque%2F0%2F2020%2Fpdf%2F2579946%2F1600856894809-97a72634-b33b-4b9a-8a14-0a6be08f9fa4.pdf%22%2C%22name%22%3A%221.5%E5%88%86%E7%BB%84%E4%BA%A4%E6%8D%A2%E6%8A%80%E6%9C%AF.pdf%22%2C%22size%22%3A248138%2C%22type%22%3A%22application%2Fpdf%22%2C%22ext%22%3A%22pdf%22%2C%22progress%22%3A%7B%22percent%22%3A99%7D%2C%22status%22%3A%22done%22%2C%22percent%22%3A0%2C%22id%22%3A%22YDKdE%22%2C%22card%22%3A%22file%22%7D">1.5分组交换技术.pdf</a><br/><br />
+<a target="_blank" rel="noopener" href="https://www.yuque.com/attachments/yuque/0/2020/pdf/2579946/1600856895565-82b6e3d4-b907-4bac-b2bd-e5586a3b0a4e.pdf?_lake_card=%7B%22uid%22%3A%221600856894750-5%22%2C%22src%22%3A%22https%3A%2F%2Fwww.yuque.com%2Fattachments%2Fyuque%2F0%2F2020%2Fpdf%2F2579946%2F1600856895565-82b6e3d4-b907-4bac-b2bd-e5586a3b0a4e.pdf%22%2C%22name%22%3A%221.6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84.pdf%22%2C%22size%22%3A193279%2C%22type%22%3A%22application%2Fpdf%22%2C%22ext%22%3A%22pdf%22%2C%22progress%22%3A%7B%22percent%22%3A99%7D%2C%22status%22%3A%22done%22%2C%22percent%22%3A0%2C%22id%22%3A%22hjK3u%22%2C%22card%22%3A%22file%22%7D">1.6计算机网络体系结构.pdf</a><br/><br />
+<a target="_blank" rel="noopener" href="https://www.yuque.com/attachments/yuque/0/2020/pdf/2579946/1600856896470-e6d0a9f5-c1be-4b5b-b3cf-9d784474322f.pdf?_lake_card=%7B%22uid%22%3A%221600856894750-6%22%2C%22src%22%3A%22https%3A%2F%2Fwww.yuque.com%2Fattachments%2Fyuque%2F0%2F2020%2Fpdf%2F2579946%2F1600856896470-e6d0a9f5-c1be-4b5b-b3cf-9d784474322f.pdf%22%2C%22name%22%3A%221.7%E5%85%B7%E6%9C%89%E4%BA%94%E5%B1%82%E5%8D%8F%E8%AE%AE%E7%9A%84%E5%8E%9F%E7%90%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84.pdf%22%2C%22size%22%3A351315%2C%22type%22%3A%22application%2Fpdf%22%2C%22ext%22%3A%22pdf%22%2C%22progress%22%3A%7B%22percent%22%3A99%7D%2C%22status%22%3A%22done%22%2C%22percent%22%3A0%2C%22id%22%3A%22Ih6sF%22%2C%22card%22%3A%22file%22%7D">1.7具有五层协议的原理体系结构.pdf</a><br/></p>
+<h2 id="11-计算机网络在信息时代中的作用"><a class="markdownIt-Anchor" href="#11-计算机网络在信息时代中的作用"></a> 1.1 计算机网络在信息时代中的作用</h2>
+<blockquote>
+<p>21世纪的重要特征是数字化、网络化和信息化<br />
+三网合一 = 电信网络 + 有线电视网络 + 计算机网络</p>
+</blockquote>
+<p>计算机网络发展的4个阶段：</p>
+<ul>
+<li>第一代：计算机-终端网络（20世纪60年代）
+<ul>
+<li>由一台中央主机和多台终端组成</li>
+<li>特点：终端只能够进行数据的输入与输出，而中央计算机负责信息的处理</li>
+<li>应用：美国IBM公司在1963年投入使用的飞机订票系统</li>
+</ul>
+</li>
+<li>第二代：计算机通信网络（20世纪60年代-70年代）
+<ul>
+<li>由若干个计算机互连的系统，逐渐形成了计算机通信网络</li>
+<li>主机之间可以实现通信</li>
+<li>特点：主机之间可以实现通信</li>
+<li>应用：ARPANET</li>
+</ul>
+</li>
+<li>第三代：开放式标准化网络（20世纪70年代末-90年代）
+<ul>
+<li>具有统一的网络体系结构</li>
+<li>遵守国际标准的开放式和标准化的网络</li>
+<li>特点：具有统一的网络体系结构并遵守国际标准的开放式和标准化的网络</li>
+<li>应用：遵循TCP/IP的互联网</li>
+<li><code>开放系统互连参考模型 OSI/RM</code></li>
+<li><code>TCP/IP</code></li>
+</ul>
+</li>
+<li>第四代：因特网广泛应用和高速网络（20世纪90年代 ——）
+<ul>
+<li>特点：高速、互连、智能和更广泛的应用</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">阶段</th>
+<th style="text-align:center">时间</th>
+<th style="text-align:center">发展特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">第一阶段</td>
+<td style="text-align:center">20世纪50年代</td>
+<td style="text-align:center">以单个计算机为中心的远程联机系统，构成面向终端的计算机通信网。</td>
+</tr>
+<tr>
+<td style="text-align:center">第二阶段</td>
+<td style="text-align:center">20世纪60年代末</td>
+<td style="text-align:center">多个自主功能的主机通过通信线路互联，形成资源共享的计算机网络。</td>
+</tr>
+<tr>
+<td style="text-align:center">第三阶段</td>
+<td style="text-align:center">20世纪70年代末</td>
+<td style="text-align:center">形成具有统一的网络体系结构、遵循国际标准化协议的计算机网络。</td>
+</tr>
+<tr>
+<td style="text-align:center">第四阶段</td>
+<td style="text-align:center">始于20世纪80年代末</td>
+<td style="text-align:center">向互连、高速、智能化方向发展的计算机网络。</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="12-互联网概述"><a class="markdownIt-Anchor" href="#12-互联网概述"></a> 1.2 互联网概述</h2>
+<h3 id="121-网络的网络"><a class="markdownIt-Anchor" href="#121-网络的网络"></a> 1.2.1 网络的网络</h3>
+<ul>
+<li>计算机网络定义
+<ul>
+<li>通用的定义
+<ul>
+<li>计算机网络主要是由一些通用、可编程的硬件互连而成的，这些硬件并非专门用来实现某一特定目的。</li>
+<li>这些可编程的硬件用来传送多种不 同类型的数据，并能支持广泛的和日益增长的应用。</li>
+</ul>
+</li>
+<li>包括两部分
+<ul>
+<li>计算机网络所连接的硬件，不仅局限于我们所熟知的计算机，同时，也包括其他一切具备编程能力的硬件，比如智能手机等。</li>
+<li>计算机网络并非专门用来传送数据的，而是能够支持很多种的应用（包括今后可能出现的各种应用）。随着网络技术的发展，计算机网络不仅能够传送音频和视频文件，而且应用的范围已经远远超过一般通信的范畴。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>网络拓扑
+<ul>
+<li>定义： 网络拓扑就是指信道的分布方式。</li>
+<li>总线拓扑</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2020/png/2579946/1600820189407-f5165c0a-ae90-4fa6-89fe-8c31570df1c4.png#align=left&amp;display=inline&amp;height=213&amp;margin=%5Bobject%20Object%5D&amp;originHeight=213&amp;originWidth=220&amp;size=0&amp;status=done&amp;style=none&amp;width=220" alt="" /></p>
+<ul>
+<li>网络中所有的站点都通过相应的硬件接口（例如网络接口卡）直接连接到一条公共的传输介质上，这条公共的传输介质我们把它称作总线。</li>
+<li>网络中任何一个站点发送的信号都沿着传输介质向两个方向传播（图示），而且能被所有其他站点接收到。
+<ul>
+<li>星形拓扑</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2020/png/2579946/1600820444973-3a29042d-7af4-4762-8ea4-a1208ddab51b.png#align=left&amp;display=inline&amp;height=214&amp;margin=%5Bobject%20Object%5D&amp;originHeight=214&amp;originWidth=220&amp;size=0&amp;status=done&amp;style=none&amp;width=220" alt="" /></p>
+<ul>
+<li>由中央节点和由通信链路连接到中央节点的各个站点组成</li>
+<li>在这种拓扑结构中，网络中央节点负担比较重，一旦发生故障，全网都会受到影响
+<ul>
+<li>树形拓扑</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2020/png/2579946/1600820658769-5bc86f3d-7cbe-45e1-834c-e381a5fc2c94.png#align=left&amp;display=inline&amp;height=150&amp;margin=%5Bobject%20Object%5D&amp;originHeight=150&amp;originWidth=150&amp;size=0&amp;status=done&amp;style=none&amp;width=150" alt="" /></p>
+<ul>
+<li>混合形拓扑</li>
+<li>网形拓扑</li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2020/png/2579946/1600820838679-efbbfb4a-2ef7-4c0e-ab70-55fefb30f567.png#align=left&amp;display=inline&amp;height=166&amp;margin=%5Bobject%20Object%5D&amp;originHeight=166&amp;originWidth=220&amp;size=0&amp;status=done&amp;style=none&amp;width=220" alt="" /></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">拓扑结构</th>
+<th style="text-align:center">优点</th>
+<th style="text-align:center">缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">总线拓扑</td>
+<td style="text-align:center">非常容易将电脑或周边设备连上线性总线 比星状拓扑使用更少的电缆。 非常适合小型网络。 结构简单，可扩充性好</td>
+<td style="text-align:center">如果有一部分主缆上中断时，整个网络都会中断。 必须于主缆两端安装终端。  如果整个网络发生中断，找出问题会相对麻烦。 越多装置加入到网络，传输速度越慢。</td>
+</tr>
+<tr>
+<td style="text-align:center">星形拓扑</td>
+<td style="text-align:center">网络结构简单，便于管理、维护和调试。 控制简单，添加或删除某个站点非常容易。 集中管理，可方便地提供服务和网络重新配置。 每个站点直接连到中央节点，容易检测和隔离故障。  网络延迟时间较小，传输误差较低；</td>
+<td style="text-align:center">线路利用率不高 中央节点负荷太重，而且当中央节点产生故障时，全网将不能工作，对中央节点的可靠性和冗余度要求太高 安装和维护费用高，需要大量电缆。</td>
+</tr>
+<tr>
+<td style="text-align:center">树形拓扑</td>
+<td style="text-align:center">易于推广：从本质上看这种结构可以延伸出很多分支和子分支，新的节点和新的分支易于加入网内。 故障隔离方便：如果某一分支的节点或线路发生故障，很容易将这个分支和整个系统隔离开来。</td>
+<td style="text-align:center">对根节点的依赖性大：如果根节点发生故障，则整个网络都不能正常工作，其可靠性问题与星状结构相似。</td>
+</tr>
+<tr>
+<td style="text-align:center">混合形拓扑</td>
+<td style="text-align:center">具可靠性：在该故障被检测出的部分可以从网络的其余部分中分离出来，并且可以采取必要的修正措施，在不影响网络的其余部分的功能。 可扩展性：容易透过添加新的组件，而不会干扰现有架构增加网络的大小。 灵活性佳：混合网络可以根据组织的要求，并通过优化可用的资源来设计。特别兼顾可以给节点较高的传输流畅。 可效性佳。</td>
+<td style="text-align:center">设计复杂。 成本昂贵。 总线长度和节点数量上也会受到限制 较难维护</td>
+</tr>
+<tr>
+<td style="text-align:center">网形拓扑</td>
+<td style="text-align:center">系统可靠性高 容错能力强</td>
+<td style="text-align:center">安装也复杂 成本昂贵</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p>网络协议</p>
+</li>
+<li>
+<p>在网络中两个站点在通信时必须遵循的一些规则和约定的规范性描述，控制着网络中的站点如何进行信息交换。</p>
+<ul>
+<li>语法：数据与控制信息的结构或格式，也就是报文格式。</li>
+<li>语义：对构成协议的协议元素含义的解释，解决讲什么的问题</li>
+<li>时序（同步）：指通信中各事件发生的先后顺序的详细说明，规定了事件的执行顺序</li>
+</ul>
+</li>
+<li>
+<p>网络协议的两种形式：</p>
+<ul>
+<li>使用便于人来阅读和理解的文字描述</li>
+<li>使用让计算机能够理解的程序代</li>
+</ul>
+</li>
+</ul>
+<h3 id="122-互联网基础结构发展的三个阶段"><a class="markdownIt-Anchor" href="#122-互联网基础结构发展的三个阶段"></a> 1.2.2 互联网基础结构发展的三个阶段</h3>
+<ul>
+<li>第一个阶段：是从单个网络ARPANET向互联网发展的过程</li>
+<li>第二个阶段：是建成了三级结构的互联网
+<ul>
+<li>主干网</li>
+<li>地区网</li>
+<li>校园网(企业网)</li>
+</ul>
+</li>
+<li>第三个阶段：是逐渐形成了多层次ISP结构的互联网
+<ul>
+<li>ISP：互联网服务提供者</li>
+</ul>
+</li>
+</ul>
+<h3 id="123-互联网的标准化工作"><a class="markdownIt-Anchor" href="#123-互联网的标准化工作"></a> 1.2.3 互联网的标准化工作</h3>
+<p><img src="https://cdn.nlark.com/yuque/0/2020/png/2579946/1600912798125-49a4668e-1f31-4e7e-84b9-d3ed8ce3512a.png#align=left&amp;display=inline&amp;height=1508&amp;margin=%5Bobject%20Object%5D&amp;originHeight=1508&amp;originWidth=1476&amp;size=0&amp;status=done&amp;style=none&amp;width=1476" alt="" /></p>
+<hr />
+<h2 id="13-互联网的组成"><a class="markdownIt-Anchor" href="#13-互联网的组成"></a> 1.3 互联网的组成</h2>
+<ul>
+<li>边缘部分： 由所有连接在互联网上的主机组成。这部分是用户直接使用的，用来进行通信（传送数据、音频或视频）和资源共享。</li>
+<li>核心部分：由大量网络和连接这些网络的路由器组成。这部分是为边缘部分提供服务的（提供联通性和交换）</li>
+</ul>
+<h3 id="131-互联网的边缘部分"><a class="markdownIt-Anchor" href="#131-互联网的边缘部分"></a> 1.3.1 互联网的边缘部分</h3>
+<p>通信方式：</p>
+<ul>
+<li>C/S 方式
+<ul>
+<li>客户程序</li>
+<li>服务器程序</li>
+</ul>
+</li>
+<li>对等连接方式
+<ul>
+<li>P2P方式</li>
+</ul>
+</li>
+</ul>
+<h3 id="132-互联网的核心部分"><a class="markdownIt-Anchor" href="#132-互联网的核心部分"></a> 1.3.2 互联网的核心部分</h3>
+<ul>
+<li>电路交换
+<ul>
+<li>说明：通信网中最早出现的一种交换技术，也是应用最普遍的一种交换技术</li>
+<li>步骤：<code>建立连接</code> -&gt; <code>通话</code> -&gt; <code>释放连接</code></li>
+<li>特点：
+<ul>
+<li>在通话的全部时间内，通话的两个用户始终占用端到端的通信资源。</li>
+<li>采用面向连接的方式</li>
+</ul>
+</li>
+<li>应用：
+<ul>
+<li>公共电话网：PSTN网</li>
+<li>移动网：GSM网和CDMA网</li>
+</ul>
+</li>
+<li>优点：
+<ul>
+<li>独占性</li>
+<li>实时性好</li>
+<li>按序收发</li>
+<li>同时适用于传输模拟和数字信号</li>
+<li>交换设备及控制均较简单</li>
+</ul>
+</li>
+<li>缺点：
+<ul>
+<li>信道利用率不高</li>
+<li>如果数据传输阶段的持续时间不长，用于电路建立和拆除所用的时间就得不偿失</li>
+<li>难以控制：采用电路交换时，数据直达，不同类型、不同规格、不同速率的终端很难相互进行通信，也难以在通信过程中进行差错控制</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>分组交换 -&gt; 采用<code>存储转发</code>技术
+<ul>
+<li>说明：
+<ul>
+<li>报文：发送端待传送的整块的数据</li>
+<li>分组交换以分组为单位进行传输数据</li>
+</ul>
+</li>
+<li>优点：
+<ul>
+<li>高效 灵活 迅速 可靠</li>
+<li>适用于传送突发式的计算机数据。</li>
+</ul>
+</li>
+<li>缺点：时延 带宽 开销</li>
+<li>工作过程
+<ul>
+<li>在发送端，先把较长的报文划分成较短的、固定长度的数据段。</li>
+<li>在每一个数据段前边加上一些必要的控制信息组成的首部，构成分组。分组也称为“包”。</li>
+<li>计算机将分组通过通信链路直接发送给路由器</li>
+<li>路由器对分组的处理（存储转发方式）</li>
+<li>接收端将收到分组首部去掉，对数据部分进行合并还原</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2 id="14-计算机网络在我国的发展"><a class="markdownIt-Anchor" href="#14-计算机网络在我国的发展"></a> 1.4 计算机网络在我国的发展</h2>
+<p>发展：</p>
+<ul>
+<li>1980年，铁道部开始进行计算机联网实验。</li>
+<li>1989年11月，我国第一个公用分组交换网CNPAC建成运行。</li>
+<li>1994年4月20日，我国用 64 kbit/s 专线正式连入互联网，我国被国际上正式承认为接入互联网的国家。</li>
+<li>1994年5月，中国科学院高能物理研究所设立了我国的第一个万维网服务器。</li>
+<li>1994年9月中国公用计算机互联网CHINANET正式启动。</li>
+</ul>
+<p>到目前为止，我国陆续建造了基于互联网技术的并能够和互联网互连的多个全国范围的公用计算机网络，<br />
+其中规模最大的就是下面这五个：</p>
+<ul>
+<li><strong>(1) 中国电信互联网CHINANET（也就是原来的中国公用计算机互联网）</strong></li>
+<li><strong>(2) 中国联通互联网UNINET</strong></li>
+<li><strong>(3) 中国移动互联网CMNET</strong></li>
+<li><strong>(4) 中国教育和科研计算机网CERNET</strong></li>
+<li><strong>(5) 中国科学技术网CSTNET</strong></li>
+</ul>
+<p>说明：</p>
+<ul>
+<li>中国教育和科研计算机网CERNET (China Education and Research NETwork) 始建于1994年，是我国第一个 IPv4 互联网主干网。</li>
+<li>2004 年2月，我国的第一个下一代互联网CNGI 的 主干网CERNET2 试验网正式开通，并提供服务。</li>
+<li>中国互联网络信息中心CNNIC (ChiNa Network Information Center) 每年两次公布我国互联网的发展情况。</li>
+</ul>
+<hr />
+<h2 id="15-计算机网络的类别"><a class="markdownIt-Anchor" href="#15-计算机网络的类别"></a> 1.5 计算机网络的类别</h2>
+<h3 id="151-计算机网络的定义"><a class="markdownIt-Anchor" href="#151-计算机网络的定义"></a> 1.5.1 计算机网络的定义</h3>
+<p>计算机网络的精确定义并未统一。<br/><br />
+<strong>较好的定义：</strong></p>
+<ul>
+<li>计算机网络主要是由一些通用的、可编程的硬件互连而成的，而这些硬件并非专门用来实现某一特定目的（例如，传送数据或视频信号）。</li>
+<li>这些可编程的硬件能够用来传送多种不同类型的数据，并能支持广泛的和日益增长的应用。</li>
+</ul>
+<p><strong>根据这个定义：</strong></p>
+<ul>
+<li>计算机网络所连接的硬件，并不限于一般的计算机，而是包括了智能手机。</li>
+<li>计算机网络并非专门用来传送数据，而是能够支持很多种的应用（包括今后可能出现的各种应用）。</li>
+</ul>
+<blockquote>
+<p>请注意，上述的“可编程的硬件”表明这种硬件一定包含有中央处理机 (CPU)</p>
+</blockquote>
+<p>网络向用户提供的最重要的功能</p>
+<ul>
+<li>连通性：计算机网络使上网用户之间都可以交换信息，好 像这些用户的计算机都可以彼此直接连通一样。</li>
+<li>共享：即资源共享，可以是信息共享、软件共享，也可以是硬件共享。</li>
+</ul>
+<p>计算机网络的发展过程是计算机与通信的融合过程：</p>
+<ul>
+<li>20世纪60年代萌芽（面向终端的联机系统）</li>
+<li>70年代兴起（分组交换数据网）</li>
+<li>70年代中期至80年代局域网发展和网络互联</li>
+<li>90年代网络计算和国际互联网</li>
+</ul>
+<blockquote>
+<p><strong>强调信息传输：</strong></p>
+</blockquote>
+<ul>
+<li>以计算机之间传输信息为主要目的而连接起来以实现远程信息处理和进一步实现资源共享的计算机系统</li>
+</ul>
+<blockquote>
+<p><strong>强调共享资源：</strong></p>
+</blockquote>
+<ul>
+<li>以共享资源为主要目的把具有独立功能的计算机连接起来的计算机系统的集合。</li>
+</ul>
+<blockquote>
+<p><strong>强调用户透明性：</strong></p>
+</blockquote>
+<ul>
+<li>计算机网络就是一个巨大的计算机系统，用户不会察觉多个计算机系统的存在，不用熟悉资源的分布情况就可以调用计算机各系统的资源。</li>
+</ul>
+<p><strong>凡是将分布在不同地理位置上的具有独立工作能力的计算机、终端及其附属设备，用通信设备和通信线路连接起来，并配置网络软件和通信协议，以实现数据传输和资源共享的系统就叫做计算机网络。</strong></p>
+<h3 id="152-几种不同类别的计算机网络"><a class="markdownIt-Anchor" href="#152-几种不同类别的计算机网络"></a> 1.5.2 几种不同类别的计算机网络</h3>
+<ul>
+<li>按照传输介质：有线网络、无线网络</li>
+<li>按照经营方式：专用网络，公用网络</li>
+<li>按照服务类型：电信网络、有线电视网络、计算机网络</li>
+<li>按照信道方式：点－点和广播</li>
+<li>按照地理范围：局域网、城域网、广域网</li>
+<li>按照拓扑结构：总线、星型、环型、树型、网状</li>
+<li>按照资源管理：对等网络、客户/服务器网络</li>
+</ul>
+<p><strong>按照网络的作用范围进行分类：</strong></p>
+<ul>
+<li>广域网WAN (Wide Area Network)：作用范围通常为几十到几千公里。</li>
+<li>城域网MAN (Metropolitan Area Network)：作用距离约为 5 ~ 50 公里。</li>
+<li>局域网 LAN (Local Area Network) ：局限在较小的范围（如1 公里左右）。</li>
+<li>个人区域网 PAN (Personal Area Network) ：范围很小，大约在 10 米左右。</li>
+</ul>
+<p><strong>按照网络的使用者进行分类 ：</strong></p>
+<ul>
+<li>公用网 (public network)：按规定交纳费用的人都可以使用的网络。因此也可称为公众网。</li>
+<li>专用网 (private network) ：为特殊业务工作的需要而建造的网络。</li>
+<li>公用网和专用网都可以提供多种服务。传送的是计算机数据，则分别是公用计算机网络和专用计算机网络。</li>
+</ul>
+<p><strong>用来把用户接入到互联网的网络：</strong></p>
+<ul>
+<li>接入网AN (Access Network)，它又称为本地接入网或居民接入网。</li>
+<li>接入网是一类比较特殊的计算机网络，用于将用户 接入互联网。 接入网本身既不属于互联网的核心部分，也不属于互联网的边缘部分。 接入网是从某个用户端系统到互联网中的第一个路由器（也称为边缘路由器）之间的一种网络。</li>
+<li>从覆盖的范围看，很多接入网还是属于局域网。 从作用上看，接入网只是起到让用户能够与互联网连接的“桥梁”作用。</li>
+</ul>
+<hr />
+<h2 id="16-计算机网络的性能"><a class="markdownIt-Anchor" href="#16-计算机网络的性能"></a> 1.6 计算机网络的性能</h2>
+<ul>
+<li><strong>计算机网络的性能指标：</strong>
+<ul>
+<li><strong>速率：</strong>
+<ul>
+<li>是指数据的传送速率，也称为数据率或者比特率。</li>
+<li>是计算机网络中最重要的一个性能指标。</li>
+<li>速率的基本单位是比特每秒，通常记为bps。（Kb/s、Mb/s、Gb/s、等）</li>
+</ul>
+</li>
+<li><strong>带宽：</strong>
+<ul>
+<li>是指在单位时间内 网络中的某信道所能通过的最高数据率。</li>
+<li>带宽的单位就是数据率得到单位，bps。</li>
+<li>通常用带宽来表示网络中的通道传送数据的能力。</li>
+<li>一般而言，网络带宽越高，其所能传送的最高速据率也就越高</li>
+</ul>
+</li>
+<li><strong>吞吐量：</strong>
+<ul>
+<li>表示在单位时间内通过某个网络（或信道、接口）的数据量。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">吞吐量</th>
+<th style="text-align:center">带宽</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">吞吐量经常用于对现实世界中的网络的一种测量，<br/>以便知道有多少数据量通过了网络</td>
+<td style="text-align:center">带宽一般指理想的带宽</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>时延：</strong></li>
+<li>是指数据（一个报文或分组，甚至比特）从网络（或链路）的一段传送到另一端所需的时间。</li>
+<li>有时也称为延迟或迟延。</li>
+<li>包括以下时延：
+<ul>
+<li>发送时延：
+<ul>
+<li>定义
+<ul>
+<li>发送数据时，数据从结点进入到传输媒体所需要的时间。</li>
+<li>也就是从发送数据的第一个比特算起，到该数据的最后一个比特发送完毕所需的时间。</li>
+<li>很显然，发送时延与待发送数据的长度和发送器的发送速率有关</li>
+</ul>
+</li>
+<li>公式：发送时延 = <img src="https://cdn.nlark.com/yuque/__latex/1c114e8d9cfb7af8d48d812cba26d019.svg#card=math&amp;code=%5Cfrac%7B%E6%95%B0%E6%8D%AE%E5%B8%A7%E9%95%BF%E5%BA%A6%EF%BC%88b%EF%BC%89%7D%7B%E5%8F%91%E9%80%81%E9%80%9F%E7%8E%87%EF%BC%88b%2Fs%EF%BC%89%7D&amp;height=57&amp;width=123" alt="" /></li>
+</ul>
+</li>
+<li>传播时延：
+<ul>
+<li>定义
+<ul>
+<li>电磁波在信道中需要传播一定的距离而花费的时间。这个时间我们把它称作传播时延</li>
+</ul>
+</li>
+<li>公式：传播时延=<img src="https://cdn.nlark.com/yuque/__latex/774fe906df92202bce52767b13b65856.svg#card=math&amp;code=%5Cfrac%7B%E4%BF%A1%E9%81%93%E9%95%BF%E5%BA%A6%28m%29%7D%7B%E7%94%B5%E7%A3%81%E6%B3%A2%E5%9C%A8%E4%BF%A1%E9%81%93%E4%B8%8A%E7%9A%84%E4%BC%A0%E6%92%AD%E9%80%9F%E7%8E%87%28m%2Fs%29%7D&amp;height=57&amp;width=238" alt="" /></li>
+<li>与发送时延的区别
+<ul>
+<li>两个时延发生的位置不同</li>
+<li>发送时延发生在机器的发送器内部</li>
+<li>传播时延发生在机器外部的传输介质上</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>处理时延
+<ul>
+<li>定义
+<ul>
+<li>当分组来到主机或者路由器时，要花费一定的时间进行处理，</li>
+<li>例如：分析分组的首部、进行差错检测、查找路由等，这就产生了处理时延。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>排队时延
+<ul>
+<li>定义
+<ul>
+<li>分组在路由器输入输出队列中排队等待处理所经历的时延。</li>
+<li>排队时延的长短往往取决于网络中当时的通信量。</li>
+<li>当网络的通信量很大时会发生缓 存队列溢出，导致分组丢失，这相当于排队时延为无穷大。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><code>总时延 = 发送时延 + 传播时延 + 处理时延 + 排队时延</code></p>
+<ul>
+<li><strong>时延带宽积</strong>
+<ul>
+<li>把传播时延和带宽相乘，就可以得到：传播时延带宽积，时延带宽积 = 传播时延** · **带宽</li>
+</ul>
+</li>
+<li><strong>往返时间RTT</strong>
+<ul>
+<li>在计算机网络中，往返时间RTT是一个重要的性能指标。这是因为在许多情况下，互联网上的信息不仅仅单方向传输而是双向交互的。因此，我们有时很需要知道双向交互一次所需的时间。</li>
+</ul>
+</li>
+<li><strong>利用率</strong>
+<ul>
+<li>利用率有信道利用率和网络利用率等。</li>
+<li>信道利用率指出某信道有百分之几的时间是被利用的（有数据通过）。</li>
+<li>完全空闲的信道利用率是零。</li>
+<li>网络利用率则是全网络的信道利用率的加权平均值。</li>
+<li>信道利用率并非越高越好。这是因为，根据排队论的理论，当某信道的利用率增大时，该信道引起的时延也就迅速增加。信道或网络的利用率过高会产生非常大的时延。</li>
+</ul>
+</li>
+</ul>
+<p><strong>注意：</strong></p>
+<blockquote>
+<p>一般来说，小时延的网络要优于大时延的网络</p>
+</blockquote>
+<blockquote>
+<p>在某些情况下，一个低速率、小时延的网络很可能要优于一个高速率但大时延的网络</p>
+</blockquote>
+<hr />
+<h2 id="17-计算机网络体系结构"><a class="markdownIt-Anchor" href="#17-计算机网络体系结构"></a> 1.7 计算机网络体系结构</h2>
+<h3 id="171-计算机网络体系结构的形成"><a class="markdownIt-Anchor" href="#171-计算机网络体系结构的形成"></a> 1.7.1 计算机网络体系结构的形成</h3>
+<p>分层思想：</p>
+<ul>
+<li>计算机网络就是利用模块化的思想将整个网络系统划分成若干个模块来进行处理和设计的。</li>
+<li>实践证明，层次式的模块划分方法特别适合网络系统。</li>
+<li>因此，目前所有的网络系统都采用分层的体系结构。</li>
+</ul>
+<p>分层的好处：</p>
+<ul>
+<li>各层之间是独立的</li>
+<li>灵活性好，利于实现和维护</li>
+<li>易于促进标准化工作</li>
+<li>**注意：**层次不能太多，也不能太少。</li>
+</ul>
+<p>计算机网络体系结构的定义：</p>
+<ul>
+<li>计算机网络的体系结构是计算机网络的各层及其协议的集合。</li>
+<li>体系结构就是这个计算机网络及其部件所应完成的功能的精确定义。</li>
+<li>实现是遵循这种体系结构的前提下用何种硬件或软件完成这些功能的问题。</li>
+<li>体系结构是抽象的，而实现则是具体的，是真正在运行的计算机硬件和软件。</li>
+</ul>
+<h3 id="172-协议与划分"><a class="markdownIt-Anchor" href="#172-协议与划分"></a> 1.7.2 协议与划分</h3>
+<ul>
+<li>语法：即数据与控制信息的结构或格式；</li>
+<li>语义：即需要发出何种控制信息，完成何种动作以及做出何种响应；</li>
+<li>同步：即事件实现顺序的详细说明。</li>
+</ul>
+<h3 id="173-具有五层协议的体系结构"><a class="markdownIt-Anchor" href="#173-具有五层协议的体系结构"></a> 1.7.3 具有五层协议的体系结构</h3>
+<p><img src="https://cdn.nlark.com/yuque/0/2020/jpeg/2579946/1600855004077-6367cab2-686b-47f1-a0ef-f2012f334fdc.jpeg#align=left&amp;display=inline&amp;height=257&amp;margin=%5Bobject%20Object%5D&amp;originHeight=257&amp;originWidth=284&amp;size=0&amp;status=done&amp;style=none&amp;width=284" alt="" /><br />
+说明：</p>
+<ul>
+<li>OSI体系结构概念清楚，理论比较完整，但它既复杂又实用</li>
+<li>从本质上讲，TCP/IP只有最上面的三层，而在主机网络层，也就是网络接口层并没有什么具体的内容。</li>
+<li>TCP/IP体系结构得到了非常广泛的应用。</li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2020/png/2579946/1600855079695-387f0d15-61d8-4991-82f7-72e8fd8aa135.png#align=left&amp;display=inline&amp;height=255&amp;margin=%5Bobject%20Object%5D&amp;originHeight=255&amp;originWidth=444&amp;size=0&amp;status=done&amp;style=none&amp;width=444" alt="" /><br />
+<img src="https://cdn.nlark.com/yuque/0/2020/png/2579946/1600855091552-78d4491c-867c-42bc-9f4a-bfa7fd372104.png#align=left&amp;display=inline&amp;height=239&amp;margin=%5Bobject%20Object%5D&amp;originHeight=239&amp;originWidth=583&amp;size=0&amp;status=done&amp;style=none&amp;width=583" alt="" /></p>
+<p><strong>五层原理体系结构</strong>：</p>
+<ol>
+<li>物理层：
+<ol>
+<li>任务
+<ul>
+<li>在物理媒体(介质)上正确地、透明地传送比特流；定义网络硬件的一些特性。</li>
+</ul>
+</li>
+<li>传输单位：比特</li>
+<li>典型规范：EIA/TIA RS-232、EIA/TIA RS-449、V.35、RJ-45等。</li>
+<li>注意：物理传输介质不属于物理层的范畴。</li>
+</ol>
+</li>
+<li>数据链路层（Data Link Layer）或链路层
+<ol>
+<li>任务
+<ul>
+<li>在两个相邻节点间可靠地传输数据，使之对网络层呈现为一条无错的链路</li>
+</ul>
+</li>
+<li>传输单位：帧或数据帧</li>
+<li>具体功能
+<ul>
+<li>成帧和定界：帧封装及帧定界</li>
+<li>差错检测：CRC等</li>
+</ul>
+</li>
+<li>典型协议：SDLC、HDLC、PPP、STP等。</li>
+</ol>
+</li>
+<li>网络层（Network Layer）
+<ol>
+<li>任务
+<ul>
+<li>为分组交换网上的不同主机提供通信服务</li>
+</ul>
+</li>
+<li>传输单位：分组</li>
+<li>功能
+<ul>
+<li>路由选择和分组转发</li>
+<li>流量控制和拥塞控制等</li>
+</ul>
+</li>
+<li>典型协议：IP协议。</li>
+</ol>
+</li>
+<li>传输层（transport layer）
+<ol>
+<li>任务
+<ul>
+<li>负责向两台主机中进程之间的通信提供通用的数据传输服务</li>
+</ul>
+</li>
+<li>功能
+<ul>
+<li>进程之间逻辑通信</li>
+<li>分用和复用</li>
+<li>差错检测</li>
+</ul>
+</li>
+<li>传输层的协议：
+<ul>
+<li>传输控制协议TCP（Transmission Control Protocol）：提供面向连接的、可靠的数据传输服务，传输单位为报文段；</li>
+<li>用户数据报协议UDP （User Datagram Protocol）：提供无连接的、尽最大努力交付的数据传输服务，数据传输单位是用户数据报。</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="174-实体-协议-服务和服务访问点"><a class="markdownIt-Anchor" href="#174-实体-协议-服务和服务访问点"></a> 1.7.4 实体、协议、服务和服务访问点</h3>
+<ul>
+<li>实体
+<ul>
+<li>当研究开放系统中的信息交换时，往往使用实体(entity)这一较为抽象的名词。</li>
+<li>实体表示任何可发送或接收信息的硬件或软件进程。在许多情况下，实体就是一个特定的软件模块。</li>
+</ul>
+</li>
+<li>协议
+<ul>
+<li>协议是控制两个对等实体(或多个实体)进行通信的规则的集合。</li>
+<li>协议的语法方面规则定义了所交换的信息的格式。</li>
+<li>协议的语义方面规则定义了发送者或接收者所要完成的操作，例如，在何种条件下数据必须重传或丢弃。</li>
+<li>在协议的控制下，两个对等实体间的通信使得本层能够向上一层提供服务。要实现本层协议，还需要使用下面一层所提供的服务。</li>
+<li>协议的实现保证了能够向上一层提供服务。使用本层服务的实体只能看见服务而无法看见下面的协议。下面的协议对上面的实体是透明的。</li>
+<li>协议是水平的，即协议是控制对等实体之间通信的规则。</li>
+</ul>
+</li>
+<li>服务
+<ul>
+<li>服务是垂直的，即服务是由下层向上层通过层间接口提供的。</li>
+<li>并非在一个层内完成的全部功能都称为服务，只有那些能够被高一层实体“看得见”的功能才能称为服务。</li>
+<li>上层使用下层所提供的服务必须通过与下层交换一些命令，这些命令在OSI中称为服务原语。</li>
+</ul>
+</li>
+<li>服务访问点
+<ul>
+<li>在同一系统中相邻两层的实体进行交互(即交换信息)的地方，通常称为服务访问点SAP(Service Access Point)。</li>
+<li>服务访问点SAP是一个抽象的概念，它实际上就是一个逻辑接口，有点像邮政信箱(可以把邮件放入信箱和从信箱中取走邮件)，但这种层间接口和两个设备之间的硬件接口(并行的或串行的)并不一样。</li>
+<li>OSI把层与层之间交换的数据的单位称为**服务数据单元SDU(Service Data Unit)，它可以与PDU不一样，例如，可以是多个SDU合成为一个PDU，也可以是一个SDU划分为几个PDU。</li>
+</ul>
+</li>
+<li>相邻两层之间的关系<br />
+相邻两层之间的关系：在服务提供者的上层实体又称为服务用户，因为它使用下层服务提供者所提供的服务。</li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2020/png/2579946/1600914293860-01fca7e7-95f4-4e22-805d-f780415f210a.png#align=left&amp;display=inline&amp;height=222&amp;margin=%5Bobject%20Object%5D&amp;originHeight=222&amp;originWidth=643&amp;size=0&amp;status=done&amp;style=none&amp;width=643" alt="" /></p>
+<h3 id="175-tcpip的体系结构"><a class="markdownIt-Anchor" href="#175-tcpip的体系结构"></a> 1.7.5 TCP/IP的体系结构</h3>
+<ul>
+<li>TCP/IP 协议包括两部分：
+<ul>
+<li>传输控制协议</li>
+<li>网际协议。</li>
+</ul>
+</li>
+<li>TCP/IP 的通信任务组织成 5个相对独立的层次：
+<ul>
+<li>应用层</li>
+<li>传输层</li>
+<li>互联网层（对应OSI的网络层）</li>
+<li>网络接口层</li>
+<li>物理层</li>
+</ul>
+</li>
+</ul>
+<p><code>其中网络接口层和物理层常称为物理网层。</code></p>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a></div><div class="post_share"><div class="social-share" data-image="https://lgxs.liuguoxing.top/cover/wl.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/ci/3/"><img class="prev-cover" src="https://lgxs.liuguoxing.top/cover/wl.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">计算机网络实验三 | Telnet配置</div></div></a></div><div class="next-post pull-right"><a href="/ci/0/"><img class="next-cover" src="https://lgxs.liuguoxing.top/cover/wl.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">考试大纲</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/ci/1/" title="计算机网络实验一 | 交换机VLAN配置"><img class="cover" src="https://lgxs.liuguoxing.top/cover/wl.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-12-20</div><div class="title">计算机网络实验一 | 交换机VLAN配置</div></div></a></div><div><a href="/ci/2/" title="计算机网络实验二 | SSH配置"><img class="cover" src="https://lgxs.liuguoxing.top/cover/wl.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-12-20</div><div class="title">计算机网络实验二 | SSH配置</div></div></a></div><div><a href="/ci/3/" title="计算机网络实验三 | Telnet配置"><img class="cover" src="https://lgxs.liuguoxing.top/cover/wl.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-12-20</div><div class="title">计算机网络实验三 | Telnet配置</div></div></a></div><div><a href="/ci/0/" title="考试大纲"><img class="cover" src="https://lgxs.liuguoxing.top/cover/wl.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-12-20</div><div class="title">考试大纲</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0-%E6%A6%82%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text"> 第一章 概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%BA%90"><span class="toc-number">1.1.</span> <span class="toc-text"> 学习资源</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E8%AF%BEppt"><span class="toc-number">1.1.1.</span> <span class="toc-text"> 网课PPT</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9C%A8%E4%BF%A1%E6%81%AF%E6%97%B6%E4%BB%A3%E4%B8%AD%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="toc-number">1.2.</span> <span class="toc-text"> 1.1 计算机网络在信息时代中的作用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12-%E4%BA%92%E8%81%94%E7%BD%91%E6%A6%82%E8%BF%B0"><span class="toc-number">1.3.</span> <span class="toc-text"> 1.2 互联网概述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#121-%E7%BD%91%E7%BB%9C%E7%9A%84%E7%BD%91%E7%BB%9C"><span class="toc-number">1.3.1.</span> <span class="toc-text"> 1.2.1 网络的网络</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#122-%E4%BA%92%E8%81%94%E7%BD%91%E5%9F%BA%E7%A1%80%E7%BB%93%E6%9E%84%E5%8F%91%E5%B1%95%E7%9A%84%E4%B8%89%E4%B8%AA%E9%98%B6%E6%AE%B5"><span class="toc-number">1.3.2.</span> <span class="toc-text"> 1.2.2 互联网基础结构发展的三个阶段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#123-%E4%BA%92%E8%81%94%E7%BD%91%E7%9A%84%E6%A0%87%E5%87%86%E5%8C%96%E5%B7%A5%E4%BD%9C"><span class="toc-number">1.3.3.</span> <span class="toc-text"> 1.2.3 互联网的标准化工作</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#13-%E4%BA%92%E8%81%94%E7%BD%91%E7%9A%84%E7%BB%84%E6%88%90"><span class="toc-number">1.4.</span> <span class="toc-text"> 1.3 互联网的组成</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#131-%E4%BA%92%E8%81%94%E7%BD%91%E7%9A%84%E8%BE%B9%E7%BC%98%E9%83%A8%E5%88%86"><span class="toc-number">1.4.1.</span> <span class="toc-text"> 1.3.1 互联网的边缘部分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#132-%E4%BA%92%E8%81%94%E7%BD%91%E7%9A%84%E6%A0%B8%E5%BF%83%E9%83%A8%E5%88%86"><span class="toc-number">1.4.2.</span> <span class="toc-text"> 1.3.2 互联网的核心部分</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9C%A8%E6%88%91%E5%9B%BD%E7%9A%84%E5%8F%91%E5%B1%95"><span class="toc-number">1.5.</span> <span class="toc-text"> 1.4 计算机网络在我国的发展</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#15-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9A%84%E7%B1%BB%E5%88%AB"><span class="toc-number">1.6.</span> <span class="toc-text"> 1.5 计算机网络的类别</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#151-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-number">1.6.1.</span> <span class="toc-text"> 1.5.1 计算机网络的定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#152-%E5%87%A0%E7%A7%8D%E4%B8%8D%E5%90%8C%E7%B1%BB%E5%88%AB%E7%9A%84%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C"><span class="toc-number">1.6.2.</span> <span class="toc-text"> 1.5.2 几种不同类别的计算机网络</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#16-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9A%84%E6%80%A7%E8%83%BD"><span class="toc-number">1.7.</span> <span class="toc-text"> 1.6 计算机网络的性能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#17-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84"><span class="toc-number">1.8.</span> <span class="toc-text"> 1.7 计算机网络体系结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#171-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E7%9A%84%E5%BD%A2%E6%88%90"><span class="toc-number">1.8.1.</span> <span class="toc-text"> 1.7.1 计算机网络体系结构的形成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#172-%E5%8D%8F%E8%AE%AE%E4%B8%8E%E5%88%92%E5%88%86"><span class="toc-number">1.8.2.</span> <span class="toc-text"> 1.7.2 协议与划分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#173-%E5%85%B7%E6%9C%89%E4%BA%94%E5%B1%82%E5%8D%8F%E8%AE%AE%E7%9A%84%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84"><span class="toc-number">1.8.3.</span> <span class="toc-text"> 1.7.3 具有五层协议的体系结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#174-%E5%AE%9E%E4%BD%93-%E5%8D%8F%E8%AE%AE-%E6%9C%8D%E5%8A%A1%E5%92%8C%E6%9C%8D%E5%8A%A1%E8%AE%BF%E9%97%AE%E7%82%B9"><span class="toc-number">1.8.4.</span> <span class="toc-text"> 1.7.4 实体、协议、服务和服务访问点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#175-tcpip%E7%9A%84%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84"><span class="toc-number">1.8.5.</span> <span class="toc-text"> 1.7.5 TCP&#x2F;IP的体系结构</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background-image: url('https://lgxs.liuguoxing.top/cover/wl.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2020-2021 - 2022 By Lucifer LGX</div><div class="footer_custom_text"><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/"><img class="icp-icon" src="/img/icp.png"><span>鲁ICP备19034408号</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><script defer src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script defer src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>if (document.getElementsByClassName('mermaid').length) {
+  if (window.mermaidJsLoad) mermaid.init()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(() => {
+      window.mermaidJsLoad = true
+      mermaid.initialize({
+        theme: 'default',
+      })
+      true && mermaid.init()
+    })
+  }
+}</script><script>function loadValine () {
+  function initValine () {
+    let initData = {
+      el: '#vcomment',
+      appId: 'HiHYvf5onwRzqyXaABTznB3Q-gzGzoHsz',
+      appKey: '9b1pQs8nNJBAClfhJbLqRPYH',
+      placeholder: 'Please leave your footprints',
+      avatar: 'hide',
+      meta: 'nick,mail,link'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+    }
+
+    if (true) { 
+      initData.requiredFields= ('nick,mail'.split(','))
+    }
+    
+    if (false) {
+      const otherData = false
+      initData = Object.assign(initData, otherData)
+    }
+    
+    const valine = new Valine(initData)
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script defer src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script>var gitcalendar = new Vue({
+  el: '#gitcalendar',
+  data: {
+    simplemode: true, 
+    user: 'Nightliuguoxing',
+    fixed: 'fixed',
+    px: 'px',
+    x: '',
+    y: '',
+    span1: '',
+    span2: '',
+    month: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+    monthchange: [],
+    oneyearbeforeday: '',
+    thisday: '',
+    amonthago: '',
+    aweekago: '',
+    weekdatacore: 0,
+    datacore: 0,
+    total: 0,
+    datadate: '',
+    data: [],
+    positionplusdata: [],
+    firstweek: [],
+    lastweek: [],
+    beforeweek: [],
+    thisweekdatacore: 0,
+    mounthbeforeday: 0,
+    mounthfirstindex: 0,
+    crispedges: 'crispedges',
+    thisdayindex: 0,
+    amonthagoindex: 0,
+    amonthagoweek: [],
+    firstdate: [],
+    first2date: [],
+    montharrbefore: [],
+    monthindex: 0,
+    color: ['#ebedf0', '#fdcdec', '#fc9bd9', '#fa6ac5', '#f838b2', '#f5089f', '#c4067e', '#92055e', '#540336', '#48022f', '#30021f']
+  },
+  methods: {
+    selectStyle(data, event) {
+      document.querySelector('.angle-wrapper').style.display = 'block'
+      this.span1 = data.date;
+      this.span2 = data.count;
+      this.x = event.clientX - 100;
+      this.y = event.clientY - 60
+    },
+    outStyle() {
+      document.querySelector('.angle-wrapper').style.display = 'none'
+    },
+    thiscolor(x) {
+      if (x === 0) {
+        let i = parseInt(x / 2);
+        return this.color[0]
+      } else if (x < 2) {
+        return this.color[1]
+      } else if (x < 20) {
+        let i = parseInt(x / 2);
+        return this.color[i]
+      } else {
+        return this.color[9]
+      }
+    },
+  }
+});
+var apiurl = 'python-github-calendar-api-rouge.vercel.app' ? 'https://python-github-calendar-api-rouge.vercel.app/api?' : 'https://githubapi.ryanchristian.dev/user/'
+var githubapiurl = apiurl + gitcalendar.user;
+//canvas绘图
+function responsiveChart() {
+  let c = document.getElementById("gitcanvas");
+  if (c) {
+    let cmessage = document.getElementById("gitmessage");
+    let ctx = c.getContext("2d");
+    c.width = document.getElementById("gitcalendarcanvasbox").offsetWidth;
+    let linemaxwitdh = 0.96 * c.width / gitcalendar.data.length;
+    c.height = 9 * linemaxwitdh;
+    let lineminwitdh = 0.8 * linemaxwitdh;
+    let setposition = {
+      x: 0.02 * c.width,
+      y: 0.025 * c.width
+    };
+    for (let week in gitcalendar.data) {
+      weekdata = gitcalendar.data[week];
+      for (let day in weekdata) {
+        let dataitem = {
+          date: "",
+          count: "",
+          x: 0,
+          y: 0
+        };
+        gitcalendar.positionplusdata.push(dataitem);
+        ctx.fillStyle = gitcalendar.thiscolor(weekdata[day].count);
+        setposition.y = Math.round(setposition.y * 100) / 100;
+        dataitem.date = weekdata[day].date;
+        dataitem.count = weekdata[day].count;
+        dataitem.x = setposition.x;
+        dataitem.y = setposition.y;
+        ctx.fillRect(setposition.x, setposition.y, lineminwitdh, lineminwitdh);
+        setposition.y = setposition.y + linemaxwitdh
+      };
+      setposition.y = 0.025 * c.width;
+      setposition.x = setposition.x + linemaxwitdh
+    };
+    ctx.font = "600  Arial";
+    ctx.fillStyle = '#aaa';
+    ctx.fillText("日", 0, 1.9 * linemaxwitdh);
+    ctx.fillText("二", 0, 3.9 * linemaxwitdh);
+    ctx.fillText("四", 0, 5.9 * linemaxwitdh);
+    ctx.fillText("六", 0, 7.9 * linemaxwitdh);
+    let monthindexlist = c.width / 24;
+    for (let index in gitcalendar.monthchange) {
+      ctx.fillText(gitcalendar.monthchange[index], monthindexlist, 0.7 * linemaxwitdh);
+      monthindexlist = monthindexlist + c.width / 12
+    };
+    cmessage.onmousemove = function(event) {
+      document.querySelector('.angle-wrapper').style.display = 'none'
+    };
+    c.onmousemove = function(event) {
+      document.querySelector('.angle-wrapper').style.display = 'none'
+      getMousePos(c, event);
+    };
+
+    function getMousePos(canvas, event) {
+      var rect = canvas.getBoundingClientRect();
+      var x = event.clientX - rect.left * (canvas.width / rect.width);
+      var y = event.clientY - rect.top * (canvas.height / rect.height);
+      //console.log("x:"+x+",y:"+y);
+      for (let item of gitcalendar.positionplusdata) {
+        let lenthx = x - item.x;
+        let lenthy = y - item.y;
+        //console.log(lenthx,lenthy);
+        if (0 < lenthx && lenthx < lineminwitdh) {
+          if (0 < lenthy && lenthy < lineminwitdh) {
+            //console.log(item.date,item.count)
+            document.querySelector('.angle-wrapper').style.display = 'block'
+            gitcalendar.span1 = item.date;
+            gitcalendar.span2 = item.count;
+            gitcalendar.x = event.clientX - 100;
+            gitcalendar.y = event.clientY - 60
+          }
+        }
+        //if(0< x - item.x <lineminwitdh&&0< y - item.y <lineminwitdh){
+        //console.log(item.count,item.date);
+        //}
+      }
+    }
+  }
+}
+//数据统计算法
+function addlastmonth() {
+  if (gitcalendar.thisdayindex === 0) {
+    thisweekcore(52);
+    thisweekcore(51);
+    thisweekcore(50);
+    thisweekcore(49);
+    thisweekcore(48);
+    gitcalendar.thisweekdatacore += gitcalendar.firstdate[6].count;
+    gitcalendar.amonthago = gitcalendar.firstdate[6].date
+  } else {
+    thisweekcore(52);
+    thisweekcore(51);
+    thisweekcore(50);
+    thisweekcore(49);
+    thisweek2core();
+    gitcalendar.amonthago = gitcalendar.first2date[gitcalendar.thisdayindex - 1].date
+  }
+};
+
+function thisweek2core() {
+  for (let i = gitcalendar.thisdayindex - 1; i < gitcalendar.first2date.length; i++) {
+    gitcalendar.thisweekdatacore += gitcalendar.first2date[i].count
+  }
+};
+
+function thisweekcore(index) {
+  for (let item of gitcalendar.data[index]) {
+    gitcalendar.thisweekdatacore += item.count
+  }
+};
+
+function addlastweek() {
+  for (let item of gitcalendar.lastweek) {
+    gitcalendar.weekdatacore += item.count
+  }
+};
+
+function addbeforeweek() {
+  for (let i = gitcalendar.thisdayindex; i < gitcalendar.beforeweek.length; i++) {
+    gitcalendar.weekdatacore += gitcalendar.beforeweek[i].count
+  }
+};
+
+function addweek(data) {
+  if (gitcalendar.thisdayindex === 6) {
+    gitcalendar.aweekago = gitcalendar.lastweek[0].date;
+    addlastweek()
+  } else {
+    lastweek = data.contributions[51];
+    gitcalendar.aweekago = lastweek[gitcalendar.thisdayindex + 1].date;
+    addlastweek();
+    addbeforeweek()
+  }
+}
+
+fetch(githubapiurl)
+  .then(data => data.json())
+  .then(data => {
+    gitcalendar.data = data.contributions;
+    gitcalendar.total = data.total;
+    gitcalendar.first2date = gitcalendar.data[48];
+    gitcalendar.firstdate = gitcalendar.data[47];
+    gitcalendar.firstweek = data.contributions[0];
+    gitcalendar.lastweek = data.contributions[52];
+    gitcalendar.beforeweek = data.contributions[51];
+    gitcalendar.thisdayindex = gitcalendar.lastweek.length - 1;
+    gitcalendar.thisday = gitcalendar.lastweek[gitcalendar.thisdayindex].date;
+    gitcalendar.oneyearbeforeday = gitcalendar.firstweek[0].date;
+    gitcalendar.monthindex = gitcalendar.thisday.substring(5, 7) * 1;
+    gitcalendar.montharrbefore = gitcalendar.month.splice(gitcalendar.monthindex, 12 - gitcalendar.monthindex);
+    gitcalendar.monthchange = gitcalendar.montharrbefore.concat(gitcalendar.month);
+    addweek(data);
+    addlastmonth();
+    responsiveChart();
+  })
+  .catch(function(error) {
+    console.log(error);
+  });
+
+//手机版更换为svg绘制
+if (document.getElementById("gitcalendarcanvasbox").offsetWidth < 500) {
+  gitcalendar.simplemode = false
+}
+
+//当改变窗口大小时重新绘制canvas
+window.onresize = function() {
+  if (gitcalendar.simplemode) responsiveChart()
+}
+
+//解决滚动滑轮时出现的标签显示
+window.onscroll = function() {
+  if (document.querySelector('.angle-wrapper')) {
+    document.querySelector('.angle-wrapper').style.display = 'none'
+  }
+};</script></div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/swiper/swiper.min.js"></script><script src="/swiper/swiperindex.js"></script><script src="/js/flipcountdown.js"></script><script data-pjax src="/js/runtime.js"></script><script async src="//at.alicdn.com/t/font_2264842_3izu8i5eoc2.js"></script><script src='https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@latest/Hexo/js/mouse_snow.min.js'></script><script src='https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@latest/Hexo/js/hideMobileSidebar.js'></script><script src='https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@latest/Hexo/js/hideCategory.min.js'></script><script defer src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/hexo-theme-volantis@latest/source/js/issues.min.js"></script><div class="aplayer no-destroy" data-id="000PeZCQ1i4XVs" data-server="tencent" data-type="artist" data-fixed="true" data-mini="true" data-listFolded="false" data-order="random" data-preload="none" data-autoplay="false" muted></div><script src=''></script><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/fireworks.min.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  if (typeof gtag === 'function') {
+    gtag('config', '', {'page_path': window.location.pathname});
+  }
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+
+document.addEventListener('pjax:send', function () {
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/nipsilon.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body></html>
