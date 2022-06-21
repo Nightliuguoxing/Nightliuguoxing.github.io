@@ -3188,12 +3188,15 @@ li.categoryBar-list-item:nth-child(8) {
   background: url('https://cdn.jsdelivr.net/gh/Nightliuguoxing/Pic@main/image/cover/1647089648291ad-logo.png');
 }
 li.categoryBar-list-item:nth-child(9) {
-  background: url('https://cdn.jsdelivr.net/gh/Nightliuguoxing/Pic@main/image/cover/1647089661290jz-logo.webp');
+  background: url('https://cdn.jsdelivr.net/gh/Akilarlxh/Akilarlxh.github.io@v3.3.3_2/img/cover1.webp');
 }
 li.categoryBar-list-item:nth-child(10) {
-  background: url('https://cdn.jsdelivr.net/gh/Nightliuguoxing/Pic@main/image/cover/1647089652293ci-logo.webp');
+  background: url('https://cdn.jsdelivr.net/gh/Nightliuguoxing/Pic@main/image/cover/1647089661290jz-logo.webp');
 }
 li.categoryBar-list-item:nth-child(11) {
+  background: url('https://cdn.jsdelivr.net/gh/Nightliuguoxing/Pic@main/image/cover/1647089652293ci-logo.webp');
+}
+li.categoryBar-list-item:nth-child(12) {
   background: url('https://cdn.jsdelivr.net/gh/Nightliuguoxing/Pic@main/image/cover/1647089667296rg-logo.jpg');
 }
 li.categoryBar-list-item:nth-child(1)>span::after {
@@ -3221,12 +3224,15 @@ li.categoryBar-list-item:nth-child(8)>span::after {
   content: '算法设计与分析' !important;
 }
 li.categoryBar-list-item:nth-child(9)>span::after {
-  content: '计算机组成原理' !important;
+  content: '考研复试' !important;
 }
 li.categoryBar-list-item:nth-child(10)>span::after {
-  content: '计算机网络' !important;
+  content: '计算机组成原理' !important;
 }
 li.categoryBar-list-item:nth-child(11)>span::after {
+  content: '计算机网络' !important;
+}
+li.categoryBar-list-item:nth-child(12)>span::after {
   content: '软件工程' !important;
 }
 li.categoryBar-list-item {
